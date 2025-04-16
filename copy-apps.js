@@ -21,11 +21,16 @@ async function copyFiles() {
     // Check if files exist
     console.log('Checking for files...');
     
-    // In Amplify, the source files are in a different location
-    const isAmplify = process.env.AWS_AMPLIFY === 'true';
-    const basePath = isAmplify 
-      ? join(process.cwd(), '..')  // Go up one level in Amplify
-      : process.cwd();
+    // Get the base path based on environment
+    let basePath;
+    if (process.env.AWS_AMPLIFY === 'true') {
+      // In Amplify, use the CODEBUILD_SRC_DIR environment variable
+      basePath = process.env.CODEBUILD_SRC_DIR || join(process.cwd(), '..', '..');
+      console.log('Using Amplify build directory:', basePath);
+    } else {
+      basePath = process.cwd();
+      console.log('Using local directory:', basePath);
+    }
     
     const mainDist = join(basePath, 'dist');
     const pitDataDist = join(basePath, 'pit-data/dist');
