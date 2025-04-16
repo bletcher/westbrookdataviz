@@ -39,11 +39,12 @@ async function copyFiles() {
     // Get the base path based on environment
     let mainBasePath, pitDataBasePath, setListDrumsBasePath;
     if (process.env.CODEBUILD_SRC_DIR) {
-      // In Amplify, look for directories in the parent directory
+      // In Amplify, look for directories in the parent directory of src
       const srcDir = process.env.CODEBUILD_SRC_DIR;
+      const parentDir = join(srcDir, '..');
       mainBasePath = join(srcDir, 'westbrookdataviz');
-      pitDataBasePath = join(srcDir, 'pit_antenna_data_explorer');
-      setListDrumsBasePath = join(srcDir, 'set-list-drums');
+      pitDataBasePath = join(parentDir, 'pit_antenna_data_explorer');
+      setListDrumsBasePath = join(parentDir, 'set-list-drums');
       console.log('Using Amplify build directories:');
       console.log('- Main site:', mainBasePath);
       console.log('- PIT data:', pitDataBasePath);
