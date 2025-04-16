@@ -3,12 +3,22 @@ frontend:
   phases:
     preBuild:
       commands:
-        # Install dependencies
+        # Install dependencies for main site
         - npm install
     build:
       commands:
         # Build the main site
         - npm run build
+        # Build the PIT data app
+        - cd ../pit_antenna_data_explorer
+        - npm install
+        - npm run build
+        - cd ../westbrookdataviz
+        # Build the set list drums app
+        - cd ../set-list-drums
+        - npm install
+        - npm run build
+        - cd ../westbrookdataviz
         # Copy all built files
         - node copy-apps.js
   artifacts:
@@ -18,6 +28,8 @@ frontend:
   cache:
     paths:
       - node_modules/**/*
+      - ../pit_antenna_data_explorer/node_modules/**/*
+      - ../set-list-drums/node_modules/**/*
   rewrites:
     - source: /
       target: /index.html

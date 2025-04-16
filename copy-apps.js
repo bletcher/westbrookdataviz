@@ -4,10 +4,6 @@
  * This script copies built files from local dist directories to the final dist directory
  * for Amplify deployment. It checks for the existence of files before copying and
  * provides detailed error messages if files are missing.
- * 
- * Expected directory structure:
- * - Local: Files are in Documents/myApps/westbrookdataviz/dist and subdirectories
- * - Amplify: Files are in /codebuild/output/src/src/westbrookdataviz/dist and subdirectories
  */
 
 import { mkdir, cp, access } from 'fs/promises';
@@ -39,12 +35,11 @@ async function copyFiles() {
     // Get the base path based on environment
     let mainBasePath, pitDataBasePath, setListDrumsBasePath;
     if (process.env.CODEBUILD_SRC_DIR) {
-      // In Amplify, look for directories in the parent directory of src
+      // In Amplify, files are in sibling directories
       const srcDir = process.env.CODEBUILD_SRC_DIR;
-      const parentDir = join(srcDir, '..');
       mainBasePath = join(srcDir, 'westbrookdataviz');
-      pitDataBasePath = join(parentDir, 'pit_antenna_data_explorer');
-      setListDrumsBasePath = join(parentDir, 'set-list-drums');
+      pitDataBasePath = join(srcDir, 'pit_antenna_data_explorer');
+      setListDrumsBasePath = join(srcDir, 'set-list-drums');
       console.log('Using Amplify build directories:');
       console.log('- Main site:', mainBasePath);
       console.log('- PIT data:', pitDataBasePath);
