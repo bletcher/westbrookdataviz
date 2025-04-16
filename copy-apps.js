@@ -22,23 +22,33 @@ async function copyFiles() {
     console.log('Checking for files...');
     
     // Get the base path based on environment
-    let basePath;
+    let mainBasePath, pitDataBasePath, setListDrumsBasePath;
     if (process.env.CODEBUILD_SRC_DIR) {
-      // In Amplify, use the CODEBUILD_SRC_DIR environment variable
-      // and append the repository name since files are in a subdirectory
-      basePath = join(process.env.CODEBUILD_SRC_DIR, 'westbrookdataviz');
-      console.log('Using Amplify build directory:', basePath);
+      // In Amplify, files are in sibling directories
+      const srcDir = process.env.CODEBUILD_SRC_DIR;
+      mainBasePath = join(srcDir, 'westbrookdataviz');
+      pitDataBasePath = join(srcDir, 'pit-data');
+      setListDrumsBasePath = join(srcDir, 'set-list-drums');
+      console.log('Using Amplify build directories:');
+      console.log('- Main site:', mainBasePath);
+      console.log('- PIT data:', pitDataBasePath);
+      console.log('- Set list drums:', setListDrumsBasePath);
     } else {
-      // In local development, use the current directory
-      basePath = process.cwd();
-      console.log('Using local directory:', basePath);
+      // In local development, all files are in subdirectories
+      const cwd = process.cwd();
+      mainBasePath = cwd;
+      pitDataBasePath = join(cwd, 'pit-data');
+      setListDrumsBasePath = join(cwd, 'set-list-drums');
+      console.log('Using local directories:');
+      console.log('- Main site:', mainBasePath);
+      console.log('- PIT data:', pitDataBasePath);
+      console.log('- Set list drums:', setListDrumsBasePath);
     }
     
-    const mainDist = join(basePath, 'dist');
-    const pitDataDist = join(basePath, 'pit-data/dist');
-    const setListDrumsDist = join(basePath, 'set-list-drums/dist');
+    const mainDist = join(mainBasePath, 'dist');
+    const pitDataDist = join(pitDataBasePath, 'dist');
+    const setListDrumsDist = join(setListDrumsBasePath, 'dist');
     
-    console.log('Base path:', basePath);
     console.log('Looking for PIT data dist at:', pitDataDist);
     
     try {
