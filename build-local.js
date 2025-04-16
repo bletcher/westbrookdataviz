@@ -8,24 +8,44 @@ const apps = {
     name: 'set-list-drums',
     localSource: '../set-list-drums/dist',
     remoteSource: 'https://github.com/bletcher/set-list-drums.git',
-    target: 'apps/set-list-drums/dist'
+    target: 'apps/set-list-drums/dist',
+    needsBuild: true
   },
   'pit-data': {
     name: 'pit-data',
     localSource: '../pit_antenna_data_explorer/dist',
     remoteSource: 'https://github.com/bletcher/pit_antenna_data_explorer.git',
-    target: 'apps/pit-data/dist'
+    target: 'apps/pit-data/dist',
+    needsBuild: false
   }
 };
+
+async function buildApp(app, tempDir) {
+  console.log('\nBuilding app...');
+  
+  // Install dependencies
+  console.log('\nInstalling dependencies...');
+  execSync('npm install', { cwd: tempDir, stdio: 'inherit' });
+  
+  // Build the app
+  console.log('\nBuilding app...');
+  execSync('npm run build', { cwd: tempDir, stdio: 'inherit' });
+  
+  return join(tempDir, 'dist');
+}
 
 async function getDistFromRemote(app, tempDir) {
   console.log('\nGetting dist from remote...');
   
-  // Clone only the dist directory with Git LFS skip
-  execSync(`GIT_LFS_SKIP_SMUDGE=1 git clone --depth 1 --filter=blob:none --sparse ${app.remoteSource} ${tempDir}`, { stdio: 'inherit' });
-  execSync('git sparse-checkout init --cone', { cwd: tempDir, stdio: 'inherit' });
-  execSync('git sparse-checkout set dist', { cwd: tempDir, stdio: 'inherit' });
+  // Clone the repository
+  execSync(`GIT_LFS_SKIP_SMUDGE=1 git clone --depth 1 ${app.remoteSource} ${tempDir}`, { stdio: 'inherit' });
   
+  // If the app needs building, build it
+  if (app.needsBuild) {
+    return await buildApp(app, tempDir);
+  }
+  
+  // Otherwise, just return the dist directory
   return join(tempDir, 'dist');
 }
 
