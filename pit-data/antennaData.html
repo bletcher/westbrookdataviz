@@ -1,0 +1,718 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="generator" content="Observable Framework v1.12.0">
+<title>PIT Tag Data Explorer</title>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,opsz,wght@0,8..60,200..900;1,8..60,200..900&amp;display=swap" crossorigin>
+<link rel="preload" as="style" href="./_import/gridCustom.fec94a55.css">
+<link rel="preload" as="style" href="./_observablehq/stdlib/inputs.ea9fd553.css">
+<link rel="preload" as="style" href="./_npm/leaflet@1.9.4/dist/leaflet.css">
+<link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,opsz,wght@0,8..60,200..900;1,8..60,200..900&amp;display=swap" crossorigin>
+<link rel="stylesheet" type="text/css" href="./_import/gridCustom.fec94a55.css">
+<link rel="stylesheet" type="text/css" href="./_observablehq/stdlib/inputs.ea9fd553.css">
+<link rel="stylesheet" type="text/css" href="./_npm/leaflet@1.9.4/dist/leaflet.css">
+<link rel="modulepreload" href="./_observablehq/client.cd821602.js">
+<link rel="modulepreload" href="./_observablehq/runtime.54f189b7.js">
+<link rel="modulepreload" href="./_observablehq/stdlib.18690ca0.js">
+<link rel="modulepreload" href="./_import/components/antennaDataGraphs.5148d78b.js">
+<link rel="modulepreload" href="./_import/components/maps.ddeca7e8.js">
+<link rel="modulepreload" href="./_import/components/antennaDataFunctions.77b34179.js">
+<link rel="modulepreload" href="./_npm/d3@7.9.0/e780feca.js">
+<link rel="modulepreload" href="./_observablehq/stdlib/inputs.d284c1b1.js">
+<link rel="modulepreload" href="./_npm/leaflet@1.9.4/721623d8.js">
+<link rel="modulepreload" href="./_npm/@observablehq/plot@0.6.17/d761ef9b.js">
+<link rel="modulepreload" href="./_npm/d3-dsv@3.0.1/9cffc2bd.js">
+<link rel="modulepreload" href="./_npm/htl@0.3.1/72f4716c.js">
+<link rel="modulepreload" href="./_npm/isoformat@0.2.1/18cbf477.js">
+<link rel="modulepreload" href="./_npm/d3-array@3.2.4/e93ca09f.js">
+<link rel="modulepreload" href="./_npm/d3-axis@3.0.0/0f2de24d.js">
+<link rel="modulepreload" href="./_npm/d3-brush@3.0.0/65eb105b.js">
+<link rel="modulepreload" href="./_npm/d3-chord@3.0.1/7ef8fb2e.js">
+<link rel="modulepreload" href="./_npm/d3-color@3.1.0/aeb57b94.js">
+<link rel="modulepreload" href="./_npm/d3-contour@4.0.2/1d2aed74.js">
+<link rel="modulepreload" href="./_npm/d3-delaunay@6.0.4/5ced1d52.js">
+<link rel="modulepreload" href="./_npm/d3-dispatch@3.0.1/9ba9c7f3.js">
+<link rel="modulepreload" href="./_npm/d3-drag@3.0.0/4202580c.js">
+<link rel="modulepreload" href="./_npm/d3-ease@3.0.1/cdd7e898.js">
+<link rel="modulepreload" href="./_npm/d3-fetch@3.0.1/b4e2ad9a.js">
+<link rel="modulepreload" href="./_npm/d3-force@3.0.0/5e804d15.js">
+<link rel="modulepreload" href="./_npm/d3-format@3.1.0/86074ef6.js">
+<link rel="modulepreload" href="./_npm/d3-geo@3.1.1/40599fb3.js">
+<link rel="modulepreload" href="./_npm/d3-hierarchy@3.1.2/e49e792c.js">
+<link rel="modulepreload" href="./_npm/d3-interpolate@3.0.1/8d1e5425.js">
+<link rel="modulepreload" href="./_npm/d3-path@3.1.0/20d3f133.js">
+<link rel="modulepreload" href="./_npm/d3-polygon@3.0.1/7553081f.js">
+<link rel="modulepreload" href="./_npm/d3-quadtree@3.0.1/0dfd751c.js">
+<link rel="modulepreload" href="./_npm/d3-random@3.0.1/3c90ee06.js">
+<link rel="modulepreload" href="./_npm/d3-scale@4.0.2/843b6a76.js">
+<link rel="modulepreload" href="./_npm/d3-scale-chromatic@3.1.0/ba24c2e7.js">
+<link rel="modulepreload" href="./_npm/d3-selection@3.0.0/4d94e5b7.js">
+<link rel="modulepreload" href="./_npm/d3-shape@3.2.0/6d3a6726.js">
+<link rel="modulepreload" href="./_npm/d3-time@3.1.0/9f03c579.js">
+<link rel="modulepreload" href="./_npm/d3-time-format@4.1.0/07c9626f.js">
+<link rel="modulepreload" href="./_npm/d3-timer@3.0.1/b58a267d.js">
+<link rel="modulepreload" href="./_npm/d3-transition@3.0.1/004da2ac.js">
+<link rel="modulepreload" href="./_npm/d3-zoom@3.0.0/b5786b3f.js">
+<link rel="modulepreload" href="./_npm/interval-tree-1d@1.0.4/53fe8176.js">
+<link rel="modulepreload" href="./_npm/internmap@2.0.3/e08981d9.js">
+<link rel="modulepreload" href="./_npm/delaunator@5.0.1/02d43215.js">
+<link rel="modulepreload" href="./_npm/binary-search-bounds@2.0.5/cbf6ba23.js">
+<link rel="modulepreload" href="./_npm/robust-predicates@3.0.2/aa00730b.js">
+<script type="module">
+
+import {define} from "./_observablehq/client.cd821602.js";
+import {registerFile} from "./_observablehq/stdlib.18690ca0.js";
+
+registerFile("./data/WBCoordsForD3JS_NHDHRsnapped.csv", {"name":"./data/WBCoordsForD3JS_NHDHRsnapped.csv","mimeType":"text/csv","path":"./_file/data/WBCoordsForD3JS_NHDHRsnapped.c1b61cc7.csv","lastModified":1744739776335,"size":9528});
+registerFile("./data/West Brook_Lat Long Points_20241210.csv", {"name":"./data/West Brook_Lat Long Points_20241210.csv","mimeType":"text/csv","path":"./_file/data/West Brook_Lat Long Points_20241210.1dc8840b.csv","lastModified":1744739776249,"size":3108});
+registerFile("./data/antennaLocationsHistory.csv", {"name":"./data/antennaLocationsHistory.csv","mimeType":"text/csv","path":"./_file/data/antennaLocationsHistory.b6fc1d82.csv","lastModified":1744739776154,"size":4306});
+registerFile("./data/cdwb.json", {"name":"./data/cdwb.json","mimeType":"application/json","path":"./_file/data/cdwb.e2935803.json","lastModified":1744739822890,"size":202370399});
+registerFile("./data/deploy_with_lat_lon_added.csv", {"name":"./data/deploy_with_lat_lon_added.csv","mimeType":"text/csv","path":"./_file/data/deploy_with_lat_lon_added.5268901a.csv","lastModified":1744739776164,"size":6058});
+registerFile("./data/envDataWB.json", {"name":"./data/envDataWB.json","mimeType":"application/json","path":"./_file/data/envDataWB.31754140.json","lastModified":1744739825679,"size":4936069});
+
+define({id: "40324f12", body: () => {
+//import proj4 from 'proj4'; // for UTM conversion
+}});
+
+define({id: "b3f84ba7", outputs: ["antennaDataGraph","antennaMapGraph","speciesMap","riversMap","variablesMapAnt","variablesMapAntNoNull","riversMapFromDeploy"], body: async () => {
+const [{antennaDataGraph, antennaMapGraph}, {speciesMap, riversMap, variablesMapAnt, variablesMapAntNoNull, riversMapFromDeploy}] = await Promise.all([import("./_import/components/antennaDataGraphs.5148d78b.js"), import("./_import/components/maps.ddeca7e8.js")]);
+//import {interval} from 'https://observablehq.com/@mootari/range-slider';
+return {antennaDataGraph,antennaMapGraph,speciesMap,riversMap,variablesMapAnt,variablesMapAntNoNull,riversMapFromDeploy};
+}});
+
+define({id: "6ee379d4", inputs: ["FileAttachment"], outputs: ["cdwbIn"], body: (FileAttachment) => {
+//const cdwb = FileAttachment("data/all_for_obs.csv").csv({typed: true});
+const cdwbIn = FileAttachment("./data/cdwb.json").json(); // this is a lot faster than the parquet file
+
+// file created from `C:\Users\bletcher\OneDrive - DOI\PITTAGMAIN\West Brook data\Antenna data\Copy of sites.xlsx`, saved as a csv and copied to the data folder
+//const sitesIn = FileAttachment("data/Copy of Sites_all_UTM.csv").csv({typed: true});
+return {cdwbIn};
+}});
+
+define({id: "ad85e56d", inputs: ["FileAttachment"], outputs: ["deployIn","antennaLocationsHistoryIn"], body: (FileAttachment) => {
+//Copied from c:\Users\bletcher\OneDrive - DOI\projects\wbBook_quarto_targets\data\outForDownload\antenna
+// after adding lat and lon to the deploy file
+const deployIn = FileAttachment("./data/deploy_with_lat_lon_added.csv").csv({typed: true});
+const antennaLocationsHistoryIn = FileAttachment("./data/antennaLocationsHistory.csv").csv({typed: true});
+return {deployIn,antennaLocationsHistoryIn};
+}});
+
+define({id: "a8793833", inputs: ["FileAttachment"], outputs: ["envDataIn"], body: (FileAttachment) => {
+const envDataIn = FileAttachment("./data/envDataWB.json").json();
+return {envDataIn};
+}});
+
+define({id: "6bdfebe3", inputs: ["FileAttachment"], outputs: ["coordsIn"], body: (FileAttachment) => {
+//Copied from C:\Users\bletcher\OneDrive - DOI\PITTAGMAIN\West Brook data\
+const coordsIn = FileAttachment("./data/WBCoordsForD3JS_NHDHRsnapped.csv").csv({typed: true});
+return {coordsIn};
+}});
+
+define({id: "730a7fd0", inputs: ["FileAttachment"], outputs: ["coordsInTodd"], body: (FileAttachment) => {
+//CSV saved from xls with the same file name. These are updated opints from Todd in 2024
+const coordsInTodd = FileAttachment("./data/West Brook_Lat Long Points_20241210.csv").csv({typed: true});
+return {coordsInTodd};
+}});
+
+define({id: "041605ef", inputs: ["cdwbIn","d3"], outputs: ["cdwb","formatTimeJ","formatTimeHour","formatTimeMinute","cdwbAntenna0"], body: (cdwbIn,d3) => {
+const cdwb = [...cdwbIn];
+
+const formatTimeJ = d3.timeFormat("%j");
+const formatTimeHour = d3.timeFormat("%H");
+const formatTimeMinute = d3.timeFormat("%M");
+//formatTime(new Date()); // "May 31, 2023"
+
+cdwb.forEach(d => {
+  const detectionDate = new Date(d.detectionDate); 
+  const dateEmigrated = new Date(d.dateEmigrated); 
+  d.detectionDate = detectionDate;
+  d.dateEmigrated = dateEmigrated;
+  d.j = Number(formatTimeJ(d.detectionDate));
+  d.hour = Number(formatTimeHour(d.detectionDate));
+  d.minute = Number(formatTimeMinute(d.detectionDate));
+  d.riverMeter_river = `${d.riverMeter}_${d.riverOrdered}`;
+  //d.title = d.tag
+});
+
+const cdwbAntenna0 = cdwb.filter(d => d.survey === "stationaryAntenna");
+return {cdwb,formatTimeJ,formatTimeHour,formatTimeMinute,cdwbAntenna0};
+}});
+
+define({id: "4252fb95", inputs: ["selectedGrouping","cdwbAntenna0","d3"], outputs: ["cdwbAntenna"], body: (selectedGrouping,cdwbAntenna0,d3) => {
+const cdwbAntenna = selectedGrouping === "None" ? cdwbAntenna0
+  : selectedGrouping === "Day" ? d3.groups(cdwbAntenna0, d => `${d.tag}_${d.year}_${d.j}_${d.survey}_${d.riverMeter}_${d.riverOrdered}`).map(([key, group]) => group[0])
+  : selectedGrouping === "Hour" ? d3.groups(cdwbAntenna0, d => `${d.tag}_${d.year}_${d.j}_${d.hour}_${d.survey}_${d.riverMeter}_${d.riverOrdered}`).map(([key, group]) => group[0])
+  : selectedGrouping === "Minute" ? d3.groups(cdwbAntenna0, d => `${d.tag}_${d.year}_${d.j}_${d.hour}_${d.minute}_${d.survey}_${d.riverMeter}_${d.riverOrdered}`).map(([key, group]) => group[0])
+  : cdwbAntenna0
+return {cdwbAntenna};
+}});
+
+define({id: "66c90a11", inputs: ["cdwbAntenna","speciesMap","Inputs","Generators"], outputs: ["species","filteredSpeciesMap","selectSpecies","selectedSpecies"], body: (cdwbAntenna,speciesMap,Inputs,Generators) => {
+const species = [...new Set(cdwbAntenna.map(d => d.species))].sort();
+const filteredSpeciesMap = new Map(
+  Array.from(speciesMap).filter(([key, value]) => species.includes(value))
+);
+const selectSpecies = (Inputs.select(filteredSpeciesMap, {value: species, multiple: true, width: 10}));
+const selectedSpecies = Generators.input(selectSpecies);
+return {species,filteredSpeciesMap,selectSpecies,selectedSpecies};
+}});
+
+define({id: "314e1ca5", inputs: ["cdwbAntenna","selectedSpecies"], outputs: ["cdwbAntennaSpecies"], body: (cdwbAntenna,selectedSpecies) => {
+const cdwbAntennaSpecies = cdwbAntenna.filter(
+  d => selectedSpecies.includes(d.species)        
+);
+return {cdwbAntennaSpecies};
+}});
+
+define({id: "7cba9282", inputs: ["cdwbAntennaSpecies","Inputs","Generators"], outputs: ["years","selectYears","selectedYears"], body: (cdwbAntennaSpecies,Inputs,Generators) => {
+const years = [...new Set(cdwbAntennaSpecies.map(d => d.year))].sort().filter(d => isFinite(d));
+const selectYears = (Inputs.select(years, {value: years, multiple: 6, width: 10}));
+const selectedYears = Generators.input(selectYears);
+return {years,selectYears,selectedYears};
+}});
+
+define({id: "cef9472b", inputs: ["cdwbAntennaSpecies","selectedYears","envDataIn"], outputs: ["cdwbAntennaSpeciesYears","envDataSpeciesYears"], body: (cdwbAntennaSpecies,selectedYears,envDataIn) => {
+const cdwbAntennaSpeciesYears = cdwbAntennaSpecies.filter(
+  d => selectedYears.includes(d.year)        
+);
+
+const envDataSpeciesYears = envDataIn.filter(
+  d => selectedYears.includes(d.year)        
+);
+return {cdwbAntennaSpeciesYears,envDataSpeciesYears};
+}});
+
+define({id: "3af4242e", inputs: ["cdwbAntennaSpeciesYears","riversMap","Inputs","Generators"], outputs: ["rivers","filteredRiversMap","selectRivers","selectedRivers"], body: (cdwbAntennaSpeciesYears,riversMap,Inputs,Generators) => {
+const rivers = [...new Set(cdwbAntennaSpeciesYears.map(d => d.riverOrdered))].sort();
+const filteredRiversMap = new Map(
+  Array.from(riversMap).filter(([key, value]) => rivers.includes(value))
+);
+const selectRivers = (Inputs.select(filteredRiversMap, {value: rivers, multiple: true, width: 10}));
+const selectedRivers = Generators.input(selectRivers);
+return {rivers,filteredRiversMap,selectRivers,selectedRivers};
+}});
+
+define({id: "adc48768", inputs: ["cdwbAntennaSpeciesYears","selectedRivers","envDataSpeciesYears"], outputs: ["cdwbAntennaSpeciesYearsRiver","envDataSpeciesYearsRiver"], body: (cdwbAntennaSpeciesYears,selectedRivers,envDataSpeciesYears) => {
+const cdwbAntennaSpeciesYearsRiver = cdwbAntennaSpeciesYears.filter(
+  d => selectedRivers.includes(d.riverOrdered)        
+);
+
+const envDataSpeciesYearsRiver = envDataSpeciesYears.filter(
+  d => selectedRivers.includes(d.riverOrdered)        
+);
+return {cdwbAntennaSpeciesYearsRiver,envDataSpeciesYearsRiver};
+}});
+
+define({id: "df1f3c58", inputs: ["cdwbAntennaSpeciesYearsRiver","Inputs","Generators"], outputs: ["riverMeters","selectRiverMeters","selectedRiverMeters"], body: (cdwbAntennaSpeciesYearsRiver,Inputs,Generators) => {
+const riverMeters = [...new Set(cdwbAntennaSpeciesYearsRiver.map(d => d.riverMeter_river))].sort();
+const selectRiverMeters = (Inputs.select(riverMeters, {value: riverMeters, multiple: 5, width: 30}));
+const selectedRiverMeters = Generators.input(selectRiverMeters);
+return {riverMeters,selectRiverMeters,selectedRiverMeters};
+}});
+
+define({id: "587d2ab7", inputs: ["cdwbAntennaSpeciesYearsRiver","selectedRiverMeters"], outputs: ["cdwbAntennaSpeciesYearsRiverRiverMeters"], body: (cdwbAntennaSpeciesYearsRiver,selectedRiverMeters) => {
+const cdwbAntennaSpeciesYearsRiverRiverMeters = cdwbAntennaSpeciesYearsRiver.filter(
+  d => selectedRiverMeters.includes(d.riverMeter_river)        
+);
+return {cdwbAntennaSpeciesYearsRiverRiverMeters};
+}});
+
+define({id: "bbc680f9", inputs: ["Inputs","Generators","variablesMapAnt","variablesMapAntNoNull"], outputs: ["selectInterval","selectedInterval","selectWidth","selectedWidth","selectFxVar","selectedFxVar","selectFyVar","selectedFyVar","selectFillVar","selectedFillVar","selectGrouping","selectedGrouping","selectFacet","selectedFacet","selectFlowX","selectedFlowX"], body: (Inputs,Generators,variablesMapAnt,variablesMapAntNoNull) => {
+//const interval = d3.range(1, 31, 1);
+const selectInterval = (Inputs.range([1, 31], {value: 1, step: 1, width: 10}));
+const selectedInterval = Generators.input(selectInterval);
+
+const selectWidth = (Inputs.range([1000, 10000], {value: 1150, step: 100, width: 10}));
+const selectedWidth = Generators.input(selectWidth);
+
+//const fxVar = ["species", "riverOrdered", "riverMeter"];
+const selectFxVar = (Inputs.select(variablesMapAnt, {value: "species", multiple: false, width: 10}));
+const selectedFxVar = Generators.input(selectFxVar);
+
+//const fyVar = ["species", "riverOrdered", "riverMeter"];
+const selectFyVar = (Inputs.select(variablesMapAnt, {value: "year", multiple: false, width: 10}));
+const selectedFyVar = Generators.input(selectFyVar);
+
+//const fillVar = ["species", "riverOrdered", "riverMeter"];
+const selectFillVar = (Inputs.select(variablesMapAntNoNull, {value: "species", multiple: false, width: 10}));
+const selectedFillVar = Generators.input(selectFillVar);
+
+const selectGrouping = (Inputs.select(["None", "Day", "Hour", "Minute"], {value: "None", width: 5}));
+const selectedGrouping = Generators.input(selectGrouping);
+
+const selectFacet = (Inputs.radio([true, false], {value: false, width: 5}));
+const selectedFacet = Generators.input(selectFacet);
+
+const selectFlowX = (Inputs.range([0, 200], {value: 1, step: 1, width: 10}));
+const selectedFlowX = Generators.input(selectFlowX);
+return {selectInterval,selectedInterval,selectWidth,selectedWidth,selectFxVar,selectedFxVar,selectFyVar,selectedFyVar,selectFillVar,selectedFillVar,selectGrouping,selectedGrouping,selectFacet,selectedFacet,selectFlowX,selectedFlowX};
+}});
+
+define({id: "7528df30", mode: "inline", inputs: ["view","selectGrouping"], body: (view,selectGrouping) => {
+view(selectGrouping)
+}});
+
+define({id: "b64bdcb3", mode: "inline", inputs: ["view","selectSpecies"], body: (view,selectSpecies) => {
+view(selectSpecies)
+}});
+
+define({id: "26ba42a0", mode: "inline", inputs: ["cdwbAntennaSpecies","display"], body: async (cdwbAntennaSpecies,display) => {
+display(await(
+cdwbAntennaSpecies.length
+))
+}});
+
+define({id: "f0ce0c99", mode: "inline", inputs: ["view","selectYears"], body: (view,selectYears) => {
+view(selectYears)
+}});
+
+define({id: "0e0c1258", mode: "inline", inputs: ["cdwbAntennaSpeciesYears","display"], body: async (cdwbAntennaSpeciesYears,display) => {
+display(await(
+cdwbAntennaSpeciesYears.length
+))
+}});
+
+define({id: "430b420b", mode: "inline", inputs: ["view","selectRivers"], body: (view,selectRivers) => {
+view(selectRivers)
+}});
+
+define({id: "52a486a3", mode: "inline", inputs: ["cdwbAntennaSpeciesYearsRiver","display"], body: async (cdwbAntennaSpeciesYearsRiver,display) => {
+display(await(
+cdwbAntennaSpeciesYearsRiver.length
+))
+}});
+
+define({id: "61465379", mode: "inline", inputs: ["view","selectRiverMeters"], body: (view,selectRiverMeters) => {
+view(selectRiverMeters)
+}});
+
+define({id: "55e9cb1d", mode: "inline", inputs: ["cdwbAntennaSpeciesYearsRiverRiverMeters","display"], body: async (cdwbAntennaSpeciesYearsRiverRiverMeters,display) => {
+display(await(
+cdwbAntennaSpeciesYearsRiverRiverMeters.length
+))
+}});
+
+define({id: "5f0729c6", mode: "inline", inputs: ["view","selectWidth"], body: (view,selectWidth) => {
+view(selectWidth)
+}});
+
+define({id: "8fe8293a", mode: "inline", inputs: ["view","selectFillVar"], body: (view,selectFillVar) => {
+view(selectFillVar)
+}});
+
+define({id: "0f952d97", mode: "inline", inputs: ["view","selectFacet"], body: (view,selectFacet) => {
+view(selectFacet)
+}});
+
+define({id: "cb3b093c", mode: "inline", inputs: ["view","selectFlowX"], body: (view,selectFlowX) => {
+view(selectFlowX)
+}});
+
+define({id: "3dafca72", mode: "inline", inputs: ["antennaDataGraph","cdwbAntennaSpeciesYearsRiverRiverMeters","envDataSpeciesYearsRiver","selectedWidth","selectedFillVar","selectedFacet","selectedFlowX","width","display"], body: async (antennaDataGraph,cdwbAntennaSpeciesYearsRiverRiverMeters,envDataSpeciesYearsRiver,selectedWidth,selectedFillVar,selectedFacet,selectedFlowX,width,display) => {
+display(await(
+antennaDataGraph(
+      cdwbAntennaSpeciesYearsRiverRiverMeters,
+      envDataSpeciesYearsRiver,
+      selectedWidth,
+      selectedFillVar,
+      selectedFacet,
+      selectedFlowX,
+      width
+    )
+))
+}});
+
+define({id: "74020c07", inputs: ["cdwbAntennaSpeciesYearsRiverRiverMeters","display"], body: async (cdwbAntennaSpeciesYearsRiverRiverMeters,display) => {
+display(await(
+cdwbAntennaSpeciesYearsRiverRiverMeters
+))
+}});
+
+define({id: "3adda131", inputs: ["d3","cdwbAntennaSpeciesYearsRiverRiverMeters"], outputs: ["dateRange"], body: (d3,cdwbAntennaSpeciesYearsRiverRiverMeters) => {
+const dateRange = d3.extent(cdwbAntennaSpeciesYearsRiverRiverMeters, d => d.detectionDate);
+//display(dateRange)
+return {dateRange};
+}});
+
+define({id: "e6cb88ab", inputs: ["coordsIn"], body: (coordsIn) => {
+coordsIn.forEach(d => {
+  d.siteID = `${d.riverAbbr}_${d.section}`;
+  d.lat = d.snap_lat;
+  d.lon = d.snap_lon;
+  //d.title = d.tag
+});
+}});
+
+define({id: "5211689e", inputs: ["deployIn","riversMapFromDeploy","antennaLocationsHistoryIn","Inputs","Generators"], outputs: ["deploy","antennaLocationsHistory","selectAntennaDataIn","selectedAntennaDataIn"], body: (deployIn,riversMapFromDeploy,antennaLocationsHistoryIn,Inputs,Generators) => {
+const deploy = deployIn.map(d => ({
+  section: d.section || null,
+  lat: d.lat === "NA" || d.lat === "" ? null : Number(d.lat),
+  lon: d.lon === "NA" || d.lon === "" ? null : Number(d.lon),
+  antenna_name: d.antenna_name || "Unknown",
+  deployed: d.deployed === "NA" || d.deployed === "" || !d.deployed ? null : new Date(d.deployed),
+  removed: d.removed === "NA" || d.removed === "" || !d.removed ? null : new Date(d.removed),
+  riverAbbr: d.riverAbbr || null,
+  angle: d.angle || null,
+  riverMeter_river: `${d.riverMeter}_${riversMapFromDeploy.get(d.river)}` || null
+})).filter(d => d.lat != null && d.lon != null);
+
+const antennaLocationsHistory = antennaLocationsHistoryIn.map(d => ({
+  lat: d.lat === "NA" || d.lat === "" ? null : Number(d.lat),
+  lon: d.lon === "NA" || d.lon === "" ? null : Number(d.lon),
+  antenna_name: d.antenna_name || "Unknown",
+  deployed: d.observableFirstDate === "NA" || d.observableFirstDate === "" || !d.observableFirstDate ? null : new Date(d.observableFirstDate),
+  removed: d.observableLastDate === "NA" || d.observableLastDate === "" || !d.observableLastDate ? null : new Date(d.observableLastDate),
+  riverAbbr: d.riverAbbr || null,
+  angle: d.angle || null,
+  // Add any other fields you need, but NOT firstSlideNum
+})).filter(d => d.lat != null && d.lon != null);
+
+const selectAntennaDataIn = (Inputs.select(["deploy", "antennaLocationsHistory",], {value: "deploy", width: 40}));
+const selectedAntennaDataIn = Generators.input(selectAntennaDataIn);//const antennaLocations = [...deploy, ...antennaLocationsHistory];
+return {deploy,antennaLocationsHistory,selectAntennaDataIn,selectedAntennaDataIn};
+}});
+
+define({id: "79e7c080", inputs: ["selectedAntennaDataIn","deploy","antennaLocationsHistory"], outputs: ["antennaDataLocations"], body: (selectedAntennaDataIn,deploy,antennaLocationsHistory) => {
+const antennaDataLocations = selectedAntennaDataIn === "deploy" ? deploy : antennaLocationsHistory;
+return {antennaDataLocations};
+}});
+
+define({id: "1822aaa4", inputs: ["d3","antennaDataLocations","Inputs","Generators"], outputs: ["dateExtent","dateRangeAntenna","selectAntennaDate","selectedAntennaDate"], body: (d3,antennaDataLocations,Inputs,Generators) => {
+// Get date extent from deploy data
+const dateExtent = d3.extent([
+  ...antennaDataLocations.map(d => d.deployed),
+  ...antennaDataLocations.map(d => d.removed)
+]);
+
+// Create array of all dates in range
+const dateRangeAntenna = d3.timeDay.range(dateExtent[0], dateExtent[1]);
+
+// Create date slider using the array of dates
+const selectAntennaDate = Inputs.range([0, dateRangeAntenna.length - 1], {
+  value: 0,
+  step: 1,
+  width: 400
+});
+
+const selectedAntennaDate = Generators.input(selectAntennaDate);
+return {dateExtent,dateRangeAntenna,selectAntennaDate,selectedAntennaDate};
+}});
+
+define({id: "6ad5546b", inputs: ["antennaDataLocations","selectedAntennaDateDate"], outputs: ["activeAntennas"], body: (antennaDataLocations,selectedAntennaDateDate) => {
+// Filter deploy data based on selected date
+const activeAntennas = antennaDataLocations.filter(d => {
+  const deployedDate = new Date(d.deployed);
+  const removedDate = new Date(d.removed);
+  return selectedAntennaDateDate >= deployedDate && selectedAntennaDateDate <= removedDate;
+});
+//display(activeAntennas)
+return {activeAntennas};
+}});
+
+define({id: "210a0023", inputs: ["dateRangeAntenna","selectedAntennaDate"], outputs: ["selectedAntennaDateDate"], body: (dateRangeAntenna,selectedAntennaDate) => {
+const selectedAntennaDateDate = dateRangeAntenna[selectedAntennaDate];
+//display(selectedAntennaDateDate)
+return {selectedAntennaDateDate};
+}});
+
+define({id: "5acbb2ff", outputs: ["baseMap","addMarkers","addMarkersTodd","addClickListenersToMarkers","updateMarkerStyles","addMapClickListener","addAntennas","clearAntennaSelections","selectAllAntennas","addButtonControl","updateButtonHandlers","antMapGraph"], body: async () => {
+const {baseMap, addMarkers, addMarkersTodd, addClickListenersToMarkers, updateMarkerStyles, addMapClickListener, addAntennas, clearAntennaSelections, selectAllAntennas, addButtonControl, updateButtonHandlers, antMapGraph} = await import("./_import/components/antennaDataFunctions.77b34179.js");
+/////////
+// Map //
+/////////
+
+return {baseMap,addMarkers,addMarkersTodd,addClickListenersToMarkers,updateMarkerStyles,addMapClickListener,addAntennas,clearAntennaSelections,selectAllAntennas,addButtonControl,updateButtonHandlers,antMapGraph};
+}});
+
+define({id: "d99dbf51", mode: "inline", inputs: ["selectAntennaDataIn","display"], body: async (selectAntennaDataIn,display) => {
+display(await(
+selectAntennaDataIn
+))
+}});
+
+define({id: "a8d07f8d", mode: "inline", inputs: ["d3","selectedAntennaDateDate","display"], body: async (d3,selectedAntennaDateDate,display) => {
+display(await(
+d3.timeFormat("%Y-%m-%d")(selectedAntennaDateDate)
+))
+}});
+
+define({id: "258e1686", mode: "inline", inputs: ["view","selectAntennaDate"], body: (view,selectAntennaDate) => {
+view(selectAntennaDate)
+}});
+
+define({id: "51aeabef", mode: "inline", inputs: ["div_map1","display"], body: async (div_map1,display) => {
+display(await(
+div_map1
+))
+}});
+
+define({id: "820df6cd", inputs: ["display","L","baseMap","addButtonControl"], outputs: ["lat1","lon1","mag1","div_map1","map1","buttonControl"], body: (display,L,baseMap,addButtonControl) => {
+/////////
+// Map //
+/////////
+
+  const lat1 = 42.4344;
+  const lon1 = -72.661;
+  const mag1 = 16.4;
+
+  const div_map1 = display(document.createElement("div"));
+  div_map1.style = "height: 750px;";
+
+  const map1 = L.map(div_map1)
+    .setView([lat1, lon1], mag1);
+
+  L.tileLayer(
+      'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',   
+      {
+        attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+      }
+  )
+  .addTo(map1);
+
+L.control.layers(baseMap).addTo(map1);
+baseMap.USGS_hydro_detail.addTo(map1);
+
+// Remove any existing controls
+map1.eachLayer(layer => {
+  if (layer instanceof L.Control) {
+    map1.removeControl(layer);
+  }
+});
+
+// Add the button control
+const buttonControl = addButtonControl(map1);
+return {lat1,lon1,mag1,div_map1,map1,buttonControl};
+}});
+
+define({id: "01ba4719", body: () => {
+
+}});
+
+define({id: "a593827f", inputs: ["map1"], outputs: ["initialView1"], body: (map1) => {
+// Store the initial map view
+const initialView1 = map1.getBounds();
+
+  // Update the map view when the window is resized
+  window.addEventListener('resize', function() {
+    map1.fitBounds(initialView1);
+  });
+
+return {initialView1};
+}});
+
+define({id: "674ff035", inputs: ["addMarkers","coordsIn","map1","addMarkersTodd","coordsInTodd","L","Mutable","addClickListenersToMarkers","updateMarkerStyles","addMapClickListener"], outputs: ["initialSite","markers","toddMarkers","markersSelected"], body: (addMarkers,coordsIn,map1,addMarkersTodd,coordsInTodd,L,Mutable,addClickListenersToMarkers,updateMarkerStyles,addMapClickListener) => {
+/////////////////////////////////
+// Add map markers and updates //
+/////////////////////////////////
+const initialSite = "WB_1";
+
+let markers = addMarkers(coordsIn.filter(d => d.lat != null && d.lon != null), map1);
+let toddMarkers = addMarkersTodd(coordsInTodd.filter(d => d.lat != null && d.lon != null), map1);
+
+// Merge toddMarkers into markers layer group
+if (toddMarkers instanceof L.LayerGroup) {
+    toddMarkers.eachLayer(layer => {
+        markers.addLayer(layer);
+    });
+} else if (toddMarkers instanceof L.Layer) {
+    markers.addLayer(toddMarkers);
+}
+
+let markersSelected = Mutable([initialSite]);
+addClickListenersToMarkers(markers, markersSelected);
+updateMarkerStyles(markers);
+addMapClickListener(map1);
+return {initialSite,markers,toddMarkers,markersSelected};
+}});
+
+define({id: "dea44042", inputs: ["Mutable","activeAntennas","map1","L","addAntennas","updateButtonHandlers","buttonControl"], outputs: ["antennasSelected","antennaResult"], body: (Mutable,activeAntennas,map1,L,addAntennas,updateButtonHandlers,buttonControl) => {
+let antennasSelected = Mutable(activeAntennas.map(d => d.riverMeter_river));
+
+// Clear any existing antenna layers and add new ones
+map1.eachLayer(layer => {
+  if (layer instanceof L.LayerGroup) {
+    layer.clearLayers();
+  }
+});
+
+const antennaResult = addAntennas(activeAntennas, map1, antennasSelected);
+updateButtonHandlers(buttonControl, antennaResult.markers, antennasSelected);
+return {antennasSelected,antennaResult};
+}});
+
+define({id: "977736c6", body: () => {
+//const cdwbAntennaMap = cdwbAntennaSpeciesYearsRiverRiverMeters.filter(d => antennasSelected.includes(d.riverMeter_river));
+}});
+
+define({id: "01ba4719-1", body: () => {
+
+}});
+
+define({id: "bdd60df9", body: () => {
+//cdwbAntennaMap
+}});
+
+define({id: "49a277c3", body: () => {
+//antennasSelected
+}});
+
+define({id: "688d618e", body: () => {
+//activeAntennas
+}});
+
+</script>
+<input id="observablehq-sidebar-toggle" type="checkbox" title="Toggle sidebar">
+<label id="observablehq-sidebar-backdrop" for="observablehq-sidebar-toggle"></label>
+<nav id="observablehq-sidebar">
+  <ol>
+    <label id="observablehq-sidebar-close" for="observablehq-sidebar-toggle"></label>
+    <li class="observablehq-link"><a href="./">PIT Tag Data Explorer</a></li>
+  </ol>
+  <div id="observablehq-search"><input type="search" placeholder="Search"></div>
+  <div id="observablehq-search-results"></div>
+  <script>{const o=document.querySelector("#observablehq-search");o.setAttribute("data-shortcut",`${/Mac|iPhone/.test(navigator.platform)?"\u2318":"Alt-"}K`);const t=o.querySelector("input"),r=()=>import("./_observablehq/search.9790c9f7.js");t.addEventListener("focus",r,{once:!0}),t.addEventListener("keydown",r,{once:!0});const c=document.querySelector("#observablehq-sidebar-toggle");addEventListener("keydown",e=>{(e.code==="KeyK"&&e.metaKey&&!e.altKey&&!e.ctrlKey||e.key==="/"&&!e.metaKey&&!e.altKey&&!e.ctrlKey&&e.target===document.body)&&(c.checked?t.focus():(c.click(),t.focus(),c.click()),t.select(),e.preventDefault())});}</script>
+  <section class="observablehq-section-active">
+    <summary>Chapters</summary>
+    <ol>
+    <li class="observablehq-link"><a href="./overview.html">Overview</a></li>
+    <li class="observablehq-link"><a href="./overTime.html">Variables over time</a></li>
+    <li class="observablehq-link"><a href="./rawDataByInd.html">By individual</a></li>
+    <li class="observablehq-link observablehq-link-active"><a href="./antennaData.html">Antenna data</a></li>
+    </ol>
+  </section>
+</nav>
+<script>{Object.assign(document.createElement("a"),{href:""}).password&&location.replace(location.href);const e=document.querySelector("#observablehq-sidebar"),t=document.querySelector("#observablehq-sidebar-toggle"),r=sessionStorage.getItem("observablehq-sidebar");r?t.checked=r==="true":t.indeterminate=!0;for(const o of document.querySelectorAll("#observablehq-sidebar summary")){const s=o.parentElement;switch(sessionStorage.getItem(`observablehq-sidebar:${o.textContent}`)){case"true":s.open=!0;break;case"false":s.classList.contains("observablehq-section-active")||(s.open=!1);break}}addEventListener("beforeunload",()=>sessionStorage.setItem("observablehq-sidebar-scrolly",`${e.scrollTop}`));const a=sessionStorage.getItem("observablehq-sidebar-scrolly");a!=null&&(e.style.cssText="overflow: hidden;",e.scrollTop=+a,e.style.cssText="");}</script>
+<div id="observablehq-center">
+<main id="observablehq-main" class="observablehq">
+<div class="observablehq observablehq--block"><!--:40324f12:--></div>
+<div class="observablehq observablehq--block"><!--:b3f84ba7:--></div>
+<div class="observablehq observablehq--block"><!--:6ee379d4:--></div>
+<div class="observablehq observablehq--block"><!--:ad85e56d:--></div>
+<div class="observablehq observablehq--block"><!--:a8793833:--></div>
+<div class="observablehq observablehq--block"><!--:6bdfebe3:--></div>
+<div class="observablehq observablehq--block"><!--:730a7fd0:--></div>
+<div class="observablehq observablehq--block"><!--:041605ef:--></div>
+<div class="observablehq observablehq--block"><!--:4252fb95:--></div>
+<div class="observablehq observablehq--block"><!--:66c90a11:--></div>
+<div class="observablehq observablehq--block"><!--:314e1ca5:--></div>
+<div class="observablehq observablehq--block"><!--:7cba9282:--></div>
+<div class="observablehq observablehq--block"><!--:cef9472b:--></div>
+<div class="observablehq observablehq--block"><!--:3af4242e:--></div>
+<div class="observablehq observablehq--block"><!--:adc48768:--></div>
+<div class="observablehq observablehq--block"><!--:df1f3c58:--></div>
+<div class="observablehq observablehq--block"><!--:587d2ab7:--></div>
+<div class="observablehq observablehq--block"><!--:bbc680f9:--></div>
+<div class="wrapper2">
+  <div class="card antSelectors">
+    <h1 style="margin-bottom: 12px"><strong>Filter data</strong></h1>
+      <div style="display: flex; align-items: center; gap: 15px;">
+        Group individuals by? <span><observablehq-loading></observablehq-loading><!--:7528df30:--></span>
+      </div>
+      <hr style="margin-top: 0px; margin-bottom: 0px">
+      <div style="margin-top: 0px">
+      <h2>Select species:</h2>
+      <div style="display: flex; align-items: center; gap: 15px">
+        <observablehq-loading></observablehq-loading><!--:b64bdcb3:--> <span>n = <observablehq-loading></observablehq-loading><!--:26ba42a0:--></span>
+      </div>
+    </div>
+    <div style="margin-top: 20px">
+      <h2>Select year(s):</h2>
+      <div style="display: flex; align-items: center; gap: 15px">
+        <observablehq-loading></observablehq-loading><!--:f0ce0c99:--> <span>n = <observablehq-loading></observablehq-loading><!--:0e0c1258:--></span>
+      </div>
+    </div>
+    <div style="margin-top: 20px">
+      <h2>Select river(s):</h2>
+      <div style="display: flex; align-items: center; gap: 15px">
+        <observablehq-loading></observablehq-loading><!--:430b420b:--> <span>n = <observablehq-loading></observablehq-loading><!--:52a486a3:--></span>
+      </div>
+    </div>
+    <div style="margin-top: 20px">
+      <h2>Select antenna (river meter):</h2>
+        <div style="display: flex; align-items: center; gap: 15px">
+        <observablehq-loading></observablehq-loading><!--:61465379:--> <span>n = <observablehq-loading></observablehq-loading><!--:55e9cb1d:--></span>
+      </div>
+    </div>
+    <hr style="margin-top: 5px; margin-bottom: 0px">
+    <div style="margin-top: 2px">
+      <h2>Select plotting width:</h2>
+      <observablehq-loading></observablehq-loading><!--:5f0729c6:-->
+    </div>
+    <h2>
+      <div style="display: flex; align-items: center; gap: 15px; margin-top: 10px">
+        Select color var: <span><observablehq-loading></observablehq-loading><!--:8fe8293a:--></span>
+      </div>
+    </h2>
+    <div style="margin-top: 20px">
+    <h2>Facet graph by river (and add flow)?</h2>
+      <observablehq-loading></observablehq-loading><!--:0f952d97:-->
+    </div>
+    <div style="margin-top: 20px">
+    <h2>Flow multiplier:</h2>
+      <observablehq-loading></observablehq-loading><!--:cb3b093c:-->
+    </div>
+  </div>
+  <div class="card antGraph">
+    <observablehq-loading></observablehq-loading><!--:3dafca72:-->
+  </div>
+</div>
+<div class="observablehq observablehq--block"><observablehq-loading></observablehq-loading><!--:74020c07:--></div>
+<div class="observablehq observablehq--block"><!--:3adda131:--></div>
+<hr>
+<div class="observablehq observablehq--block"><!--:e6cb88ab:--></div>
+<div class="observablehq observablehq--block"><!--:5211689e:--></div>
+<div class="observablehq observablehq--block"><!--:79e7c080:--></div>
+<div class="observablehq observablehq--block"><!--:1822aaa4:--></div>
+<div class="observablehq observablehq--block"><!--:6ad5546b:--></div>
+<div class="observablehq observablehq--block"><!--:210a0023:--></div>
+<div class="observablehq observablehq--block"><!--:5acbb2ff:--></div>
+  <div style="margin-top: 20px">
+    <h3>Select antenna location input file:</h3>
+    <observablehq-loading></observablehq-loading><!--:d99dbf51:-->
+  </div>
+  <style>
+    .observablehq input[type="number"] {
+      display: none !important;
+    }
+  </style>
+  <div style="margin-top: 20px">
+    <h3>Select date to show antennas on the map:</h3>
+    <div style="display: flex; align-items: center; gap: 15px">
+      <span><observablehq-loading></observablehq-loading><!--:a8d07f8d:--></span>
+      <observablehq-loading></observablehq-loading><!--:258e1686:-->
+    </div>
+  </div>
+  <div class="wrapper2">
+    <div class="card antMap">
+      <observablehq-loading></observablehq-loading><!--:51aeabef:-->
+    </div>
+    <div class="card antMapGraph">
+      there could be a graph here, but updating it based on the date slider is a slow
+    <!--
+      ${antennaMapGraph(
+        cdwbAntennaMap,
+        selectedInterval,
+        selectedFillVar,
+        width
+      )}
+    -->
+    </div>
+  </div>
+
+<div class="observablehq observablehq--block"><!--:820df6cd:--></div>
+<div class="observablehq observablehq--block"><!--:01ba4719:--></div>
+<div class="observablehq observablehq--block"><!--:a593827f:--></div>
+<div class="observablehq observablehq--block"><!--:674ff035:--></div>
+<div class="observablehq observablehq--block"><!--:dea44042:--></div>
+<div class="observablehq observablehq--block"><!--:977736c6:--></div>
+<div class="observablehq observablehq--block"><!--:01ba4719-1:--></div>
+<div class="observablehq observablehq--block"><!--:bdd60df9:--></div>
+<div class="observablehq observablehq--block"><!--:49a277c3:--></div>
+<div class="observablehq observablehq--block"><!--:688d618e:--></div>
+</main>
+<footer id="observablehq-footer">
+<nav><a rel="prev" href="./rawDataByInd.html"><span>By individual</span></a></nav>
+<div>Built with <a href="https://observablehq.com/" target="_blank" rel="noopener noreferrer">Observable</a> on <a title="2025-04-15T13:56:28">Apr 15, 2025</a>.</div>
+</footer>
+</div>

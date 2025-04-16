@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="generator" content="Observable Framework v1.12.0">
+<title>Raw data by individual | PIT Tag Data Explorer</title>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,opsz,wght@0,8..60,200..900;1,8..60,200..900&amp;display=swap" crossorigin>
+<link rel="preload" as="style" href="./_import/gridCustom.fec94a55.css">
+<link rel="preload" as="style" href="./_observablehq/stdlib/inputs.ea9fd553.css">
+<link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,opsz,wght@0,8..60,200..900;1,8..60,200..900&amp;display=swap" crossorigin>
+<link rel="stylesheet" type="text/css" href="./_import/gridCustom.fec94a55.css">
+<link rel="stylesheet" type="text/css" href="./_observablehq/stdlib/inputs.ea9fd553.css">
+<link rel="modulepreload" href="./_observablehq/client.cd821602.js">
+<link rel="modulepreload" href="./_observablehq/runtime.54f189b7.js">
+<link rel="modulepreload" href="./_observablehq/stdlib.18690ca0.js">
+<link rel="modulepreload" href="./_import/components/raw_data_by_ind.8a03f0e1.js">
+<link rel="modulepreload" href="./_observablehq/stdlib/inputs.d284c1b1.js">
+<link rel="modulepreload" href="./_npm/@observablehq/plot@0.6.17/d761ef9b.js">
+<link rel="modulepreload" href="./_npm/htl@0.3.1/72f4716c.js">
+<link rel="modulepreload" href="./_npm/isoformat@0.2.1/18cbf477.js">
+<link rel="modulepreload" href="./_npm/d3@7.9.0/e780feca.js">
+<link rel="modulepreload" href="./_npm/interval-tree-1d@1.0.4/53fe8176.js">
+<link rel="modulepreload" href="./_npm/d3-array@3.2.4/e93ca09f.js">
+<link rel="modulepreload" href="./_npm/d3-axis@3.0.0/0f2de24d.js">
+<link rel="modulepreload" href="./_npm/d3-brush@3.0.0/65eb105b.js">
+<link rel="modulepreload" href="./_npm/d3-chord@3.0.1/7ef8fb2e.js">
+<link rel="modulepreload" href="./_npm/d3-color@3.1.0/aeb57b94.js">
+<link rel="modulepreload" href="./_npm/d3-contour@4.0.2/1d2aed74.js">
+<link rel="modulepreload" href="./_npm/d3-delaunay@6.0.4/5ced1d52.js">
+<link rel="modulepreload" href="./_npm/d3-dispatch@3.0.1/9ba9c7f3.js">
+<link rel="modulepreload" href="./_npm/d3-drag@3.0.0/4202580c.js">
+<link rel="modulepreload" href="./_npm/d3-dsv@3.0.1/9cffc2bd.js">
+<link rel="modulepreload" href="./_npm/d3-ease@3.0.1/cdd7e898.js">
+<link rel="modulepreload" href="./_npm/d3-fetch@3.0.1/b4e2ad9a.js">
+<link rel="modulepreload" href="./_npm/d3-force@3.0.0/5e804d15.js">
+<link rel="modulepreload" href="./_npm/d3-format@3.1.0/86074ef6.js">
+<link rel="modulepreload" href="./_npm/d3-geo@3.1.1/40599fb3.js">
+<link rel="modulepreload" href="./_npm/d3-hierarchy@3.1.2/e49e792c.js">
+<link rel="modulepreload" href="./_npm/d3-interpolate@3.0.1/8d1e5425.js">
+<link rel="modulepreload" href="./_npm/d3-path@3.1.0/20d3f133.js">
+<link rel="modulepreload" href="./_npm/d3-polygon@3.0.1/7553081f.js">
+<link rel="modulepreload" href="./_npm/d3-quadtree@3.0.1/0dfd751c.js">
+<link rel="modulepreload" href="./_npm/d3-random@3.0.1/3c90ee06.js">
+<link rel="modulepreload" href="./_npm/d3-scale@4.0.2/843b6a76.js">
+<link rel="modulepreload" href="./_npm/d3-scale-chromatic@3.1.0/ba24c2e7.js">
+<link rel="modulepreload" href="./_npm/d3-selection@3.0.0/4d94e5b7.js">
+<link rel="modulepreload" href="./_npm/d3-shape@3.2.0/6d3a6726.js">
+<link rel="modulepreload" href="./_npm/d3-time@3.1.0/9f03c579.js">
+<link rel="modulepreload" href="./_npm/d3-time-format@4.1.0/07c9626f.js">
+<link rel="modulepreload" href="./_npm/d3-timer@3.0.1/b58a267d.js">
+<link rel="modulepreload" href="./_npm/d3-transition@3.0.1/004da2ac.js">
+<link rel="modulepreload" href="./_npm/d3-zoom@3.0.0/b5786b3f.js">
+<link rel="modulepreload" href="./_npm/binary-search-bounds@2.0.5/cbf6ba23.js">
+<link rel="modulepreload" href="./_npm/internmap@2.0.3/e08981d9.js">
+<link rel="modulepreload" href="./_npm/delaunator@5.0.1/02d43215.js">
+<link rel="modulepreload" href="./_npm/robust-predicates@3.0.2/aa00730b.js">
+<script type="module">
+
+import {define} from "./_observablehq/client.cd821602.js";
+import {registerFile} from "./_observablehq/stdlib.18690ca0.js";
+
+registerFile("./data/cdwb.json", {"name":"./data/cdwb.json","mimeType":"application/json","path":"./_file/data/cdwb.e2935803.json","lastModified":1744739822890,"size":202370399});
+
+define({id: "ebe4b599", inputs: ["FileAttachment"], outputs: ["cdwb"], body: (FileAttachment) => {
+//const cdwb = FileAttachment("data/all_for_obs.csv").csv({typed: true});
+const cdwb = FileAttachment("./data/cdwb.json").json();
+return {cdwb};
+}});
+
+define({id: "6d3ea3d7", outputs: ["tagsOverTime","tagsOverTimeRiver"], body: async () => {
+const {tagsOverTime, tagsOverTimeRiver} = await import("./_import/components/raw_data_by_ind.8a03f0e1.js");
+
+return {tagsOverTime,tagsOverTimeRiver};
+}});
+
+define({id: "c43ed483", inputs: ["cdwb"], body: (cdwb) => {
+cdwb.forEach(d => {
+  const detectionDate = new Date(d.detectionDate); 
+  const dateEmigrated = new Date(d.dateEmigrated); 
+  d.detectionDate = detectionDate;
+  d.dateEmigrated = dateEmigrated;
+  d.title = d.tag
+});
+}});
+
+define({id: "bbf3701e", inputs: ["cdwb","Inputs","Generators"], outputs: ["cohorts","selectCohorts","selectedCohorts","species","selectSpecies","selectedSpecies"], body: (cdwb,Inputs,Generators) => {
+const cohorts = [...new Set(cdwb.map(d => d.cohort))].sort();
+const selectCohorts = (Inputs.select(cohorts, {value: 2005, multiple: 8, label: "Select cohorts:"}));
+const selectedCohorts = Generators.input(selectCohorts);
+
+const species = [...new Set(cdwb.map(d => d.species))].sort();
+const selectSpecies = (Inputs.select(species, {value: species, multiple: true, label: "Select species:"}));
+const selectedSpecies = Generators.input(selectSpecies);
+return {cohorts,selectCohorts,selectedCohorts,species,selectSpecies,selectedSpecies};
+}});
+
+define({id: "e8944610", body: () => {
+/*
+const tagCounts = cdwb.reduce((acc, d) => {
+  acc[d.tag] = (acc[d.tag] || 0) + 1;
+  return acc;
+}, {});
+const filteredTagsByCount = Object.keys(tagCounts).filter(tag => tagCounts[tag] > 2); */
+}});
+
+define({id: "d7a9c0c9", inputs: ["cdwb","selectedSpecies","selectedCohorts"], outputs: ["cdwbFiltered"], body: (cdwb,selectedSpecies,selectedCohorts) => {
+const cdwbFiltered = cdwb.filter(d => 
+  selectedSpecies.includes(d.species) && 
+  selectedCohorts.includes(d.cohort) 
+);
+return {cdwbFiltered};
+}});
+
+define({id: "bb517ac8", body: () => {
+ //searchTags 
+
+//cdwbFilteredTag
+//tagCounts
+//tags//ToPlot
+}});
+
+define({id: "c1e6892c", inputs: ["cdwbFiltered","Inputs","Generators"], outputs: ["tagCountsFiltered","sortedTags","selectTags","selectedTags"], body: (cdwbFiltered,Inputs,Generators) => {
+const tagCountsFiltered = cdwbFiltered.reduce((acc, d) => {
+  acc[d.tag] = (acc[d.tag] || 0) + 1;
+  return acc;
+}, {});
+const sortedTags = Object.entries(tagCountsFiltered)
+  .sort((a, b) => b[1] - a[1])
+  .map(entry => entry[0]); 
+
+//const searchTags = Inputs.search(sortedTags, {placeholder: "Type to filter tags"});
+//const searchedTags = Generators.input(searchTags);
+
+const selectTags = (Inputs.select(sortedTags, {
+  //value: searchedTags, 
+  multiple: 8, label: "Select tags:"}));
+const selectedTags = Generators.input(selectTags);
+return {tagCountsFiltered,sortedTags,selectTags,selectedTags};
+}});
+
+define({id: "ae5db09c", inputs: ["cdwb","selectedTags"], outputs: ["cdwbFilteredTag"], body: (cdwb,selectedTags) => {
+const cdwbFilteredTag = cdwb.filter(d => 
+  selectedTags.includes(d.tag)
+);
+return {cdwbFilteredTag};
+}});
+
+define({id: "6700037a", mode: "inline", inputs: ["cdwbFilteredTag","display"], body: async (cdwbFilteredTag,display) => {
+display(await(
+cdwbFilteredTag.length
+))
+}});
+
+define({id: "d18dccd6", mode: "inline", inputs: ["selectCohorts","display"], body: async (selectCohorts,display) => {
+display(await(
+selectCohorts
+))
+}});
+
+define({id: "d66040fe", mode: "inline", inputs: ["selectSpecies","display"], body: async (selectSpecies,display) => {
+display(await(
+selectSpecies
+))
+}});
+
+define({id: "02a512bb", mode: "inline", inputs: ["selectTags","display"], body: async (selectTags,display) => {
+display(await(
+selectTags
+))
+}});
+
+define({id: "db1f1d32", mode: "inline", inputs: ["resize","tagsOverTime","cdwbFilteredTag","display"], body: async (resize,tagsOverTime,cdwbFilteredTag,display) => {
+display(await(
+resize((width) => tagsOverTime(
+      cdwbFilteredTag,
+      {width})
+    )
+))
+}});
+
+define({id: "a1f7ddaf", mode: "inline", inputs: ["resize","tagsOverTimeRiver","cdwbFilteredTag","display"], body: async (resize,tagsOverTimeRiver,cdwbFilteredTag,display) => {
+display(await(
+resize((width) => tagsOverTimeRiver(
+      cdwbFilteredTag,
+      {width})
+    )
+))
+}});
+
+define({id: "42107319", outputs: ["tidy","addItems","addRows","arrange","asc","complete","contains","count","cumsum","debug","desc","deviation","distinct","endsWith","everything","expand","fill","filter","first","fullJoin","fullSeq","fullSeqDate","fullSeqDateISOString","groupBy","innerJoin","lag","last","lead","leftJoin","map","matches","max","mean","meanRate","median","min","mutate","mutateWithSummary","n","nDistinct","negate","numRange","pick","pivotLonger","pivotWider","rate","rename","replaceNully","roll","select","slice","sliceHead","sliceMax","sliceMin","sliceSample","sliceTail","sort","startsWith","sum","summarize","summarizeAll","summarizeAt","tally","TMath","total","totalAll","totalAt","totalIf","transmute","variance","vectorSeq","vectorSeqDate","when"], body: async () => {
+const {tidy, addItems, addRows, arrange, asc, complete, contains, count, cumsum, debug, desc, deviation, distinct, endsWith, everything, expand, fill, filter, first, fullJoin, fullSeq, fullSeqDate, fullSeqDateISOString, groupBy, innerJoin, lag, last, lead, leftJoin, map, matches, max, mean, meanRate, median, min, mutate, mutateWithSummary, n, nDistinct, negate, numRange, pick, pivotLonger, pivotWider, rate, rename, replaceNully, roll, select, slice, sliceHead, sliceMax, sliceMin, sliceSample, sliceTail, sort, startsWith, sum, summarize, summarizeAll, summarizeAt, tally, TMath, total, totalAll, totalAt, totalIf, transmute, variance, vectorSeq, vectorSeqDate, when} = await import("@tidyjs/tidy");
+/* did this to get tidyjs to load
+
+//Turns off ssl
+npm set strict-ssl false
+//Installs node packages
+npm ci
+//Turns ssl back on for future protection
+npm set strict-ssl true
+*/
+
+
+return {tidy,addItems,addRows,arrange,asc,complete,contains,count,cumsum,debug,desc,deviation,distinct,endsWith,everything,expand,fill,filter,first,fullJoin,fullSeq,fullSeqDate,fullSeqDateISOString,groupBy,innerJoin,lag,last,lead,leftJoin,map,matches,max,mean,meanRate,median,min,mutate,mutateWithSummary,n,nDistinct,negate,numRange,pick,pivotLonger,pivotWider,rate,rename,replaceNully,roll,select,slice,sliceHead,sliceMax,sliceMin,sliceSample,sliceTail,sort,startsWith,sum,summarize,summarizeAll,summarizeAt,tally,TMath,total,totalAll,totalAt,totalIf,transmute,variance,vectorSeq,vectorSeqDate,when};
+}});
+
+</script>
+<input id="observablehq-sidebar-toggle" type="checkbox" title="Toggle sidebar">
+<label id="observablehq-sidebar-backdrop" for="observablehq-sidebar-toggle"></label>
+<nav id="observablehq-sidebar">
+  <ol>
+    <label id="observablehq-sidebar-close" for="observablehq-sidebar-toggle"></label>
+    <li class="observablehq-link"><a href="./">PIT Tag Data Explorer</a></li>
+  </ol>
+  <div id="observablehq-search"><input type="search" placeholder="Search"></div>
+  <div id="observablehq-search-results"></div>
+  <script>{const o=document.querySelector("#observablehq-search");o.setAttribute("data-shortcut",`${/Mac|iPhone/.test(navigator.platform)?"\u2318":"Alt-"}K`);const t=o.querySelector("input"),r=()=>import("./_observablehq/search.9790c9f7.js");t.addEventListener("focus",r,{once:!0}),t.addEventListener("keydown",r,{once:!0});const c=document.querySelector("#observablehq-sidebar-toggle");addEventListener("keydown",e=>{(e.code==="KeyK"&&e.metaKey&&!e.altKey&&!e.ctrlKey||e.key==="/"&&!e.metaKey&&!e.altKey&&!e.ctrlKey&&e.target===document.body)&&(c.checked?t.focus():(c.click(),t.focus(),c.click()),t.select(),e.preventDefault())});}</script>
+  <section class="observablehq-section-active">
+    <summary>Chapters</summary>
+    <ol>
+    <li class="observablehq-link"><a href="./overview.html">Overview</a></li>
+    <li class="observablehq-link"><a href="./overTime.html">Variables over time</a></li>
+    <li class="observablehq-link observablehq-link-active"><a href="./rawDataByInd.html">By individual</a></li>
+    <li class="observablehq-link"><a href="./antennaData.html">Antenna data</a></li>
+    </ol>
+  </section>
+</nav>
+<script>{Object.assign(document.createElement("a"),{href:""}).password&&location.replace(location.href);const e=document.querySelector("#observablehq-sidebar"),t=document.querySelector("#observablehq-sidebar-toggle"),r=sessionStorage.getItem("observablehq-sidebar");r?t.checked=r==="true":t.indeterminate=!0;for(const o of document.querySelectorAll("#observablehq-sidebar summary")){const s=o.parentElement;switch(sessionStorage.getItem(`observablehq-sidebar:${o.textContent}`)){case"true":s.open=!0;break;case"false":s.classList.contains("observablehq-section-active")||(s.open=!1);break}}addEventListener("beforeunload",()=>sessionStorage.setItem("observablehq-sidebar-scrolly",`${e.scrollTop}`));const a=sessionStorage.getItem("observablehq-sidebar-scrolly");a!=null&&(e.style.cssText="overflow: hidden;",e.scrollTop=+a,e.style.cssText="");}</script>
+<div id="observablehq-center">
+<main id="observablehq-main" class="observablehq">
+<div class="observablehq observablehq--block"><!--:ebe4b599:--></div>
+<div class="observablehq observablehq--block"><!--:6d3ea3d7:--></div>
+<div class="observablehq observablehq--block"><!--:c43ed483:--></div>
+<div class="observablehq observablehq--block"><!--:bbf3701e:--></div>
+<div class="observablehq observablehq--block"><!--:e8944610:--></div>
+<div class="observablehq observablehq--block"><!--:d7a9c0c9:--></div>
+<div class="observablehq observablehq--block"><!--:bb517ac8:--></div>
+<div class="observablehq observablehq--block"><!--:c1e6892c:--></div>
+<div class="observablehq observablehq--block"><!--:ae5db09c:--></div>
+<p>selectTags length: <observablehq-loading></observablehq-loading><!--:6700037a:--></p>
+<div class="wrapper2">
+  <div class="card selectors">
+    <div style="margin-top: 10px; margin-bottom: 0px">
+      <observablehq-loading></observablehq-loading><!--:d18dccd6:-->
+    </div>
+    <div style="margin-top: 10px; margin-bottom: 0px">
+      <observablehq-loading></observablehq-loading><!--:d66040fe:-->
+    </div>
+    <hr>
+    <div style="margin-top: 10px; margin-bottom: 0px">
+      <observablehq-loading></observablehq-loading><!--:02a512bb:-->
+    </div>
+  </div>
+  <hr>
+  <div class="card indGraph1">
+    <div style="margin-top: 10px; margin-bottom: 0px">
+    <observablehq-loading></observablehq-loading><!--:db1f1d32:-->
+    </div>
+  </div>
+  <div class="card indGraph2">
+    <div style="margin-top: 10px; margin-bottom: 0px">
+    <observablehq-loading></observablehq-loading><!--:a1f7ddaf:-->
+    </div>
+  </div>
+</div>
+<div class="observablehq observablehq--block"><!--:42107319:--></div>
+</main>
+<footer id="observablehq-footer">
+<nav><a rel="prev" href="./overTime.html"><span>Variables over time</span></a><a rel="next" href="./antennaData.html"><span>Antenna data</span></a></nav>
+<div>Built with <a href="https://observablehq.com/" target="_blank" rel="noopener noreferrer">Observable</a> on <a title="2025-04-15T13:56:28">Apr 15, 2025</a>.</div>
+</footer>
+</div>

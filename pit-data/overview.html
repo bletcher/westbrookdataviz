@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="generator" content="Observable Framework v1.12.0">
+<title>PIT Tag Data Explorer</title>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,opsz,wght@0,8..60,200..900;1,8..60,200..900&amp;display=swap" crossorigin>
+<link rel="preload" as="style" href="./_import/gridCustom.fec94a55.css">
+<link rel="preload" as="style" href="./_observablehq/stdlib/inputs.ea9fd553.css">
+<link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,opsz,wght@0,8..60,200..900;1,8..60,200..900&amp;display=swap" crossorigin>
+<link rel="stylesheet" type="text/css" href="./_import/gridCustom.fec94a55.css">
+<link rel="stylesheet" type="text/css" href="./_observablehq/stdlib/inputs.ea9fd553.css">
+<link rel="modulepreload" href="./_observablehq/client.cd821602.js">
+<link rel="modulepreload" href="./_observablehq/runtime.54f189b7.js">
+<link rel="modulepreload" href="./_observablehq/stdlib.18690ca0.js">
+<link rel="modulepreload" href="./_import/components/overviewGraphs.7967cf5d.js">
+<link rel="modulepreload" href="./_observablehq/stdlib/inputs.d284c1b1.js">
+<link rel="modulepreload" href="./_npm/@observablehq/plot@0.6.17/d761ef9b.js">
+<link rel="modulepreload" href="./_npm/d3@7.9.0/e780feca.js">
+<link rel="modulepreload" href="./_node/d3-time-format@4.1.0/index.20c5f3ca.js">
+<link rel="modulepreload" href="./_npm/htl@0.3.1/72f4716c.js">
+<link rel="modulepreload" href="./_npm/isoformat@0.2.1/18cbf477.js">
+<link rel="modulepreload" href="./_npm/interval-tree-1d@1.0.4/53fe8176.js">
+<link rel="modulepreload" href="./_npm/d3-array@3.2.4/e93ca09f.js">
+<link rel="modulepreload" href="./_npm/d3-axis@3.0.0/0f2de24d.js">
+<link rel="modulepreload" href="./_npm/d3-brush@3.0.0/65eb105b.js">
+<link rel="modulepreload" href="./_npm/d3-chord@3.0.1/7ef8fb2e.js">
+<link rel="modulepreload" href="./_npm/d3-color@3.1.0/aeb57b94.js">
+<link rel="modulepreload" href="./_npm/d3-contour@4.0.2/1d2aed74.js">
+<link rel="modulepreload" href="./_npm/d3-delaunay@6.0.4/5ced1d52.js">
+<link rel="modulepreload" href="./_npm/d3-dispatch@3.0.1/9ba9c7f3.js">
+<link rel="modulepreload" href="./_npm/d3-drag@3.0.0/4202580c.js">
+<link rel="modulepreload" href="./_npm/d3-dsv@3.0.1/9cffc2bd.js">
+<link rel="modulepreload" href="./_npm/d3-ease@3.0.1/cdd7e898.js">
+<link rel="modulepreload" href="./_npm/d3-fetch@3.0.1/b4e2ad9a.js">
+<link rel="modulepreload" href="./_npm/d3-force@3.0.0/5e804d15.js">
+<link rel="modulepreload" href="./_npm/d3-format@3.1.0/86074ef6.js">
+<link rel="modulepreload" href="./_npm/d3-geo@3.1.1/40599fb3.js">
+<link rel="modulepreload" href="./_npm/d3-hierarchy@3.1.2/e49e792c.js">
+<link rel="modulepreload" href="./_npm/d3-interpolate@3.0.1/8d1e5425.js">
+<link rel="modulepreload" href="./_npm/d3-path@3.1.0/20d3f133.js">
+<link rel="modulepreload" href="./_npm/d3-polygon@3.0.1/7553081f.js">
+<link rel="modulepreload" href="./_npm/d3-quadtree@3.0.1/0dfd751c.js">
+<link rel="modulepreload" href="./_npm/d3-random@3.0.1/3c90ee06.js">
+<link rel="modulepreload" href="./_npm/d3-scale@4.0.2/843b6a76.js">
+<link rel="modulepreload" href="./_npm/d3-scale-chromatic@3.1.0/ba24c2e7.js">
+<link rel="modulepreload" href="./_npm/d3-selection@3.0.0/4d94e5b7.js">
+<link rel="modulepreload" href="./_npm/d3-shape@3.2.0/6d3a6726.js">
+<link rel="modulepreload" href="./_npm/d3-time@3.1.0/9f03c579.js">
+<link rel="modulepreload" href="./_npm/d3-time-format@4.1.0/07c9626f.js">
+<link rel="modulepreload" href="./_npm/d3-timer@3.0.1/b58a267d.js">
+<link rel="modulepreload" href="./_npm/d3-transition@3.0.1/004da2ac.js">
+<link rel="modulepreload" href="./_npm/d3-zoom@3.0.0/b5786b3f.js">
+<link rel="modulepreload" href="./_node/d3-time@3.1.0/index.8fcc123e.js">
+<link rel="modulepreload" href="./_npm/binary-search-bounds@2.0.5/cbf6ba23.js">
+<link rel="modulepreload" href="./_npm/internmap@2.0.3/e08981d9.js">
+<link rel="modulepreload" href="./_npm/delaunator@5.0.1/02d43215.js">
+<link rel="modulepreload" href="./_node/d3-array@3.2.4/index.f89e3560.js">
+<link rel="modulepreload" href="./_npm/robust-predicates@3.0.2/aa00730b.js">
+<link rel="modulepreload" href="./_node/internmap@2.0.3/index.4106013c.js">
+<script type="module">
+
+import {define} from "./_observablehq/client.cd821602.js";
+import {registerFile} from "./_observablehq/stdlib.18690ca0.js";
+
+registerFile("./data/cdwb.json", {"name":"./data/cdwb.json","mimeType":"application/json","path":"./_file/data/cdwb.e2935803.json","lastModified":1744739822890,"size":202370399});
+
+define({id: "228db81c", inputs: ["FileAttachment"], outputs: ["cdwbIn"], body: (FileAttachment) => {
+//const cdwb = FileAttachment("data/all_for_obs.csv").csv({typed: true});
+const cdwbIn = FileAttachment("./data/cdwb.json").json(); // this is a lot faster than the parquet file
+//const cdwbIn = FileAttachment("data/parquet/part-0.parquet").parquet();
+return {cdwbIn};
+}});
+
+define({id: "bca293d3", inputs: ["cdwbIn"], outputs: ["cdwb"], body: (cdwbIn) => {
+const cdwb = [...cdwbIn];
+
+cdwb.forEach(d => {
+  const detectionDate = new Date(d.detectionDate); 
+  const dateEmigrated = new Date(d.dateEmigrated); 
+  d.detectionDate = detectionDate;
+  d.dateEmigrated = dateEmigrated;
+  d.title = d.tag
+});
+return {cdwb};
+}});
+
+define({id: "728a7f99", outputs: ["barChartOverview"], body: async () => {
+const {barChartOverview} = await import("./_import/components/overviewGraphs.7967cf5d.js");
+//import {interval} from 'https://observablehq.com/@mootari/range-slider';
+return {barChartOverview};
+}});
+
+define({id: "cd006db6", inputs: ["Inputs","Generators"], outputs: ["radioFacetByRiver","radioFacetedByRiver"], body: (Inputs,Generators) => {
+const radioFacetByRiver = (Inputs.radio([true, false], {value: false, label: "Facet by river?"}));
+const radioFacetedByRiver = Generators.input(radioFacetByRiver);
+return {radioFacetByRiver,radioFacetedByRiver};
+}});
+
+define({id: "8f564b5b", mode: "inline", inputs: ["radioFacetByRiver","display"], body: async (radioFacetByRiver,display) => {
+display(await(
+radioFacetByRiver
+))
+}});
+
+define({id: "de9714a4", mode: "inline", inputs: ["resize","barChartOverview","cdwb","radioFacetedByRiver","display"], body: async (resize,barChartOverview,cdwb,radioFacetedByRiver,display) => {
+display(await(
+resize((width) => barChartOverview(cdwb, radioFacetedByRiver, {width}))
+))
+}});
+
+define({id: "7ea546c8", mode: "inline", inputs: ["cdwb","display"], body: async (cdwb,display) => {
+display(await(
+cdwb.filter((d) => d.species === "bkt").length.toLocaleString("en-US")
+))
+}});
+
+define({id: "8c27bc7d", mode: "inline", inputs: ["cdwb","display"], body: async (cdwb,display) => {
+display(await(
+cdwb.filter((d) => d.species === "bnt").length.toLocaleString("en-US")
+))
+}});
+
+define({id: "ddfc44b6", mode: "inline", inputs: ["cdwb","display"], body: async (cdwb,display) => {
+display(await(
+cdwb.filter((d) => d.species === "ats").length.toLocaleString("en-US")
+))
+}});
+
+define({id: "e6b6ef62", mode: "inline", inputs: ["cdwb","display"], body: async (cdwb,display) => {
+display(await(
+cdwb.filter((d) => d.survey === "shock").length.toLocaleString("en-US")
+))
+}});
+
+define({id: "f1742969", mode: "inline", inputs: ["cdwb","display"], body: async (cdwb,display) => {
+display(await(
+cdwb.filter((d) => d.survey === "stationaryAntenna").length.toLocaleString("en-US")
+))
+}});
+
+define({id: "97b829e0", mode: "inline", inputs: ["cdwb","display"], body: async (cdwb,display) => {
+display(await(
+cdwb.filter((d) => d.survey === "portableAntenna").length.toLocaleString("en-US")
+))
+}});
+
+define({id: "97fee6d5", outputs: ["speciesMap","riversMap","surveysMap"], body: () => {
+const speciesMap = new Map([
+  ["Brook trout", "bkt"],
+  ["Brown trout", "bnt"],
+  ["Atlantic salmon", "ats"]
+]);
+
+const riversMap = new Map([
+  ["West brook", "West Brook"],
+  ["Open large", "WB Jimmy"],
+  ["Open small", "WB Mitchell"],
+  ["Isolated small", "WB OBear"]
+]);
+
+const surveysMap = new Map([
+  ["Electrofishing", "shock"],
+  ["Pit tag antenna", "stationaryAntenna"],
+  ["Pit tag wand", "portableAntenna"]
+]);
+return {speciesMap,riversMap,surveysMap};
+}});
+
+</script>
+<input id="observablehq-sidebar-toggle" type="checkbox" title="Toggle sidebar">
+<label id="observablehq-sidebar-backdrop" for="observablehq-sidebar-toggle"></label>
+<nav id="observablehq-sidebar">
+  <ol>
+    <label id="observablehq-sidebar-close" for="observablehq-sidebar-toggle"></label>
+    <li class="observablehq-link"><a href="./">PIT Tag Data Explorer</a></li>
+  </ol>
+  <div id="observablehq-search"><input type="search" placeholder="Search"></div>
+  <div id="observablehq-search-results"></div>
+  <script>{const o=document.querySelector("#observablehq-search");o.setAttribute("data-shortcut",`${/Mac|iPhone/.test(navigator.platform)?"\u2318":"Alt-"}K`);const t=o.querySelector("input"),r=()=>import("./_observablehq/search.9790c9f7.js");t.addEventListener("focus",r,{once:!0}),t.addEventListener("keydown",r,{once:!0});const c=document.querySelector("#observablehq-sidebar-toggle");addEventListener("keydown",e=>{(e.code==="KeyK"&&e.metaKey&&!e.altKey&&!e.ctrlKey||e.key==="/"&&!e.metaKey&&!e.altKey&&!e.ctrlKey&&e.target===document.body)&&(c.checked?t.focus():(c.click(),t.focus(),c.click()),t.select(),e.preventDefault())});}</script>
+  <section class="observablehq-section-active">
+    <summary>Chapters</summary>
+    <ol>
+    <li class="observablehq-link observablehq-link-active"><a href="./overview.html">Overview</a></li>
+    <li class="observablehq-link"><a href="./overTime.html">Variables over time</a></li>
+    <li class="observablehq-link"><a href="./rawDataByInd.html">By individual</a></li>
+    <li class="observablehq-link"><a href="./antennaData.html">Antenna data</a></li>
+    </ol>
+  </section>
+</nav>
+<script>{Object.assign(document.createElement("a"),{href:""}).password&&location.replace(location.href);const e=document.querySelector("#observablehq-sidebar"),t=document.querySelector("#observablehq-sidebar-toggle"),r=sessionStorage.getItem("observablehq-sidebar");r?t.checked=r==="true":t.indeterminate=!0;for(const o of document.querySelectorAll("#observablehq-sidebar summary")){const s=o.parentElement;switch(sessionStorage.getItem(`observablehq-sidebar:${o.textContent}`)){case"true":s.open=!0;break;case"false":s.classList.contains("observablehq-section-active")||(s.open=!1);break}}addEventListener("beforeunload",()=>sessionStorage.setItem("observablehq-sidebar-scrolly",`${e.scrollTop}`));const a=sessionStorage.getItem("observablehq-sidebar-scrolly");a!=null&&(e.style.cssText="overflow: hidden;",e.scrollTop=+a,e.style.cssText="");}</script>
+<div id="observablehq-center">
+<main id="observablehq-main" class="observablehq">
+<div class="observablehq observablehq--block"><!--:228db81c:--></div>
+<div class="observablehq observablehq--block"><!--:bca293d3:--></div>
+<div class="observablehq observablehq--block"><!--:728a7f99:--></div>
+<div class="observablehq observablehq--block"><!--:cd006db6:--></div>
+<!-- Cards with big numbers -->
+<div class="wrapper1">
+  <div class="card countsGraph">
+    <div style="margin-bottom: 20px;"><observablehq-loading></observablehq-loading><!--:8f564b5b:--></div>
+    <observablehq-loading></observablehq-loading><!--:de9714a4:-->
+  </div>
+  <div class="summaryVertical">
+    <b style="font-size: 28px;">Counts</b>
+    <div class="card">
+      <h2>Brook trout</h2>
+      <span class="big"><observablehq-loading></observablehq-loading><!--:7ea546c8:--></span>
+    </div>
+    <div class="card">
+      <h2>Brown trout</h2>
+      <span class="big"><observablehq-loading></observablehq-loading><!--:8c27bc7d:--></span>
+    </div>
+    <div class="card">
+      <h2>Atlantic salmon</h2>
+      <span class="big"><observablehq-loading></observablehq-loading><!--:ddfc44b6:--></span>
+    </div>
+    <hr>
+    <div class="card">
+      <h2>Shocking</h2>
+      <span class="big"><observablehq-loading></observablehq-loading><!--:e6b6ef62:--></span>
+    </div>
+      <div class="card">
+      <h2>Stationary antenna</h2>
+      <span class="big"><observablehq-loading></observablehq-loading><!--:f1742969:--></span>
+    </div>
+      <div class="card">
+      <h2>Portable antenna</h2>
+      <span class="big"><observablehq-loading></observablehq-loading><!--:97b829e0:--></span>
+    </div>
+  </div>
+</div>
+<div class="small note">
+  Survey type "portableAntenna" is missing `riverMeter`, so those data don't get y-axis value on the plot currently. Need to add `riverMeter` at the WBBook stage.
+</div>
+<div class="observablehq observablehq--block"><!--:97fee6d5:--></div>
+</main>
+<footer id="observablehq-footer">
+<nav><a rel="prev" href="./"><span>PIT Tag Data Explorer</span></a><a rel="next" href="./overTime.html"><span>Variables over time</span></a></nav>
+<div>Built with <a href="https://observablehq.com/" target="_blank" rel="noopener noreferrer">Observable</a> on <a title="2025-04-15T13:56:28">Apr 15, 2025</a>.</div>
+</footer>
+</div>
