@@ -21,8 +21,8 @@ const apps = {
 async function getDistFromRemote(app, tempDir) {
   console.log('\nGetting dist from remote...');
   
-  // Clone only the dist directory
-  execSync(`git clone --depth 1 --filter=blob:none --sparse ${app.remoteSource} ${tempDir}`, { stdio: 'inherit' });
+  // Clone only the dist directory with Git LFS skip
+  execSync(`GIT_LFS_SKIP_SMUDGE=1 git clone --depth 1 --filter=blob:none --sparse ${app.remoteSource} ${tempDir}`, { stdio: 'inherit' });
   execSync('git sparse-checkout init --cone', { cwd: tempDir, stdio: 'inherit' });
   execSync('git sparse-checkout set dist', { cwd: tempDir, stdio: 'inherit' });
   
