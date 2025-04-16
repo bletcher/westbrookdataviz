@@ -5,14 +5,9 @@
  * for Amplify deployment. It checks for the existence of files before copying and
  * provides detailed error messages if files are missing.
  * 
- * Directory structure:
- * Documents/myApps/
- *   ├── westbrookdataviz/          (current directory)
- *   │   └── dist/                  (main site files)
- *   ├── pit-data/
- *   │   └── dist/                  (pit-data app files)
- *   └── set-list-drums/
- *       └── dist/                  (set-list-drums app files)
+ * Expected directory structure:
+ * - Local: Files are in Documents/myApps/westbrookdataviz/dist and subdirectories
+ * - Amplify: Files are in /codebuild/output/src/src/westbrookdataviz/dist and subdirectories
  */
 
 import { mkdir, cp, access } from 'fs/promises';
@@ -26,8 +21,8 @@ async function copyFiles() {
     // Check if files exist
     console.log('Checking for files...');
     const mainDist = join(process.cwd(), 'dist');
-    const pitDataDist = join(process.cwd(), '../pit-data/dist');
-    const setListDrumsDist = join(process.cwd(), '../set-list-drums/dist');
+    const pitDataDist = join(process.cwd(), 'pit-data/dist');
+    const setListDrumsDist = join(process.cwd(), 'set-list-drums/dist');
     
     try {
       await access(mainDist);
