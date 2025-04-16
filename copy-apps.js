@@ -5,13 +5,10 @@
  * for Amplify deployment. It checks for the existence of files before copying and
  * provides detailed error messages if files are missing.
  * 
- * Directory structure expected:
+ * Expected directory structure:
  * - dist/                    (main site dist)
- * - apps/
- *   ├── pit-data/
- *   │   └── dist/           (pit-data app dist)
- *   └── set-list-drums/
- *       └── dist/           (set-list-drums app dist)
+ * - pit-data/               (pit-data app files)
+ * - set-list-drums/         (set-list-drums app files)
  */
 
 import { mkdir, cp, access } from 'fs/promises';
@@ -25,8 +22,8 @@ async function copyFiles() {
     // Check if files exist
     console.log('Checking for files...');
     const mainDist = join(process.cwd(), 'dist');
-    const pitDataDist = join(process.cwd(), 'apps/pit-data/dist');
-    const setListDrumsDist = join(process.cwd(), 'apps/set-list-drums/dist');
+    const pitData = join(process.cwd(), 'pit-data');
+    const setListDrums = join(process.cwd(), 'set-list-drums');
     
     try {
       await access(mainDist);
@@ -37,18 +34,18 @@ async function copyFiles() {
     }
     
     try {
-      await access(pitDataDist);
-      console.log('PIT data dist found');
+      await access(pitData);
+      console.log('PIT data files found');
     } catch (e) {
-      console.error('PIT data dist not found:', pitDataDist);
+      console.error('PIT data files not found:', pitData);
       throw e;
     }
     
     try {
-      await access(setListDrumsDist);
-      console.log('Set list drums dist found');
+      await access(setListDrums);
+      console.log('Set list drums files found');
     } catch (e) {
-      console.error('Set list drums dist not found:', setListDrumsDist);
+      console.error('Set list drums files not found:', setListDrums);
       throw e;
     }
     
@@ -59,12 +56,12 @@ async function copyFiles() {
     // Copy pit-data app
     console.log('Copying pit-data app...');
     await mkdir('dist/pit-data', { recursive: true });
-    await cp(pitDataDist, 'dist/pit-data', { recursive: true });
+    await cp(pitData, 'dist/pit-data', { recursive: true });
     
     // Copy set-list-drums app
     console.log('Copying set-list-drums app...');
     await mkdir('dist/set-list-drums', { recursive: true });
-    await cp(setListDrumsDist, 'dist/set-list-drums', { recursive: true });
+    await cp(setListDrums, 'dist/set-list-drums', { recursive: true });
     
     console.log('All files copied successfully!');
   } catch (error) {
