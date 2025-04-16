@@ -111,7 +111,7 @@ filterButtons.querySelectorAll('.filter-button').forEach(button => {
 ${createHeader()}
 <main style="width: 100%">
   <div class="cases-container">
-    <p>Some text() describing the project</p>
+    <p>Some text(s) describing the project</p>
     <hr>
     <div class="filter-section">
       ${filterButtons}
