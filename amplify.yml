@@ -4,8 +4,9 @@ frontend:
     preBuild:
       commands:
         - npm install
-        - curl -s https://packagecloud.io/install/repositories/github/git-lfs/script.deb.sh | sudo bash
-        - sudo apt-get install git-lfs
+        - wget https://github.com/git-lfs/git-lfs/releases/download/v3.5.1/git-lfs-linux-amd64-v3.5.1.tar.gz
+        - tar -xzf git-lfs-linux-amd64-v3.5.1.tar.gz
+        - sudo ./git-lfs-3.5.1/install.sh
         - git lfs install
     build:
       commands:
