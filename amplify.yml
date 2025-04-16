@@ -16,6 +16,12 @@ frontend:
     paths:
       - node_modules/**/*
   rewrites:
+    - source: /apps/set-list-drums/
+      target: /apps/set-list-drums/index.html
+      status: 200
+    - source: /apps/pit-data/
+      target: /apps/pit-data/index.html
+      status: 200
     - source: /apps/set-list-drums/<*>
       target: /apps/set-list-drums/index.html
       status: 200

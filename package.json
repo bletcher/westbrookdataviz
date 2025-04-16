@@ -3,7 +3,7 @@
   "private": true,
   "scripts": {
     "clean": "node -e \"import { rmSync } from 'fs'; try { rmSync('docs/.observablehq/cache', { recursive: true, force: true }); } catch(e) {} try { rmSync('temp-set-list-drums', { recursive: true, force: true }); } catch(e) {} try { rmSync('temp-pit-data', { recursive: true, force: true }); } catch(e) {}\"",
-    "build": "rimraf dist && observable build",
+    "build": "rimraf dist && mkdir -p dist/apps",
     "build:set-list-drums": "echo 'Building set-list-drums...' && node manage-apps.js set-list-drums",
     "build:pit-data": "echo 'Building pit-data...' && node manage-apps.js pit-data",
     "build:apps": "echo 'Building all apps...' && npm run build:set-list-drums && npm run build:pit-data",
