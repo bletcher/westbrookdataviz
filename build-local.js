@@ -8,36 +8,23 @@ const apps = {
     name: 'set-list-drums',
     localSource: '../set-list-drums/dist',
     remoteSource: 'https://github.com/bletcher/set-list-drums.git',
-    target: 'apps/set-list-drums/dist',
-    exclude: ['**/*.RData', '**/data/*.json']
+    target: 'apps/set-list-drums/dist'
   },
   'pit-data': {
     name: 'pit-data',
     localSource: '../pit_antenna_data_explorer/dist',
     remoteSource: 'https://github.com/bletcher/pit_antenna_data_explorer.git',
-    target: 'apps/pit-data/dist',
-    exclude: ['**/*.RData', '**/data/*.json']
+    target: 'apps/pit-data/dist'
   }
 };
 
-async function buildApp(app, tempDir) {
-  console.log('\nBuilding app from source...');
+async function getDistFromRemote(app, tempDir) {
+  console.log('\nGetting dist from remote...');
   
-  // Clone the repository shallowly
-  console.log('\nCloning repository...');
+  // Clone only the dist directory
   execSync(`git clone --depth 1 --filter=blob:none --sparse ${app.remoteSource} ${tempDir}`, { stdio: 'inherit' });
-  
-  // Configure sparse checkout
   execSync('git sparse-checkout init --cone', { cwd: tempDir, stdio: 'inherit' });
-  execSync('git sparse-checkout set src package.json', { cwd: tempDir, stdio: 'inherit' });
-  
-  // Install dependencies
-  console.log('\nInstalling dependencies...');
-  execSync('npm install', { cwd: tempDir, stdio: 'inherit' });
-  
-  // Build the app
-  console.log('\nBuilding app...');
-  execSync('npm run build', { cwd: tempDir, stdio: 'inherit' });
+  execSync('git sparse-checkout set dist', { cwd: tempDir, stdio: 'inherit' });
   
   return join(tempDir, 'dist');
 }
@@ -59,12 +46,12 @@ async function copyAppFiles(appName) {
       await access(sourcePath);
       console.log(`✓ Using local source: ${sourcePath}`);
     } catch (error) {
-      console.log('Local source not found, building from remote...');
+      console.log('Local source not found, getting from remote...');
       const tempDir = join(process.cwd(), `temp-${app.name}`);
       try {
         await rm(tempDir, { recursive: true, force: true });
       } catch (e) {}
-      sourcePath = await buildApp(app, tempDir);
+      sourcePath = await getDistFromRemote(app, tempDir);
     }
     
     // Create target directory
@@ -75,15 +62,7 @@ async function copyAppFiles(appName) {
     console.log('\nCopying files...');
     await cp(sourcePath, targetPath, { 
       recursive: true,
-      filter: (src) => {
-        // Skip .git directories
-        if (src.includes('.git')) return false;
-        // Skip excluded files
-        for (const pattern of app.exclude) {
-          if (src.match(pattern)) return false;
-        }
-        return true;
-      }
+      filter: (src) => !src.includes('.git')
     });
     console.log(`✓ Files copied to ${targetPath}`);
     
