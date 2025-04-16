@@ -6,7 +6,6 @@ frontend:
         - npm install
     build:
       commands:
-        - npm run build:local
         - npm run build
   artifacts:
     baseDirectory: dist
@@ -19,17 +18,17 @@ frontend:
     - source: /
       target: /index.html
       status: 200
-    - source: /apps/set-list-drums/
-      target: /apps/set-list-drums/index.html
+    - source: /set-list-drums/
+      target: /set-list-drums/index.html
       status: 200
-    - source: /apps/pit-data/
-      target: /apps/pit-data/index.html
+    - source: /pit-data/
+      target: /pit-data/index.html
       status: 200
-    - source: /apps/set-list-drums/<*>
-      target: /apps/set-list-drums/index.html
+    - source: /set-list-drums/<*>
+      target: /set-list-drums/index.html
       status: 200
-    - source: /apps/pit-data/<*>
-      target: /apps/pit-data/index.html
+    - source: /pit-data/<*>
+      target: /pit-data/index.html
       status: 200
     - source: /<*>
       target: /index.html
