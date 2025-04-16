@@ -39,10 +39,10 @@ async function copyFiles() {
     // Get the base path based on environment
     let mainBasePath, pitDataBasePath, setListDrumsBasePath;
     if (process.env.CODEBUILD_SRC_DIR) {
-      // In Amplify, use the CODEBUILD_SRC_DIR environment variable
+      // In Amplify, look for directories in the parent directory
       const srcDir = process.env.CODEBUILD_SRC_DIR;
       mainBasePath = join(srcDir, 'westbrookdataviz');
-      pitDataBasePath = join(srcDir, 'pit-data');
+      pitDataBasePath = join(srcDir, 'pit_antenna_data_explorer');
       setListDrumsBasePath = join(srcDir, 'set-list-drums');
       console.log('Using Amplify build directories:');
       console.log('- Main site:', mainBasePath);
@@ -52,7 +52,7 @@ async function copyFiles() {
       // In local development, use the current directory
       const cwd = process.cwd();
       mainBasePath = cwd;
-      pitDataBasePath = join(cwd, '..', 'pit-data');
+      pitDataBasePath = join(cwd, '..', 'pit_antenna_data_explorer');
       setListDrumsBasePath = join(cwd, '..', 'set-list-drums');
       console.log('Using local directories:');
       console.log('- Main site:', mainBasePath);
