@@ -20,9 +20,19 @@ async function copyFiles() {
     
     // Check if files exist
     console.log('Checking for files...');
-    const mainDist = join(process.cwd(), 'dist');
-    const pitDataDist = join(process.cwd(), 'pit-data/dist');
-    const setListDrumsDist = join(process.cwd(), 'set-list-drums/dist');
+    
+    // In Amplify, the source files are in a different location
+    const isAmplify = process.env.AWS_AMPLIFY === 'true';
+    const basePath = isAmplify 
+      ? join(process.cwd(), '..')  // Go up one level in Amplify
+      : process.cwd();
+    
+    const mainDist = join(basePath, 'dist');
+    const pitDataDist = join(basePath, 'pit-data/dist');
+    const setListDrumsDist = join(basePath, 'set-list-drums/dist');
+    
+    console.log('Base path:', basePath);
+    console.log('Looking for PIT data dist at:', pitDataDist);
     
     try {
       await access(mainDist);
