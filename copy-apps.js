@@ -13,6 +13,21 @@
 import { mkdir, cp, access } from 'fs/promises';
 import { join } from 'path';
 
+async function checkDirectory(path, name) {
+  try {
+    await access(path);
+    console.log(`${name} directory found:`, path);
+    return true;
+  } catch (e) {
+    console.error(`${name} directory not found:`, path);
+    console.error('This might mean:');
+    console.error('1. The repository was not cloned');
+    console.error('2. The repository name is incorrect');
+    console.error('3. The build process did not complete successfully');
+    return false;
+  }
+}
+
 async function copyFiles() {
   try {
     // Create dist directory
@@ -45,6 +60,14 @@ async function copyFiles() {
       console.log('- Set list drums:', setListDrumsBasePath);
     }
     
+    // First check if the repositories exist
+    const pitDataExists = await checkDirectory(pitDataBasePath, 'PIT data repository');
+    const setListDrumsExists = await checkDirectory(setListDrumsBasePath, 'Set list drums repository');
+    
+    if (!pitDataExists || !setListDrumsExists) {
+      throw new Error('Required repositories not found. Please ensure all repositories are properly cloned.');
+    }
+    
     const mainDist = join(mainBasePath, 'dist');
     const pitDataDist = join(pitDataBasePath, 'dist');
     const setListDrumsDist = join(setListDrumsBasePath, 'dist');
@@ -64,6 +87,9 @@ async function copyFiles() {
       console.log('PIT data dist found');
     } catch (e) {
       console.error('PIT data dist not found:', pitDataDist);
+      console.error('This might mean:');
+      console.error('1. The build process for pit-data did not complete');
+      console.error('2. The dist directory was not created');
       throw e;
     }
     
@@ -72,6 +98,9 @@ async function copyFiles() {
       console.log('Set list drums dist found');
     } catch (e) {
       console.error('Set list drums dist not found:', setListDrumsDist);
+      console.error('This might mean:');
+      console.error('1. The build process for set-list-drums did not complete');
+      console.error('2. The dist directory was not created');
       throw e;
     }
     
