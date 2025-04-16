@@ -25,7 +25,8 @@ async function copyFiles() {
     let basePath;
     if (process.env.CODEBUILD_SRC_DIR) {
       // In Amplify, use the CODEBUILD_SRC_DIR environment variable
-      basePath = process.env.CODEBUILD_SRC_DIR;
+      // and append the repository name since files are in a subdirectory
+      basePath = join(process.env.CODEBUILD_SRC_DIR, 'westbrookdataviz');
       console.log('Using Amplify build directory:', basePath);
     } else {
       // In local development, use the current directory
