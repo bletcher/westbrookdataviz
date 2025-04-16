@@ -3,10 +3,14 @@ frontend:
   phases:
     preBuild:
       commands:
+        # Install dependencies
         - npm install
     build:
       commands:
+        # Build the main site
         - npm run build
+        # Copy all built files
+        - node copy-apps.js
   artifacts:
     baseDirectory: dist
     files:

@@ -21,8 +21,8 @@ async function checkDirectory(path, name) {
   } catch (e) {
     console.error(`${name} directory not found:`, path);
     console.error('This might mean:');
-    console.error('1. The repository was not cloned');
-    console.error('2. The repository name is incorrect');
+    console.error('1. The directory does not exist');
+    console.error('2. The path is incorrect');
     console.error('3. The build process did not complete successfully');
     return false;
   }
@@ -39,7 +39,7 @@ async function copyFiles() {
     // Get the base path based on environment
     let mainBasePath, pitDataBasePath, setListDrumsBasePath;
     if (process.env.CODEBUILD_SRC_DIR) {
-      // In Amplify, files are in sibling directories
+      // In Amplify, use the CODEBUILD_SRC_DIR environment variable
       const srcDir = process.env.CODEBUILD_SRC_DIR;
       mainBasePath = join(srcDir, 'westbrookdataviz');
       pitDataBasePath = join(srcDir, 'pit-data');
@@ -49,23 +49,23 @@ async function copyFiles() {
       console.log('- PIT data:', pitDataBasePath);
       console.log('- Set list drums:', setListDrumsBasePath);
     } else {
-      // In local development, all files are in subdirectories
+      // In local development, use the current directory
       const cwd = process.cwd();
       mainBasePath = cwd;
-      pitDataBasePath = join(cwd, 'pit-data');
-      setListDrumsBasePath = join(cwd, 'set-list-drums');
+      pitDataBasePath = join(cwd, '..', 'pit-data');
+      setListDrumsBasePath = join(cwd, '..', 'set-list-drums');
       console.log('Using local directories:');
       console.log('- Main site:', mainBasePath);
       console.log('- PIT data:', pitDataBasePath);
       console.log('- Set list drums:', setListDrumsBasePath);
     }
     
-    // First check if the repositories exist
-    const pitDataExists = await checkDirectory(pitDataBasePath, 'PIT data repository');
-    const setListDrumsExists = await checkDirectory(setListDrumsBasePath, 'Set list drums repository');
+    // First check if the directories exist
+    const pitDataExists = await checkDirectory(pitDataBasePath, 'PIT data directory');
+    const setListDrumsExists = await checkDirectory(setListDrumsBasePath, 'Set list drums directory');
     
     if (!pitDataExists || !setListDrumsExists) {
-      throw new Error('Required repositories not found. Please ensure all repositories are properly cloned.');
+      throw new Error('Required directories not found. Please ensure all directories exist and contain built files.');
     }
     
     const mainDist = join(mainBasePath, 'dist');
