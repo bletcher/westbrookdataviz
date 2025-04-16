@@ -23,11 +23,12 @@ async function copyFiles() {
     
     // Get the base path based on environment
     let basePath;
-    if (process.env.AWS_AMPLIFY === 'true') {
+    if (process.env.CODEBUILD_SRC_DIR) {
       // In Amplify, use the CODEBUILD_SRC_DIR environment variable
-      basePath = process.env.CODEBUILD_SRC_DIR || join(process.cwd(), '..', '..');
+      basePath = process.env.CODEBUILD_SRC_DIR;
       console.log('Using Amplify build directory:', basePath);
     } else {
+      // In local development, use the current directory
       basePath = process.cwd();
       console.log('Using local directory:', basePath);
     }
