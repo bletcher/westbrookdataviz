@@ -16,6 +16,9 @@ frontend:
     paths:
       - node_modules/**/*
   rewrites:
+    - source: /
+      target: /index.html
+      status: 200
     - source: /apps/set-list-drums/
       target: /apps/set-list-drums/index.html
       status: 200
