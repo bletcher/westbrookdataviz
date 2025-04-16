@@ -9,7 +9,7 @@
  * Documents/myApps/
  *   ├── westbrookdataviz/          (current directory)
  *   │   └── dist/                  (main site files)
- *   ├── pit_antenna_data_explorer/
+ *   ├── pit-data/
  *   │   └── dist/                  (pit-data app files)
  *   └── set-list-drums/
  *       └── dist/                  (set-list-drums app files)
@@ -26,7 +26,7 @@ async function copyFiles() {
     // Check if files exist
     console.log('Checking for files...');
     const mainDist = join(process.cwd(), 'dist');
-    const pitDataDist = join(process.cwd(), '../pit_antenna_data_explorer/dist');
+    const pitDataDist = join(process.cwd(), '../pit-data/dist');
     const setListDrumsDist = join(process.cwd(), '../set-list-drums/dist');
     
     try {
