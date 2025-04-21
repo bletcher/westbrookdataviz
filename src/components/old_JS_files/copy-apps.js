@@ -2,8 +2,7 @@
  * copy-apps.js
  * 
  * This script copies built files from local dist directories to the final dist directory
- * for Amplify deployment. It checks for the existence of files before copying and
- * provides detailed error messages if files are missing.
+ * for local development and S3 deployment.
  */
 
 import { mkdir, cp, access } from 'fs/promises';
@@ -32,29 +31,16 @@ async function copyFiles() {
     // Check if files exist
     console.log('Checking for files...');
     
-    // Get the base path based on environment
-    let mainBasePath, pitDataBasePath, setListDrumsBasePath;
-    if (process.env.CODEBUILD_SRC_DIR) {
-      // In Amplify, files are in sibling directories
-      const srcDir = process.env.CODEBUILD_SRC_DIR;
-      mainBasePath = join(srcDir, 'westbrookdataviz');
-      pitDataBasePath = join(srcDir, 'pit_antenna_data_explorer');
-      setListDrumsBasePath = join(srcDir, 'set-list-drums');
-      console.log('Using Amplify build directories:');
-      console.log('- Main site:', mainBasePath);
-      console.log('- PIT data:', pitDataBasePath);
-      console.log('- Set list drums:', setListDrumsBasePath);
-    } else {
-      // In local development, use the current directory
-      const cwd = process.cwd();
-      mainBasePath = cwd;
-      pitDataBasePath = join(cwd, '..', 'pit_antenna_data_explorer');
-      setListDrumsBasePath = join(cwd, '..', 'set-list-drums');
-      console.log('Using local directories:');
-      console.log('- Main site:', mainBasePath);
-      console.log('- PIT data:', pitDataBasePath);
-      console.log('- Set list drums:', setListDrumsBasePath);
-    }
+    // In local development, use the current directory
+    const cwd = process.cwd();
+    const mainBasePath = cwd;
+    const pitDataBasePath = join(cwd, '..', 'pit_antenna_data_explorer');
+    const setListDrumsBasePath = join(cwd, '..', 'set-list-drums');
+    
+    console.log('Using local directories:');
+    console.log('- Main site:', mainBasePath);
+    console.log('- PIT data:', pitDataBasePath);
+    console.log('- Set list drums:', setListDrumsBasePath);
     
     // First check if the directories exist
     const pitDataExists = await checkDirectory(pitDataBasePath, 'PIT data directory');

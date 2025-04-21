@@ -1,16 +1,27 @@
 import { html } from "htl";
+import { FileAttachment } from "npm:@observablehq/stdlib";
 
-/*export const images = {
-  pit:  "/data/PIT_card_image.png",
-  temp: "/data/temperature_viewer_image.png",
-  pit2: "/data/PIT_card_image.png",
-  temp2: "/data/temperature_viewer_image.png"
-};*/
+const PIT_IMAGE = FileAttachment("/data/PIT_card_image.png");
+const TEMP_IMAGE = FileAttachment("/data/temperature_viewer_image.png");
+const PIT_IMAGE2 = FileAttachment("/data/PIT_card_image2.png");
+const STREAMFLOW_IMAGE = FileAttachment("/data/streamFlow_image.png");
+const DAYLENGTH_IMAGE = FileAttachment("/data/dayLength_image.png");
+const POLYRHYTHM_IMAGE = FileAttachment("/data/polyrhythm_image.png");
+const TROUTGROWTH_IMAGE = FileAttachment("/data/troutGrowth_image.png");
+const DRUMS_IMAGE = FileAttachment("/data/drums_image.png");
 
+export const images = {
+  pit: PIT_IMAGE,
+  temp: TEMP_IMAGE,
+  pit2: PIT_IMAGE2,
+  streamFlow: STREAMFLOW_IMAGE,
+  dayLength: DAYLENGTH_IMAGE,
+  polyrhythm: POLYRHYTHM_IMAGE,
+  troutGrowth: TROUTGROWTH_IMAGE,
+  drums: DRUMS_IMAGE
+};
 
-
-/*
-export const imagesArray = [
+/*export const imagesArray = [
   FileAttachment("/data/PIT_card_image.png"),
   FileAttachment("/data/temperature_viewer_image.png")
 ];*/
@@ -23,7 +34,14 @@ export async function createCases(images) {
       image: images.pit,
       description: "An interactive application to explore tag data from a long-term study in western MA.",
       //url: "https://pit-antenna-data-viewer.s3.us-east-2.amazonaws.com/index.html"
-      url: "https://westbrookdataviz.org/apps/pit-data"
+      url: "https://westbrookdataviz.org/pit-data"
+    },
+    {
+      title: "Trout Growth Explorer",
+      category: "dataExplorer",
+      image: images.troutGrowth,
+      description: "An interactive observable notebook to explore how trout growth varies with temperature and stream flow.",
+      url: "https://observablehq.com/@bletcher/predictedtroutgrowth-predictions"
     },
     {
       title: "Measuring stream flow",
@@ -40,13 +58,6 @@ export async function createCases(images) {
       url: "https://observablehq.com/@bletcher/daylength"
     },
     {
-      title: "Trout Growth Explorer",
-      category: "dataExplorer",
-      image: images.troutGrowth,
-      description: "An interactive observable notebook to explore how trout growth varies with temperature and stream flow.",
-      url: "https://observablehq.com/@bletcher/predictedtroutgrowth-predictions"
-    },
-    {
       title: "Polyrhythms",
       category: "music",
       image: images.polyrhythm,
@@ -58,7 +69,7 @@ export async function createCases(images) {
       category: "music",
       image: images.drums,
       description: "A tool to create song libraries and set lists, especially for drum set players.",
-      url: "https://westbrookdataviz.org/apps/set-list-drums"
+      url: "https://westbrookdataviz.org/set-list-drums"
     }
   ]
 };
@@ -86,4 +97,64 @@ export async function createCaseCards(cases) {
       </div>
     </article>`
   );
+}
+
+export function createFilterButtons() {
+  return html`<div class="filter-buttons">
+    <button class="filter-button active" data-filter="all">All</button>
+    <button class="filter-button" data-filter="dataExplorer">Data Explorer</button>
+    <button class="filter-button" data-filter="dataStory">Data story</button>
+    <button class="filter-button" data-filter="music">Music</button>
+  </div>`;
+}
+
+export function createFilteredCases(cases) {
+  return {
+    filter: "all",
+    update(newFilter) {
+      this.filter = newFilter;
+      return cases.filter(item => this.filter === "all" || item.category === this.filter);
+    }
+  };
+}
+
+export function setupFilterButtons(filterButtons, filteredCases, createCaseCards) {
+  filterButtons.querySelectorAll('.filter-button').forEach(button => {
+    button.addEventListener('click', async (e) => {
+      // Update active state
+      filterButtons.querySelectorAll('.filter-button').forEach(btn => 
+        btn.classList.remove('active'));
+      button.classList.add('active');
+      
+      const filter = button.dataset.filter;
+      const grid = document.querySelector('.cases-grid');
+      
+      // Fade out current cards
+      const currentCards = grid.querySelectorAll('.case-card');
+      currentCards.forEach(card => {
+        card.style.opacity = '0';
+        card.style.transition = 'opacity 0.3s ease';
+      });
+
+      // Update filtered cases and create new cards
+      setTimeout(async () => {
+        const filteredItems = filteredCases.update(filter);
+        
+        // Create new cards for filtered cases
+        const newCards = await createCaseCards(filteredItems);
+        
+        // Clear and update grid
+        grid.innerHTML = '';
+        newCards.forEach(card => {
+          card.style.opacity = '0';
+          card.style.transition = 'opacity 0.3s ease';
+          grid.appendChild(card);
+          
+          // Force reflow and fade in
+          void card.offsetHeight;
+          card.style.opacity = '1';
+        });
+      }, 300);
+    });
+  });
 }
