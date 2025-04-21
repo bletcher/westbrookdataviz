@@ -27,8 +27,7 @@ setupFilterButtons(filterButtons, filteredCases, createCaseCards);
 ${createHeader()}
 <main style="width: 100%">
   <div class="cases-container">
-    <p>Test upload</p>
-    <p>Some text(s) describing the project</p>
+    <p>This site is under construction</p>
     <hr>
     <div class="filter-section">
       ${filterButtons}

@@ -8,8 +8,7 @@ export function createHeader() {
         <a href="/" class="logo" style="text-decoration: none;">WestBrook DataViz</a>
         <div class="nav-links">
           <a href="/">Home</a>
-          <a href="/">Cases</a>
-          <a href="/about">About us</a>
+          <a href="/about">About</a>
           <a href="/contact">Contact</a>
         </div>
       </div>

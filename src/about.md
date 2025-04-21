@@ -13,8 +13,9 @@ ${createHeader()}
     <h1>About Us</h1>
     <section class="about-section">
       <h2>Our History</h2>
+      <p></p>
       <h2>Our Mission</h2>
-      <p>We create interactive data visualizations and exploratory tools to help people understand complex environmental and ecological systems. Our goal is to make scientific data more accessible and engaging through interactive experiences.</p>
+      <p>We create interactive data visualizations and exploratory tools to help people understand complex environmental and ecological systems. Our goal is to make scientific data and models more accessible and engaging through interactive experiences.</p>
     </section>
     <section class="about-section">
       <h2>What We Do</h2>
@@ -29,7 +30,7 @@ ${createHeader()}
     <section class="about-section">
       <h2>Our Approach</h2>
       <p>We believe in:</p>
-      <ul>
+      <ul style="list-style-type: none; padding-left: 0;">
         <li>Making data accessible and engaging</li>
         <li>Creating intuitive user experiences</li>
         <li>Supporting scientific understanding</li>
