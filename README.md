@@ -14,6 +14,7 @@ westbrookdataviz/
 │   │   └── *.png            # Card images
 │   └── index.md             # Main page
 ├── dist/                    # Built files
+├── invalidate.ps1          # CloudFront cache invalidation script (to see changes immediately)
 └── package.json            # Project configuration
 ```
 
@@ -23,6 +24,7 @@ westbrookdataviz/
 
 - Node.js 18 or later
 - npm
+- AWS CLI configured with appropriate credentials
 
 ### Local Development
 
@@ -88,8 +90,20 @@ export async function createCases(images) {
 The site is deployed using AWS S3 and CloudFront. The deployment process involves:
 
 1. Building the application
-2. Uploading the built files to S3
-3. Serving the content through CloudFront
+2. Uploading the built files to S3 (manually or using AWS Console)
+3. Invalidating the CloudFront cache to make changes visible immediately
+
+### Cache Invalidation
+
+After uploading files to S3, run the cache invalidation script:
+```bash
+npm run invalidate
+```
+
+This will:
+- Create a CloudFront invalidation
+- Monitor the invalidation progress
+- Show when the changes are visible
 
 ### AWS Infrastructure
 
@@ -97,14 +111,6 @@ The site is deployed using AWS S3 and CloudFront. The deployment process involve
 - CloudFront distribution for content delivery
 - Route53 for DNS management
 - ACM for SSL certificate
-
-### Cache Control
-
-The deployment script sets appropriate cache headers:
-- Static assets (JS, CSS, images, fonts): 1 year cache
-- HTML files: 5 minutes cache with stale-while-revalidate
-- JSON data files: 1 hour cache with stale-while-revalidate
-- Other files: 1 hour cache
 
 ## Technologies Used
 

@@ -5,11 +5,11 @@ export function createHeader() {
   const header = html`
     <div class="nav-container">
       <div class="nav-content">
-        <a href="/" class="logo" style="text-decoration: none;">WestBrook DataViz</a>
+        <a href="index.html" class="logo" style="text-decoration: none;">WestBrook DataViz</a>
         <div class="nav-links">
-          <a href="/">Home</a>
-          <a href="/about">About</a>
-          <a href="/contact">Contact</a>
+          <a href="index.html">Home</a>
+          <a href="about.html">About</a>
+          <a href="contact.html">Contact</a>
         </div>
       </div>
     </div>
