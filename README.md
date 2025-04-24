@@ -93,11 +93,14 @@ The site is deployed using AWS S3 and CloudFront. The deployment process involve
 2. Uploading the built files to S3 (manually or using AWS Console)
 3. Invalidating the CloudFront cache to make changes visible immediately
 
+Used [this](https://dev.to/1zyik/host-a-static-website-on-aws-using-s3-route-53-aws-certificate-manager-and-cloudfront-3mi6) tutorial to set up the pipeline.  
+
+
 ### Cache Invalidation
 
 After uploading files to S3, run the cache invalidation script:
 ```bash
-npm run invalidate
+npm run invalidate-cache
 ```
 
 This will:

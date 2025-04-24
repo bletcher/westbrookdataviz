@@ -24,10 +24,14 @@ const displayedCards = filteredCases.update("all");
 setupFilterButtons(filterButtons, filteredCases, createCaseCards);
 ```
 
-${createHeader()}
-<main style="width: 100%">
+<div class="header-container">
+  ${createHeader()}
+</div>
+<main style="width: 100%">  
+  <div class="intro-container">
+    Our mission is to make scientific data and models easier to understand and explore. Here are some apps.
+  </div>
   <div class="cases-container">
-    <p>This site is under construction</p>
     <hr>
     <div class="filter-section">
       ${filterButtons}

@@ -57,17 +57,39 @@ html {
   font-weight: 500;
 }
 
+.intro-container {
+  margin-top: 80px;
+  margin-bottom: 10px;
+  padding: 2rem;
+  padding-bottom: 5px;
+  max-width: 1400px;
+  margin-left: auto;
+  margin-right: auto;
+  width: 100%;
+  box-sizing: border-box;
+  font-size: 1.2rem;
+}
+
 /* Cases Grid */
 .cases-container {
-  margin-top: 80px;
+  margin-top: 10px;
   padding: 2rem;
   max-width: 1400px;
   margin-left: auto;
   margin-right: auto;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.cases-container hr {
+  margin: 0;
+  padding: 0px;
+  border: none;
+  background-color: #e7e1e1;
 }
 
 .filter-section {
-  margin: 2rem 0;
+  margin: 3rem 0 3rem 0.5rem;
 }
 
 .cases-grid {
@@ -210,22 +232,78 @@ html {
   .cases-grid {
     grid-template-columns: repeat(2, 1fr);
   }
+  
+  .cases-container {
+    padding: 1.5rem;
+  }
 }
 
 @media (max-width: 768px) {
   .cases-grid {
     grid-template-columns: 1fr;
+    gap: 20px;
   }
   
   .cases-container {
     padding: 1rem;
+    margin-top: 60px;
+  }
+
+  .case-title {
+    font-size: 1.5rem;
+  }
+
+  .case-content {
+    padding: 1.5rem;
+  }
+
+  .filter-buttons {
+    gap: 1rem;
+    flex-wrap: wrap;
+  }
+
+  .filter-button {
+    font-size: 0.8rem;
+    padding: 0.4rem 0.8rem;
+  }
+
+  .logo {
+    font-size: 1.5rem;
+  }
+
+  .profile-image {
+    float: none;
+    margin: 0 auto 2rem;
+    width: 250px;
+  }
+}
+
+@media (max-width: 480px) {
+  .cases-container {
+    padding: 0.75rem;
+  }
+
+  .case-title {
+    font-size: 1.25rem;
+  }
+
+  .case-content {
+    padding: 1rem;
+  }
+
+  .filter-buttons {
+    gap: 0.75rem;
+  }
+
+  .logo {
+    font-size: 1.25rem;
   }
 }
 
 /* Contact page styles */
 .contact-container {
   max-width: 800px;
-  margin: 2rem auto;
+  margin: 5rem auto;
   padding: 0 1rem;
 }
 
@@ -280,8 +358,10 @@ html {
 /* About page styles */
 .about-container {
   max-width: 800px;
-  margin: 2rem auto;
+  margin: 5rem auto;
   padding: 0 1rem;
+  position: relative;
+  z-index: 1;
 }
 
 .about-content {
@@ -322,4 +402,24 @@ html {
 .about-section p {
   line-height: 1.6;
   margin-bottom: 1rem;
+}
+
+.header-container {
+  position: relative;
+  z-index: 1000;
+}
+
+.profile-image {
+  float: right;
+  margin: 0 0 2rem 2rem;
+  width: 225px;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+}
+
+.profile-image img {
+  width: 100%;
+  height: auto;
+  display: block;
 }

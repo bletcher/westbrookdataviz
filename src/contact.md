@@ -7,13 +7,15 @@ style: data/custom.css
 import { createHeader } from "./components/header.js";
 ```
 
-${createHeader()}
+<div class="header-container">
+  ${createHeader()}
+</div>
 <main class="contact-container">
   <div class="contact-content">
     <h1>Contact Us</h1>
     <div class="contact-info">
       <h2>Get in Touch</h2>
-      <p>We'd love to hear from you! Here's how you can reach us:</p>
+      <p>I'd love to hear from you! Here's how you can reach Ben:</p>
       <div class="contact-details">
         <div class="contact-item">
           <h3>Email</h3>
