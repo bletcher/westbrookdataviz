@@ -28,13 +28,12 @@ export const images = {
 
 export async function createCases(images) {
   return [
-    { 
-      title: "PIT Data Explorer",
-      category: "dataExplorer",
-      image: images.pit,
-      description: "An interactive application to explore tag data from a long-term study in western MA.",
-      //url: "https://pit-antenna-data-viewer.s3.us-east-2.amazonaws.com/index.html"
-      url: "https://westbrookdataviz.org/pit-data"
+    {
+      title: "Measuring stream flow",
+      category: "dataStory",
+      image: images.streamFlow,
+      description: "An interactive observable notebook to explore how stream flow is measured.",
+      url: "https://observablehq.com/@bletcher/measuring-stream-flow2"
     },
     {
       title: "Trout Growth Explorer",
@@ -42,13 +41,6 @@ export async function createCases(images) {
       image: images.troutGrowth,
       description: "An interactive observable notebook to explore how trout growth varies with temperature and stream flow.",
       url: "https://observablehq.com/@bletcher/predictedtroutgrowth-predictions"
-    },
-    {
-      title: "Measuring stream flow",
-      category: "dataStory",
-      image: images.streamFlow,
-      description: "An interactive observable notebook to explore how stream flow is measured.",
-      url: "https://observablehq.com/@bletcher/measuring-stream-flow2"
     },
     {
       title: "Day length",
@@ -70,6 +62,14 @@ export async function createCases(images) {
       image: images.drums,
       description: "A tool to create song libraries and set lists, especially for drum set players.",
       url: "https://westbrookdataviz.org/set-list-drums"
+    },
+    { 
+      title: "PIT Data Explorer",
+      category: "dataExplorer",
+      image: images.pit,
+      description: "An interactive application to explore tag data from a long-term study in western MA.",
+      //url: "https://pit-antenna-data-viewer.s3.us-east-2.amazonaws.com/index.html"
+      url: "https://westbrookdataviz.org/pit-data"
     }
   ]
 };

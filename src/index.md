@@ -14,6 +14,7 @@ import {
 } from "./components/cases.js";
 import { html } from "htl";
 import { createHeader } from "./components/header.js";
+import { createFooter } from "./components/footer.js";
 ```
 
 ```js
@@ -41,3 +42,7 @@ setupFilterButtons(filterButtons, filteredCases, createCaseCards);
     </div>
   </div>
 </main>
+<div class="footer-container">
+  <hr>
+  ${createFooter()}
+</div>
