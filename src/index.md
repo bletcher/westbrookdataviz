@@ -15,6 +15,12 @@ import {
 import { html } from "htl";
 import { createHeader } from "./components/header.js";
 import { createFooter } from "./components/footer.js";
+import { setupAnalytics } from "./components/analytics.js";
+```
+
+```js
+// Initialize analytics first
+setupAnalytics();
 ```
 
 ```js
