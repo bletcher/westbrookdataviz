@@ -7,7 +7,7 @@ const PIT_IMAGE2 = FileAttachment("/data/PIT_card_image2.png");
 const STREAMFLOW_IMAGE = FileAttachment("/data/streamFlow_image.png");
 const DAYLENGTH_IMAGE = FileAttachment("/data/dayLength_image.png");
 const POLYRHYTHM_IMAGE = FileAttachment("/data/polyrhythm_image.png");
-const TROUTGROWTH_IMAGE = FileAttachment("/data/troutGrowth_image.png");
+const TROUTGROWTH_IMAGE = FileAttachment("/data/troutGrowth2_image.png");
 const DRUMS_IMAGE = FileAttachment("/data/drums_image.png");
 const PITSTORIES_IMAGE = FileAttachment("/data/pitStories2_image.png");
 const TSE_IMAGE = FileAttachment("/data/tse_image.png");
@@ -36,6 +36,7 @@ export async function createCases(images) {
       title: "Measuring stream flow",
       category: "dataStory",
       image: images.streamFlow,
+      imageStyle: "cover",
       description: "An interactive observable notebook to explore how stream flow is measured.",
       url: "https://observablehq.com/@bletcher/measuring-stream-flow2"
     },
@@ -43,6 +44,7 @@ export async function createCases(images) {
       title: "Trout Growth Explorer",
       category: "dataExplorer",
       image: images.troutGrowth,
+      imageStyle: "cover",
       description: "An interactive observable notebook to explore how trout growth varies with temperature and stream flow.",
       url: "https://observablehq.com/@bletcher/predictedtroutgrowth-predictions"
     },
@@ -50,20 +52,23 @@ export async function createCases(images) {
       title: "Fish tagging data stories",
       category: "dataStory",
       image: images.pitStories,
-      description: "Three data stories about fish tagging data from two study areas.",
+      imageStyle: "cover",
+      description: "Data stories and explorers for fish tagging data from two study areas.",
       url: "https://www.usgs.gov/apps/ecosheds/pitdata/"
     },
     {
-      title: "Time series data explorer",
+      title: "Time series explorer",
       category: "dataExplorer",
       image: images.tse,
-      description: "Three data stories about fish tagging data from two study areas.",
+      imageStyle: "contain",
+      description: "An interactive application to explore time series data with flexible start and end times for data chunks.",
       url: "https://www.usgs.gov/apps/ecosheds/tse/"
     },
     {
       title: "Day length",
-      category: "dataStory",
+      category: "dataExplorer",
       image: images.dayLength,
+      imageStyle: "contain",
       description: "An interactive observable notebook to explore how day length varies with latitude and day of year.",
       url: "https://observablehq.com/@bletcher/daylength"
     },
@@ -71,6 +76,7 @@ export async function createCases(images) {
       title: "Polyrhythms",
       category: "music",
       image: images.polyrhythm,
+      imageStyle: "cover",
       description: "An interactive observable notebook to explore how polyrhythms sound and look.",
       url: "https://observablehq.com/@bletcher/polyrhythm-explorer"
     },
@@ -78,6 +84,7 @@ export async function createCases(images) {
       title: "Song library and set list creator",
       category: "music",
       image: images.drums,
+      imageStyle: "contain",
       description: "A tool to create song libraries and set lists, especially for drum set players.",
       url: "https://westbrookdataviz.org/set-list-drums"
     },
@@ -85,8 +92,8 @@ export async function createCases(images) {
       title: "PIT Data Explorer - DEV VERSION",
       category: "dataExplorer",
       image: images.pit,
+      imageStyle: "contain",
       description: "An interactive application to explore tag data from a long-term study in western MA.",
-      //url: "https://pit-antenna-data-viewer.s3.us-east-2.amazonaws.com/index.html"
       url: "https://westbrookdataviz.org/pit-data"
     }
   ]
@@ -98,7 +105,6 @@ export async function createCaseCards(cases) {
   
   for (const attachment of new Set(cases.map(c => c.image))) {
     const imageUrl = await attachment.url();
-    //const imageUrl = await FileAttachment(path).url();
     imageCache.set(attachment, imageUrl);
   }
   
@@ -107,7 +113,10 @@ export async function createCaseCards(cases) {
     <article class="case-card" data-category="${caseItem.category}" 
       onclick="window.open('${caseItem.url}', '_blank');" style="cursor: pointer;">
       <div class="case-card-inner">
-        <img class="case-image" src="${imageCache.get(caseItem.image)}" alt="${caseItem.title}">
+        <img class="case-image" 
+          src="${imageCache.get(caseItem.image)}" 
+          alt="${caseItem.title}"
+          style="object-fit: ${caseItem.imageStyle || 'contain'};">
         <div class="case-content">
           <h3 class="case-title">${caseItem.title}</h3>
           <p>${caseItem.description}</p>

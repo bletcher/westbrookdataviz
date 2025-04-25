@@ -5,6 +5,7 @@ style: data/custom.css
 
 ```js
 import { createHeader } from "./components/header.js";
+import { createFooter } from "./components/footer.js";
 ```
 
 <div class="header-container">
@@ -43,3 +44,7 @@ import { createHeader } from "./components/header.js";
     </section>
   </div>
 </main> 
+<div class="footer-container">
+  <hr>
+  ${createFooter()}
+</div>
