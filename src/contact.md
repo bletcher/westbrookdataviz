@@ -13,9 +13,8 @@ import { createFooter } from "./components/footer.js";
 </div>
 <main class="contact-container">
   <div class="contact-content">
-    <h1>Contact Us</h1>
     <div class="contact-info">
-      <h2>Get in Touch</h2>
+      <h1>Get in Touch</h1>
       <p>I'd love to hear from you! Here's how you can reach Ben:</p>
       <div class="contact-details">
         <div class="contact-item">
