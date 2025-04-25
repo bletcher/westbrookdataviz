@@ -58,7 +58,7 @@ html {
 }
 
 .intro-container {
-  margin-top: 80px;
+  margin-top: 30px;
   margin-bottom: 10px;
   padding: 2rem;
   padding-bottom: 5px;
@@ -158,25 +158,32 @@ html {
   left: 0;
   right: 0;
   padding: 2rem;
-  background: linear-gradient(to top, rgba(0,0,0,0.9), rgba(0,0,0,0));
-  color: white;
+  background: linear-gradient(to top, 
+    rgba(0,0,0,0.95) 0%,
+    rgba(0,0,0,0.65) 50%,
+    rgba(0,0,0,0) 100%);
+  color: rgb(255, 255, 255);
+  backdrop-filter: blur(0.8px);
 }
 
 .case-title {
   font-size: 2rem;
-  font-weight: 600;
+  font-weight: 700;
   margin-bottom: 0.5rem;
-  color: rgb(216, 214, 214);
+  color: rgb(223, 223, 223);
+  text-shadow: 1px 1px 1px rgba(0,0,0,0.5);
+  letter-spacing: 0.5px;
 }
 
 .case-card p {
   margin: 0;
-  font-size: 0.9rem;
-  line-height: 1.5;
-  color: rgba(255,255,255,0.8);
+  font-size: 1rem;
+  line-height: 1.6;
+  color: rgba(231, 231, 231, 0.95);
   opacity: 0;
   transform: translateY(20px);
   transition: all 0.3s ease;
+  text-shadow: 1px 1px 1px rgba(0,0,0,0.3);
 }
 
 .case-card:hover p {

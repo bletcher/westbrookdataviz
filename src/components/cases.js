@@ -9,6 +9,8 @@ const DAYLENGTH_IMAGE = FileAttachment("/data/dayLength_image.png");
 const POLYRHYTHM_IMAGE = FileAttachment("/data/polyrhythm_image.png");
 const TROUTGROWTH_IMAGE = FileAttachment("/data/troutGrowth_image.png");
 const DRUMS_IMAGE = FileAttachment("/data/drums_image.png");
+const PITSTORIES_IMAGE = FileAttachment("/data/pitStories2_image.png");
+const TSE_IMAGE = FileAttachment("/data/tse_image.png");
 
 export const images = {
   pit: PIT_IMAGE,
@@ -18,7 +20,9 @@ export const images = {
   dayLength: DAYLENGTH_IMAGE,
   polyrhythm: POLYRHYTHM_IMAGE,
   troutGrowth: TROUTGROWTH_IMAGE,
-  drums: DRUMS_IMAGE
+  drums: DRUMS_IMAGE,
+  pitStories: PITSTORIES_IMAGE,
+  tse: TSE_IMAGE
 };
 
 /*export const imagesArray = [
@@ -43,6 +47,20 @@ export async function createCases(images) {
       url: "https://observablehq.com/@bletcher/predictedtroutgrowth-predictions"
     },
     {
+      title: "Fish tagging data stories",
+      category: "dataStory",
+      image: images.pitStories,
+      description: "Three data stories about fish tagging data from two study areas.",
+      url: "https://www.usgs.gov/apps/ecosheds/pitdata/"
+    },
+    {
+      title: "Time series data explorer",
+      category: "dataExplorer",
+      image: images.tse,
+      description: "Three data stories about fish tagging data from two study areas.",
+      url: "https://www.usgs.gov/apps/ecosheds/tse/"
+    },
+    {
       title: "Day length",
       category: "dataStory",
       image: images.dayLength,
@@ -64,7 +82,7 @@ export async function createCases(images) {
       url: "https://westbrookdataviz.org/set-list-drums"
     },
     { 
-      title: "PIT Data Explorer",
+      title: "PIT Data Explorer - DEV VERSION",
       category: "dataExplorer",
       image: images.pit,
       description: "An interactive application to explore tag data from a long-term study in western MA.",
