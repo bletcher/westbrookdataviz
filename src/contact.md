@@ -6,6 +6,11 @@ style: data/custom.css
 ```js
 import { createHeader } from "./components/header.js";
 import { createFooter } from "./components/footer.js";
+import { FileAttachment } from "npm:@observablehq/stdlib";
+import { html } from "htl";
+
+const CV_FILE = FileAttachment("data/CVLetcher.pdf");
+const cvUrl = await CV_FILE.url();
 ```
 
 <div class="header-container">
@@ -26,11 +31,17 @@ import { createFooter } from "./components/footer.js";
           <p>Montague, Massachusetts, USA</p>
         </div>
         <div class="contact-item">
+          <h3>CV</h3>
+          <div class="social-links">
+            ${html`<a href=${cvUrl} target="_blank" rel="noopener noreferrer">Open CV</a>`}
+            <a href="https://scholar.google.com/citations?user=fwgbROwAAAAJ&hl=en" target="_blank" rel="noopener noreferrer">Google scholar</a>
+          </div>
+        </div>
+        <div class="contact-item">
           <h3>Social Media</h3>
           <div class="social-links">
             <a href="https://bsky.app/profile/bletcher.bsky.social" target="_blank" rel="noopener noreferrer">Bluesky</a>
             <a href="https://github.com/bletcher" target="_blank" rel="noopener noreferrer">GitHub</a>
-            <a href="https://scholar.google.com/citations?user=fwgbROwAAAAJ&hl=en" target="_blank" rel="noopener noreferrer">Google scholar</a>
           </div>
         </div>
       </div>

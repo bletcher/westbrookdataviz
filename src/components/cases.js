@@ -111,7 +111,14 @@ export async function createCaseCards(cases) {
   // Create cards using cached image URLs
   return cases.map((caseItem) => html`
     <article class="case-card" data-category="${caseItem.category}" 
-      onclick="window.open('${caseItem.url}', '_blank');" style="cursor: pointer;">
+      onclick="(function(e) { 
+        e.preventDefault();
+        try {
+          window.open('${caseItem.url}', '_blank');
+        } catch (error) {
+          console.error('Error opening link:', error);
+        }
+      })(event)" style="cursor: pointer;">
       <div class="case-card-inner">
         <img class="case-image" 
           src="${imageCache.get(caseItem.image)}" 
