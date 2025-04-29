@@ -30,7 +30,7 @@ setupFilterButtons(filterButtons, filteredCases, createCaseCards);
 </div>
 <main style="width: 100%">  
   <div class="intro-container">
-    Our mission is to make scientific data and models easier to understand and explore. Here are some apps. 
+    My goal is to make scientific data and models easier to understand and explore using data visualization<span class="down-arrow">↓</span>
   </div>
   <div class="cases-container">
     <hr>
