@@ -229,6 +229,12 @@ html {
   position: relative;
 }
 
+/* Make "All" button 10% larger and prevent uppercase */
+.filter-button:first-child {
+  font-size: 1.1rem;
+  text-transform: none;
+}
+
 .filter-button::after {
   content: '';
   position: absolute;
@@ -239,15 +245,19 @@ html {
   background-color: var(--primary-color);
   transform: scaleX(0);
   transition: transform 0.3s ease;
+  transform-origin: left;
 }
 
-.filter-button:hover::after,
+/* Only show underline on hover if no button is active */
+.filter-buttons:not(:has(.active)) .filter-button:hover::after {
+  transform: scaleX(1);
+}
+
 .filter-button.active::after {
   transform: scaleX(1);
 }
 
 .filter-button.active {
-  background: none;
   color: var(--primary-color);
 }
 
@@ -643,4 +653,18 @@ html {
     font-size: 1.2em;
     margin-left: 0.3em;
   }
+}
+
+.svg-container {
+  width: 100%;
+  max-width: 800px;
+  margin: 0 auto;
+  display: block;
+  padding: 2rem 0;
+}
+
+.svg-container img {
+  width: 100%;
+  height: auto;
+  display: block;
 } 

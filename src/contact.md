@@ -31,9 +31,9 @@ const cvUrl = await CV_FILE.url();
           <p>Montague, Massachusetts, USA</p>
         </div>
         <div class="contact-item">
-          <h3>CV</h3>
+          <h3>Experience</h3>
           <div class="social-links">
-            ${html`<a href=${cvUrl} target="_blank" rel="noopener noreferrer">Open CV</a>`}
+            ${html`<a href=${cvUrl} target="_blank" rel="noopener noreferrer">Open my CV</a>`}
             <a href="https://scholar.google.com/citations?user=fwgbROwAAAAJ&hl=en" target="_blank" rel="noopener noreferrer">Google scholar</a>
           </div>
         </div>
