@@ -98,7 +98,7 @@ Used [this](https://dev.to/1zyik/host-a-static-website-on-aws-using-s3-route-53-
 
 ### Cache Invalidation
 
-After uploading files to S3, run the cache invalidation script:
+After uploading files to S3, copy the invalidate.ps1 file into the root and add `"invalidate-cache": "powershell -File invalidate.ps1",` to package.json in "scripts", then run the cache invalidation script:
 ```bash
 npm run invalidate-cache
 ```
