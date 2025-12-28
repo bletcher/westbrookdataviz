@@ -1,0 +1,72 @@
+/* Footer Styles */
+
+.footer-container {
+  width: 100%;
+  padding: 0.5rem;
+  margin-top: 2rem;
+  box-sizing: border-box;
+}
+
+.footer-container hr {
+  margin: 0;
+  padding: 0;
+  border: none;
+  background-color: #e7e1e1;
+  height: 1px;
+  width: 100%;
+  max-width: var(--max-width);
+  margin: 0 auto;
+}
+
+.footer-content {
+  max-width: var(--max-width);
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+}
+
+.social-links {
+  display: flex;
+  gap: 2rem;
+  justify-content: center;
+}
+
+.social-links a {
+  text-decoration: none;
+  color: var(--text-muted);
+  transition: color var(--transition-fast);
+  display: flex;
+  align-items: center;
+}
+
+.social-links a:hover {
+  color: var(--primary-color);
+}
+
+.social-links a:hover svg {
+  transform: scale(1.1);
+}
+
+.social-links svg {
+  width: 24px;
+  height: 24px;
+  transition: transform var(--transition-fast);
+}
+
+.social-links .bluesky-icon {
+  width: 32px;
+  height: 32px;
+  margin-top: -4px;
+  margin-bottom: -4px;
+}
+
+.social-links a:hover .bluesky-icon path {
+  fill: #1da1f2;
+}
+
+.copyright {
+  color: var(--text-muted);
+  font-size: 0.9rem;
+}

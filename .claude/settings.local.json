@@ -1,0 +1,14 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(npm run build:*)",
+      "Bash(where:*)",
+      "Bash(npm install:*)",
+      "Bash(node scripts/convert-to-webp.js:*)",
+      "Bash(ls:*)",
+      "Bash(del /f nul)",
+      "Bash(rm:*)",
+      "Bash(findstr:*)"
+    ]
+  }
+}

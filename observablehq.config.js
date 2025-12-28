@@ -16,6 +16,18 @@ export default {
   //   }
   // ],
 
+  // Add google analytics
+  head: [
+    '<script async src="https://www.googletagmanager.com/gtag/js?id=G-3WCF3TGZ9V"></script>',
+    `<script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-3WCF3TGZ9V');
+    </script>`
+  ],
+
+
   // Some additional configuration options and their defaults:
   // theme: "default", // try "light", "dark", "slate", etc.
   // header: "", // what to show in the header (HTML)
@@ -26,5 +38,5 @@ export default {
    root: "src", // path to the source root for preview
    output: "dist", // path to the output root for build
    search: true, // activate search
-   cleanUrls: false, // use URLs with .html
+   preserveExtension: true, // keep .html in URLs
 };

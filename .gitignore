@@ -9,3 +9,11 @@ yarn-error.log
 *.xlsx
 *.csv
 pit-data/_file/data/*.json
+
+# Office temp files
+~$*.pptx
+~$*.xlsx
+~$*.docx
+
+# Source files (not needed in repo)
+*.pptx

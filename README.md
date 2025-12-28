@@ -1,6 +1,8 @@
-# Westbrook Data Visualization
+# WestBrook DataViz
 
-A collection of data visualization applications built with Observable Framework.
+Interactive data visualization portfolio built with Observable Framework.
+
+**Live Site:** [westbrookdataviz.org](https://westbrookdataviz.org)
 
 ## Project Structure
 
@@ -8,14 +10,31 @@ A collection of data visualization applications built with Observable Framework.
 westbrookdataviz/
 ├── src/
 │   ├── components/
-│   │   ├── cases.js         # Case cards and filtering logic
-│   │   └── header.js        # Header component
+│   │   ├── cases.js          # Case cards and filtering logic
+│   │   ├── config.js         # Centralized configuration (URLs, settings)
+│   │   ├── header.js         # Header with mobile navigation
+│   │   └── footer.js         # Footer component
 │   ├── data/
-│   │   └── *.png            # Card images
-│   └── index.md             # Main page
-├── dist/                    # Built files
-├── invalidate.ps1          # CloudFront cache invalidation script (to see changes immediately)
-└── package.json            # Project configuration
+│   │   ├── css/
+│   │   │   ├── variables.css       # CSS custom properties
+│   │   │   ├── layout.css          # Grid and containers
+│   │   │   ├── responsive.css      # Media queries
+│   │   │   ├── components/
+│   │   │   │   ├── nav.css         # Navigation styles
+│   │   │   │   ├── cards.css       # Card styles
+│   │   │   │   └── footer.css      # Footer styles
+│   │   │   └── pages/
+│   │   │       ├── about.css       # About page styles
+│   │   │       └── contact.css     # Contact page styles
+│   │   ├── custom.css        # Main CSS (imports all modules)
+│   │   └── *.png             # Card images
+│   ├── index.md              # Home page
+│   ├── about.md              # About page
+│   └── contact.md            # Contact page
+├── dist/                     # Built files (generated)
+├── observablehq.config.js    # Observable Framework config
+├── invalidate.ps1            # CloudFront cache invalidation
+└── package.json              # Project configuration
 ```
 
 ## Development
@@ -24,240 +43,123 @@ westbrookdataviz/
 
 - Node.js 18 or later
 - npm
-- AWS CLI configured with appropriate credentials
 
 ### Local Development
 
-1. Install dependencies:
-   ```bash
-   npm install
-   ```
+```bash
+# Install dependencies
+npm install
 
-2. Start development server:
-   ```bash
-   npm run dev
-   ```
+# Start development server
+npm run dev
 
-3. Build for production:
-   ```bash
-   npm run build
-   ```
+# Build for production
+npm run build
 
-## Features
+# Clear cache
+npm run clean
+```
 
-The main page features a collection of interactive data visualization applications organized into categories:
+## Configuration
 
-- **Data Stories**: Interactive data visualization stories
-- **Data Explorers**: Interactive data exploration tools
-- **Music**: Music-related visualizations and tools
+All external URLs and site settings are centralized in `src/components/config.js`:
 
-### Adding New Cases
+```javascript
+import { config } from "./config.js";
 
-To add a new case to the collection:
+// Access URLs
+config.externalLinks.streamFlow  // Observable notebook URL
+config.externalLinks.pitData     // WestBrook hosted app URL
+
+// Access social links
+config.social.github
+config.social.linkedin
+```
+
+### Adding a New Case
 
 1. Add the image to `src/data/` directory
-2. Update the image imports in `src/components/cases.js`:
-```javascript
-const NEW_IMAGE = FileAttachment("/data/new_image.png");
-```
 
-3. Add the image to the images object:
+2. Update `src/components/config.js` with the URL:
 ```javascript
-export const images = {
-  // ... existing images ...
-  newCase: NEW_IMAGE
-};
-```
-
-4. Add the case to the cases array:
-```javascript
-export async function createCases(images) {
-  return [
-    // ... existing cases ...
-    {
-      title: "New Case Title",
-      category: "category", // "dataStory", "dataExplorer", or "music"
-      image: images.newCase,
-      description: "Description of the case",
-      url: "https://example.com"
-    }
-  ];
+externalLinks: {
+  // ... existing links ...
+  newProject: "https://example.com/new-project"
 }
 ```
 
+3. Update `src/components/cases.js`:
+```javascript
+// Add image import
+const NEW_IMAGE = FileAttachment("/data/new_image.png");
+
+// Add to images object
+export const images = {
+  // ... existing images ...
+  newProject: NEW_IMAGE
+};
+
+// Add case to array in createCases()
+{
+  title: "New Project Title",
+  category: "dataStory", // or "dataExplorer" or "music"
+  image: images.newProject,
+  imageStyle: "cover", // or "contain"
+  description: "Description of the project.",
+  url: externalLinks.newProject
+}
+```
+
+## Features
+
+- **Responsive Design** - Mobile-first with hamburger menu navigation
+- **Category Filtering** - Filter projects by Data Stories, Data Explorers, or Music
+- **Analytics** - Google Analytics tracking for all card clicks and filter usage
+- **Modular CSS** - Organized stylesheets for easy maintenance
+
+### Categories
+
+- **Data Stories** - Interactive data visualization narratives
+- **Data Explorers** - Tools for exploring datasets
+- **Music** - Music-related visualizations and tools
+
 ## Deployment
 
-The site is deployed using AWS S3 and CloudFront. The deployment process involves:
+The site is deployed to AWS S3 with CloudFront CDN.
 
-1. Building the application
-2. Uploading the built files to S3 (manually or using AWS Console)
-3. Invalidating the CloudFront cache to make changes visible immediately
+### Build & Deploy
 
-Used [this](https://dev.to/1zyik/host-a-static-website-on-aws-using-s3-route-53-aws-certificate-manager-and-cloudfront-3mi6) tutorial to set up the pipeline.  
+1. Build the site:
+```bash
+npm run build
+```
 
+2. Upload `dist/` contents to S3 bucket
 
-### Cache Invalidation
-
-After uploading files to S3, copy the invalidate.ps1 file into the root and add `"invalidate-cache": "powershell -File invalidate.ps1",` to package.json in "scripts", then run the cache invalidation script:
+3. Invalidate CloudFront cache:
 ```bash
 npm run invalidate-cache
 ```
 
-This will:
-- Create a CloudFront invalidation
-- Monitor the invalidation progress
-- Show when the changes are visible
-
 ### AWS Infrastructure
 
-- S3 bucket: `westbrookdataviz.org`
-- CloudFront distribution for content delivery
-- Route53 for DNS management
-- ACM for SSL certificate
-
-## Technologies Used
-
-- [Observable Framework](https://observablehq.com/framework)
-- HTML/JavaScript
-- AWS S3 and CloudFront for hosting
-
-## License
-
-This project is open source and available under the MIT License.
-
-## Local applications
-
-1. **PIT Antenna Data Explorer**
-   - Location: `pit_data/`
-   - Description: Interactive visualization of PIT antenna data
-
-2. **Set List Drums**
-   - Location: `set-list-drums/`
-   - Description: Song library and set list creator
-
- ## Development
-
-### Prerequisites
-
-- Node.js 18 or later
-- npm
-- AWS CLI (for deployment)
-
-### Local Development
-
-1. Install dependencies:
-   ```bash
-   npm install
-   ```
-
-2. Build a local app:
-   ```bash
-   npm run build
-   ```
-
-3. Start development server:
-   ```bash
-   npm run dev
-   ```
-
-## Deployment
-
-The site is deployed using AWS S3 and CloudFront. The deployment process involves:
-
-1. Building the applications
-2. Uploading the built files to S3
-3. Serving the content through CloudFront
-
-### Deployment Steps
-
-For now, manually upload files in dist/ for each app.  
-
-- Upload the files to the S3 bucket
-- CloudFront will automatically serve the new content, after a moment.  
-
-### AWS Infrastructure
-
-The site uses the following AWS services:
-- S3 bucket: `westbrookdataviz.org`
-- CloudFront distribution for content delivery
-- Route53 for DNS management
-- ACM for SSL certificate
+- **S3 Bucket:** `westbrookdataviz.org`
+- **CloudFront:** CDN for content delivery
+- **Route53:** DNS management
+- **ACM:** SSL/TLS certificate
 
 ### Cache Control
 
-The deployment script sets appropriate cache headers:
-- Static assets (JS, CSS, images, fonts): 1 year cache
-- HTML files: 5 minutes cache with stale-while-revalidate
-- JSON data files: 1 hour cache with stale-while-revalidate
-- Other files: 1 hour cache
+- Static assets (JS, CSS, images): 1 year cache
+- HTML files: 5 minutes with stale-while-revalidate
+- JSON data: 1 hour with stale-while-revalidate
 
-## Project Structure
+## Technologies
 
-```
-westbrookdataviz/
-├── dist/                    # Final built files
-├── pit_antenna_data_explorer/  # PIT data app
-├── set-list-drums/         # Set list drums app
-└── package.json            # Project configuration
-```
+- [Observable Framework](https://observablehq.com/framework)
+- HTML/CSS/JavaScript
+- AWS S3 + CloudFront
 
+## License
 
-# WestBrook DataViz
-
-Site at: [westbrookdataviz.org](https://westbrookdataviz.org)
-
-Setup steps:
-
-## Enable command line R
-
-Add .R and .RScript to [Path](https://info201.github.io/r-intro.html#windows-command-line). Will need to update the path when R version is updated.  5.2.1.1 Windows Command-Line
-
-## Set up observable framework project
-
-1) In the terminal, go to root directory (one below the subdirectory you will create in the next step).
-2) Run `npm init "@observablehq"` and don't initialize git.
-3) In vsCode, open the folder for the project and then publish to a new repo (from the `source control` badge).
-4) Make changes for deploying suggested [here](https://observablehq.com/framework/deploying#other-hosting-services).  
-5) In the terminal, run `npm run build` to build the site and associated apps in /dist and /dist/apps.  
-6) Commit and push and github actions will update the site via AWS Amplify.  
-7) make sure to enable static web hosting and to add a bucket policy like:
-   {
-    "Version": "2012-10-17",
-    "Statement": [
-        {
-            "Sid": "PublicReadGetObject",
-            "Effect": "Allow",
-            "Principal": "*",
-            "Action": "s3:GetObject",
-            "Resource": "arn:aws:s3:::temperature-viewer/*"
-        }
-    ]
-}
-
-Notes:
-1) To force rerun of cached objects, run: `rm docs/.observablehq/cache/data/*.*` with approriate changes for specific files or file types.    
-
-<hr> 
-
-
-This is an [Observable Framework](https://observablehq.com/framework) project. To start the local preview server, run:
-
-```
-npm run dev
-```
-
-Then visit <http://localhost:3000> to preview your project.
-
-For more, see <https://observablehq.com/framework/getting-started>.
-
-
-## Command reference
-
-| Command           | Description                                              |
-| ----------------- | -------------------------------------------------------- |
-| `npm install`            | Install or reinstall dependencies                        |
-| `npm run dev`        | Start local preview server                               |
-| `npm run build`      | Build your static site, generating `./dist`              |
-| `npm run deploy`     | Deploy your project to Observable                        |
-| `npm run clean`      | Clear the local data loader cache                        |
-| `npm run observable` | Run commands like `observable help`                      |
+MIT License

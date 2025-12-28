@@ -1,36 +1,32 @@
 import { html } from "htl";
 import { FileAttachment } from "npm:@observablehq/stdlib";
+import { config } from "./config.js";
 
-const PIT_IMAGE = FileAttachment("/data/PIT_card_image.png");
-const TEMP_IMAGE = FileAttachment("/data/temperature_viewer_image.png");
-const PIT_IMAGE2 = FileAttachment("/data/PIT_card_image2.png");
-const STREAMFLOW_IMAGE = FileAttachment("/data/streamFlow_image.png");
-const DAYLENGTH_IMAGE = FileAttachment("/data/dayLength_image.png");
-const POLYRHYTHM_IMAGE = FileAttachment("/data/polyrhythm_image.png");
-const TROUTGROWTH_IMAGE = FileAttachment("/data/troutGrowth2_image.png");
-const DRUMS_IMAGE = FileAttachment("/data/drums_image.png");
-const PITSTORIES_IMAGE = FileAttachment("/data/pitStories2_image.png");
-const TSE_IMAGE = FileAttachment("/data/tse_image.png");
+const PIT_IMAGE = FileAttachment("/data/PIT_card_image.webp");
+const STREAMFLOW_IMAGE = FileAttachment("/data/streamFlow_image.webp");
+const DAYLENGTH_IMAGE = FileAttachment("/data/dayLength_image.webp");
+const POLYRHYTHM_IMAGE = FileAttachment("/data/polyrhythm_image.webp");
+const TROUTGROWTH_IMAGE = FileAttachment("/data/troutGrowth2_image.webp");
+const DRUMS_IMAGE = FileAttachment("/data/drums_image.webp");
+const PITSTORIES_IMAGE = FileAttachment("/data/pitStories2_image.webp");
+const TSE_IMAGE = FileAttachment("/data/tse_image.webp");
+const HALLOWEEN_IMAGE = FileAttachment("/data/montague-halloween.webp");
 
 export const images = {
   pit: PIT_IMAGE,
-  temp: TEMP_IMAGE,
-  pit2: PIT_IMAGE2,
   streamFlow: STREAMFLOW_IMAGE,
   dayLength: DAYLENGTH_IMAGE,
   polyrhythm: POLYRHYTHM_IMAGE,
   troutGrowth: TROUTGROWTH_IMAGE,
   drums: DRUMS_IMAGE,
   pitStories: PITSTORIES_IMAGE,
-  tse: TSE_IMAGE
+  tse: TSE_IMAGE,
+  halloween: HALLOWEEN_IMAGE
 };
 
-/*export const imagesArray = [
-  FileAttachment("/data/PIT_card_image.png"),
-  FileAttachment("/data/temperature_viewer_image.png")
-];*/
-
 export async function createCases(images) {
+  const { externalLinks } = config;
+
   return [
     {
       title: "Measuring stream flow",
@@ -38,7 +34,7 @@ export async function createCases(images) {
       image: images.streamFlow,
       imageStyle: "cover",
       description: "An interactive observable notebook to explore how stream flow is measured.",
-      url: "https://observablehq.com/@bletcher/measuring-stream-flow2"
+      url: externalLinks.streamFlow
     },
     {
       title: "Trout Growth Explorer",
@@ -46,7 +42,7 @@ export async function createCases(images) {
       image: images.troutGrowth,
       imageStyle: "cover",
       description: "An interactive observable notebook to explore how trout growth varies with temperature and stream flow.",
-      url: "https://observablehq.com/@bletcher/predictedtroutgrowth-predictions"
+      url: externalLinks.troutGrowth
     },
     {
       title: "Fish tagging data stories",
@@ -54,7 +50,7 @@ export async function createCases(images) {
       image: images.pitStories,
       imageStyle: "cover",
       description: "Data stories and explorers for fish tagging data from two study areas.",
-      url: "https://www.usgs.gov/apps/ecosheds/pitdata/"
+      url: externalLinks.pitStories
     },
     {
       title: "Time series explorer",
@@ -62,7 +58,7 @@ export async function createCases(images) {
       image: images.tse,
       imageStyle: "contain",
       description: "An interactive application to explore time series data with flexible start and end times for data chunks.",
-      url: "https://www.usgs.gov/apps/ecosheds/tse/"
+      url: externalLinks.tse
     },
     {
       title: "Day length",
@@ -70,7 +66,7 @@ export async function createCases(images) {
       image: images.dayLength,
       imageStyle: "contain",
       description: "An interactive observable notebook to explore how day length varies with latitude and day of year.",
-      url: "https://observablehq.com/@bletcher/daylength"
+      url: externalLinks.dayLength
     },
     {
       title: "Polyrhythms",
@@ -78,7 +74,7 @@ export async function createCases(images) {
       image: images.polyrhythm,
       imageStyle: "cover",
       description: "An interactive observable notebook to explore how polyrhythms sound and look.",
-      url: "https://observablehq.com/@bletcher/polyrhythm-explorer"
+      url: externalLinks.polyrhythm
     },
     {
       title: "Song library and set list creator",
@@ -86,15 +82,23 @@ export async function createCases(images) {
       image: images.drums,
       imageStyle: "contain",
       description: "A tool to create song libraries and set lists, especially for drum set players.",
-      url: "https://westbrookdataviz.org/set-list-drums"
+      url: externalLinks.setListDrums
     },
-    { 
+    {
       title: "PIT Data Explorer - DEV VERSION",
       category: "dataExplorer",
       image: images.pit,
       imageStyle: "contain",
       description: "An interactive application to explore tag data from a long-term study in western MA.",
-      url: "https://westbrookdataviz.org/pit-data"
+      url: externalLinks.pitData
+    },
+    {
+      title: "Halloween in Montague, MA",
+      category: "dataStory",
+      image: images.halloween,
+      imageStyle: "contain",
+      description: "Explore trends in Halloween activity in Montague, MA.",
+      url: externalLinks.montaguaHalloween
     }
   ]
 };
@@ -102,43 +106,103 @@ export async function createCases(images) {
 export async function createCaseCards(cases) {
   // Load all images first
   const imageCache = new Map();
-  
+
   for (const attachment of new Set(cases.map(c => c.image))) {
     const imageUrl = await attachment.url();
     imageCache.set(attachment, imageUrl);
   }
-  
+
   // Create cards using cached image URLs
-  return cases.map((caseItem) => html`
-    <article class="case-card" data-category="${caseItem.category}" 
-      onclick="(function(e) { 
-        e.preventDefault();
-        try {
-          window.open('${caseItem.url}', '_blank');
-        } catch (error) {
-          console.error('Error opening link:', error);
-        }
-      })(event)" style="cursor: pointer;">
-      <div class="case-card-inner">
-        <img class="case-image" 
-          src="${imageCache.get(caseItem.image)}" 
-          alt="${caseItem.title}"
-          style="object-fit: ${caseItem.imageStyle || 'contain'};">
-        <div class="case-content">
-          <h3 class="case-title">${caseItem.title}</h3>
-          <p>${caseItem.description}</p>
+  // First 3 cards load eagerly (above fold), rest are lazy loaded
+  return cases.map((caseItem, index) => {
+    const loadingStrategy = index < 3 ? 'eager' : 'lazy';
+    const imageUrl = imageCache.get(caseItem.image);
+    const url = caseItem.url;
+    const title = caseItem.title;
+    const category = caseItem.category;
+
+    const card = html`<article class="case-card"
+        data-category="${category}"
+        data-url="${url}"
+        data-title="${title}"
+        tabindex="0"
+        role="link"
+        aria-label="${title}: ${caseItem.description}"
+        style="cursor: pointer;">
+        <div class="case-card-inner">
+          <div class="case-image-wrapper">
+            <img class="case-image"
+              src="${imageUrl}"
+              alt="${title}"
+              loading="${loadingStrategy}"
+              decoding="async"
+              style="object-fit: ${caseItem.imageStyle || 'contain'};">
+            <div class="case-image-placeholder" aria-hidden="true">
+              <span>📊</span>
+            </div>
+          </div>
+          <div class="case-content">
+            <h3 class="case-title">${title}</h3>
+            <p>${caseItem.description}</p>
+          </div>
         </div>
-      </div>
-    </article>`
-  );
+      </article>`;
+
+    // Handle image loading states
+    const img = card.querySelector('.case-image');
+    const wrapper = card.querySelector('.case-image-wrapper');
+    const placeholder = card.querySelector('.case-image-placeholder');
+
+    if (img) {
+      img.addEventListener('error', () => {
+        img.style.display = 'none';
+        if (placeholder) placeholder.style.display = 'flex';
+        if (wrapper) wrapper.classList.add('loaded');
+      });
+
+      img.addEventListener('load', () => {
+        if (placeholder) placeholder.style.display = 'none';
+        if (wrapper) wrapper.classList.add('loaded');
+      });
+    }
+
+    // Click handler - open URL in new tab
+    card.addEventListener('click', (e) => {
+      e.preventDefault();
+
+      // Track click
+      if (typeof gtag !== 'undefined') {
+        gtag('event', 'card_click', {
+          'event_category': 'outbound_link',
+          'event_label': title,
+          'card_title': title,
+          'card_url': url,
+          'card_category': category,
+          'link_domain': new URL(url).hostname
+        });
+      }
+
+      window.open(url, '_blank');
+    });
+
+    // Keyboard handler (Enter and Space)
+    card.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault();
+        window.open(url, '_blank');
+      }
+    });
+
+    return card;
+  });
 }
 
 export function createFilterButtons() {
-  return html`<div class="filter-buttons">
-    <button class="filter-button active" data-filter="all">All</button>
-    <button class="filter-button" data-filter="dataExplorer">Data Explorer</button>
-    <button class="filter-button" data-filter="dataStory">Data story</button>
-    <button class="filter-button" data-filter="music">Music</button>
+  return html`<div class="filter-buttons" role="group" aria-label="Filter projects by category">
+    <button class="filter-button active" data-filter="all" aria-pressed="true" aria-label="Show all projects">All</button>
+    <button class="filter-button" data-filter="dataExplorer" aria-pressed="false" aria-label="Show data explorer projects">Data Explorer</button>
+    <button class="filter-button" data-filter="dataStory" aria-pressed="false" aria-label="Show data story projects">Data story</button>
+    <button class="filter-button" data-filter="music" aria-pressed="false" aria-label="Show music projects">Music</button>
   </div>`;
 }
 
@@ -155,12 +219,24 @@ export function createFilteredCases(cases) {
 export function setupFilterButtons(filterButtons, filteredCases, createCaseCards) {
   filterButtons.querySelectorAll('.filter-button').forEach(button => {
     button.addEventListener('click', async (e) => {
-      // Update active state
-      filterButtons.querySelectorAll('.filter-button').forEach(btn => 
-        btn.classList.remove('active'));
+      // Update active state and aria-pressed
+      filterButtons.querySelectorAll('.filter-button').forEach(btn => {
+        btn.classList.remove('active');
+        btn.setAttribute('aria-pressed', 'false');
+      });
       button.classList.add('active');
-      
+      button.setAttribute('aria-pressed', 'true');
+
       const filter = button.dataset.filter;
+
+      // Track filter usage
+      if (typeof gtag !== 'undefined') {
+        gtag('event', 'filter_click', {
+          'event_category': 'engagement',
+          'event_label': filter,
+          'filter_category': filter
+        });
+      }
       const grid = document.querySelector('.cases-grid');
       
       // Fade out current cards
