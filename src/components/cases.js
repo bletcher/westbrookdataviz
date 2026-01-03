@@ -11,6 +11,7 @@ const DRUMS_IMAGE = FileAttachment("/data/drums_image.webp");
 const PITSTORIES_IMAGE = FileAttachment("/data/pitStories2_image.webp");
 const TSE_IMAGE = FileAttachment("/data/tse_image.webp");
 const HALLOWEEN_IMAGE = FileAttachment("/data/montague-halloween.webp");
+const EVENTS_IMAGE = FileAttachment("/data/events.webp");
 
 export const images = {
   pit: PIT_IMAGE,
@@ -21,7 +22,8 @@ export const images = {
   drums: DRUMS_IMAGE,
   pitStories: PITSTORIES_IMAGE,
   tse: TSE_IMAGE,
-  halloween: HALLOWEEN_IMAGE
+  halloween: HALLOWEEN_IMAGE,
+  events: EVENTS_IMAGE
 };
 
 export async function createCases(images) {
@@ -99,6 +101,14 @@ export async function createCases(images) {
       imageStyle: "contain",
       description: "Explore trends in Halloween activity in Montague, MA.",
       url: externalLinks.montaguaHalloween
+    },
+    {
+      title: "Musical events listing",
+      category: "dataExplorer",
+      image: images.events,
+      imageStyle: "contain",
+      description: "Continuously updated listing of musical events in the Pioneer Valley (MA, VT).",
+      url: externalLinks.events
     }
   ]
 };
