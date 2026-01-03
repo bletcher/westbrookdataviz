@@ -78,7 +78,7 @@ config.social.linkedin
 
 ### Adding a New Case
 
-1. Add the image to `src/data/` directory
+1. Add the image to `src/data/` directory (use .webp format for best performance)
 
 2. Update `src/components/config.js` with the URL:
 ```javascript
@@ -91,7 +91,7 @@ externalLinks: {
 3. Update `src/components/cases.js`:
 ```javascript
 // Add image import
-const NEW_IMAGE = FileAttachment("/data/new_image.png");
+const NEW_IMAGE = FileAttachment("/data/new_image.webp");
 
 // Add to images object
 export const images = {
