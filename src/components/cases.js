@@ -104,7 +104,7 @@ export async function createCases(images) {
     },
     {
       title: "Musical events listing",
-      category: "dataExplorer",
+      category: "music",
       image: images.events,
       imageStyle: "contain",
       description: "Continuously updated listing of musical events in the Pioneer Valley (MA, VT).",

@@ -103,11 +103,13 @@
   background: rgba(0, 0, 0, 0.5);
   z-index: 998;
   opacity: 0;
+  pointer-events: none;
   transition: opacity var(--transition-normal);
 }
 
 .nav-overlay.active {
   opacity: 1;
+  pointer-events: auto;
 }
 
 /* Mobile Navigation Drawer */
