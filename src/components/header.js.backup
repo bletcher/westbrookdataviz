@@ -2,24 +2,23 @@ import { html } from "htl";
 
 export function createHeader() {
   const header = html`
-    <div class="nav-wrapper">
-      <div class="nav-container">
-        <div class="nav-content">
-          
-          <!-- Desktop Navigation -->
-          <div class="nav-links">
-            <a href="index.html">Home</a>
-            <a href="about.html">About</a>
-            <a href="contact.html">Contact</a>
-          </div>
+    <div class="nav-container">
+      <div class="nav-content">
+        <a href="index.html" class="logo" style="text-decoration: none;">WestBrook DataViz</a>
 
-          <!-- Hamburger Button (Mobile) -->
-          <button class="hamburger" aria-label="Toggle navigation menu" aria-expanded="false">
-            <span></span>
-            <span></span>
-            <span></span>
-          </button>
+        <!-- Desktop Navigation -->
+        <div class="nav-links">
+          <a href="index.html">Home</a>
+          <a href="about.html">About</a>
+          <a href="contact.html">Contact</a>
         </div>
+
+        <!-- Hamburger Button (Mobile) -->
+        <button class="hamburger" aria-label="Toggle navigation menu" aria-expanded="false">
+          <span></span>
+          <span></span>
+          <span></span>
+        </button>
       </div>
     </div>
 

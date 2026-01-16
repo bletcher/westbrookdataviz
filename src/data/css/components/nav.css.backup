@@ -1,75 +1,58 @@
-/* Navigation Styles - Pudding Style */
-
-.nav-wrapper {
-  position: relative;
-  z-index: 1000;
-}
+/* Navigation Styles */
 
 .nav-container {
   position: fixed;
-  top: 1rem;
-  left: 50%;
-  transform: translateX(-50%);
-  background: #3a6a91;
+  top: 0;
+  left: 0;
+  right: 0;
+  background: white;
   z-index: 1000;
-  padding: 0.5rem 0.5rem 0.5rem 1.25rem;
-  border-radius: 100px;
-  box-shadow: var(--shadow-md);
+  padding: 1rem 2rem;
+  box-shadow: var(--shadow-sm);
 }
 
 .nav-content {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  gap: 0.5rem;
+  max-width: var(--max-width);
+  margin: 0 auto;
 }
 
 .logo {
-  font-size: 1rem;
+  font-size: var(--font-size-logo);
   font-weight: 700;
-  color: var(--bg);
-  margin-right: 0.5rem;
+  color: var(--primary-color);
+  margin-right: auto;
   text-align: left;
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-}
-
-.logo-dot {
-  width: 10px;
-  height: 10px;
-  background: var(--yellow);
-  border-radius: 50%;
 }
 
 .nav-links {
   display: flex;
-  gap: 0.25rem;
+  gap: 2rem;
 }
 
 .nav-links a {
   text-decoration: none;
-  color: rgba(252, 251, 248, 0.9);
+  color: var(--text-muted);
   font-weight: 500;
-  font-size: 0.85rem;
-  transition: all var(--transition-fast);
-  padding: 0.5rem 1rem;
-  border-radius: 100px;
+  transition: color var(--transition-fast);
+  padding: 0.25rem 0.5rem;
+  border-radius: 4px;
 }
 
 .nav-links a:hover,
 .nav-links a:focus {
-  background: rgba(255, 254, 249, 0.1);
-  color: var(--bg);
+  color: var(--primary-color);
 }
 
 .nav-links a:focus {
-  outline: 2px solid var(--yellow);
+  outline: 2px solid var(--primary-color);
   outline-offset: 2px;
 }
 
 .nav-links a:focus-visible {
-  outline: 2px solid var(--yellow);
+  outline: 2px solid var(--primary-color);
   outline-offset: 2px;
 }
 
@@ -78,20 +61,19 @@
   display: none;
   flex-direction: column;
   justify-content: space-around;
-  width: 24px;
-  height: 20px;
+  width: 28px;
+  height: 24px;
   background: transparent;
   border: none;
   cursor: pointer;
-  padding: 0.5rem;
+  padding: 0;
   z-index: 1001;
-  border-radius: 8px;
 }
 
 .hamburger span {
   width: 100%;
-  height: 2px;
-  background-color: var(--bg);
+  height: 3px;
+  background-color: var(--primary-color);
   border-radius: 2px;
   transition: all var(--transition-normal);
   transform-origin: center;
@@ -99,7 +81,7 @@
 
 /* Hamburger animation when open */
 .hamburger.active span:nth-child(1) {
-  transform: rotate(45deg) translate(5px, 5px);
+  transform: rotate(45deg) translate(6px, 6px);
 }
 
 .hamburger.active span:nth-child(2) {
@@ -107,7 +89,7 @@
 }
 
 .hamburger.active span:nth-child(3) {
-  transform: rotate(-45deg) translate(5px, -5px);
+  transform: rotate(-45deg) translate(6px, -6px);
 }
 
 /* Mobile Navigation Overlay */
@@ -135,13 +117,13 @@
   display: none;
   position: fixed;
   top: 0;
-  right: -300px;
-  width: 300px;
+  right: -280px;
+  width: 280px;
   height: 100vh;
-  background: var(--bg);
+  background: white;
   z-index: 999;
-  padding: 100px 2rem 2rem;
-  box-shadow: -4px 0 30px rgba(0, 0, 0, 0.2);
+  padding: 80px 2rem 2rem;
+  box-shadow: -4px 0 20px rgba(0, 0, 0, 0.15);
   transition: right var(--transition-normal);
   box-sizing: border-box;
 }
@@ -153,29 +135,27 @@
 .mobile-nav-links {
   display: flex;
   flex-direction: column;
-  gap: 0.5rem;
+  gap: 1.5rem;
 }
 
 .mobile-nav-links a {
   text-decoration: none;
-  color: var(--gray);
+  color: var(--text-muted);
   font-size: 1.25rem;
-  font-weight: 600;
-  padding: 1rem 1.5rem;
-  border-radius: 16px;
-  transition: all var(--transition-fast);
+  font-weight: 500;
+  padding: 0.75rem 0;
+  border-bottom: 1px solid #eee;
+  transition: color var(--transition-fast);
 }
 
 .mobile-nav-links a:hover {
-  background: var(--yellow);
-  color: var(--black);
+  color: var(--primary-color);
 }
 
 /* Mobile styles */
 @media (max-width: 768px) {
   .nav-container {
-    top: 0.75rem;
-    padding: 0.5rem 0.75rem 0.5rem 1rem;
+    padding: 0.75rem 1rem;
   }
 
   .nav-links {
@@ -189,21 +169,5 @@
   .nav-overlay,
   .mobile-nav {
     display: block;
-  }
-}
-
-/* Dark mode adjustments */
-@media (prefers-color-scheme: dark) {
-  .nav-container {
-    background: #252525;
-  }
-
-  .mobile-nav {
-    background: #1a1a1a;
-  }
-
-  .mobile-nav-links a:hover {
-    background: var(--yellow);
-    color: #1a1a1a;
   }
 }

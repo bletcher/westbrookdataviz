@@ -8,7 +8,9 @@
       "Bash(ls:*)",
       "Bash(del /f nul)",
       "Bash(rm:*)",
-      "Bash(findstr:*)"
+      "Bash(findstr:*)",
+      "Skill(frontend-design)",
+      "Skill(frontend-design:*)"
     ]
   }
 }

@@ -1,0 +1,243 @@
+/* Case Cards Styles */
+
+.case-card {
+  background: none;
+  position: relative;
+  cursor: pointer;
+  opacity: 1;
+  transition: opacity 0.33s ease;
+  grid-row: auto;
+  grid-column: auto;
+}
+
+.case-card[style*="display: none"] {
+  position: absolute;
+  visibility: hidden;
+  pointer-events: none;
+  opacity: 0;
+  grid-area: none;
+}
+
+.case-card-inner {
+  background: white;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: var(--shadow-md);
+  transition: all var(--transition-smooth);
+  aspect-ratio: 4/3;
+  position: relative;
+  cursor: pointer;
+  transform: translateY(0);
+  will-change: transform, box-shadow;
+}
+
+.case-card:hover .case-card-inner,
+.case-card:focus .case-card-inner {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-lg);
+}
+
+/* Focus states for keyboard navigation */
+.case-card:focus {
+  outline: none;
+}
+
+.case-card:focus .case-card-inner {
+  outline: 3px solid var(--primary-color);
+  outline-offset: 2px;
+}
+
+.case-card:focus p {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.case-image-wrapper {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+.case-image {
+  width: 100%;
+  height: 100%;
+  background: #f5f5f5;
+  opacity: 0.95;
+  transition: opacity var(--transition-normal);
+  display: flex;
+  align-items: flex-start;
+  object-position: top;
+  padding-top: 0rem;
+  margin-top: 0rem;
+}
+
+.case-image-placeholder {
+  display: none;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(135deg, #f5f5f5 0%, #e0e0e0 100%);
+  align-items: center;
+  justify-content: center;
+  font-size: 4rem;
+  pointer-events: none; /* Don't block clicks */
+}
+
+/* Loading skeleton animation */
+.case-image-wrapper::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    #f0f0f0 25%,
+    #e0e0e0 50%,
+    #f0f0f0 75%
+  );
+  background-size: 200% 100%;
+  animation: skeleton-loading 1.5s infinite;
+  z-index: 1;
+  opacity: 1;
+  transition: opacity var(--transition-normal);
+  pointer-events: none; /* Don't block clicks */
+}
+
+.case-image-wrapper.loaded::before {
+  opacity: 0;
+}
+
+@keyframes skeleton-loading {
+  0% {
+    background-position: 200% 0;
+  }
+  100% {
+    background-position: -200% 0;
+  }
+}
+
+.case-image[style*="contain"] {
+  object-position: top;
+  padding-top: 0rem;
+}
+
+.case-card:hover .case-image {
+  opacity: 1;
+}
+
+.case-content {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: 2rem;
+  background: linear-gradient(to top,
+    rgba(0,0,0,0.9) 0%,
+    rgba(0,0,0,0.6) 50%,
+    rgba(0,0,0,0.01) 95%);
+  color: rgb(255, 255, 255);
+  backdrop-filter: blur(0.8px);
+}
+
+.case-title {
+  font-size: var(--font-size-xl);
+  font-weight: 700;
+  margin-bottom: 0.5rem;
+  color: rgb(223, 223, 223);
+  text-shadow: 1px 1px 1px rgba(0,0,0,0.5);
+  letter-spacing: 0.5px;
+}
+
+.case-card p {
+  margin: 0;
+  font-size: 1rem;
+  line-height: 1.6;
+  color: rgba(231, 231, 231, 0.95);
+  opacity: 0;
+  transform: translateY(20px);
+  transition: all var(--transition-normal);
+  text-shadow: 1px 1px 1px rgba(0,0,0,0.3);
+}
+
+.case-card:hover p {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Filter buttons */
+.filter-section {
+  margin: 3rem 0 3rem 0.5rem;
+}
+
+.filter-buttons {
+  display: flex;
+  gap: 1.5rem;
+  margin-bottom: 3rem;
+}
+
+.filter-button {
+  padding: 0.5rem 1rem;
+  border: none;
+  border-radius: 0;
+  background: none;
+  color: #666;
+  cursor: pointer;
+  transition: all var(--transition-fast);
+  font-weight: 600;
+  font-size: 0.9rem;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  position: relative;
+}
+
+/* Make "All" button 10% larger and prevent uppercase */
+.filter-button:first-child {
+  font-size: 1.1rem;
+  text-transform: none;
+}
+
+.filter-button::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background-color: var(--primary-color);
+  transform: scaleX(0);
+  transition: transform var(--transition-normal);
+  transform-origin: left;
+}
+
+/* Only show underline on hover if no button is active */
+.filter-buttons:not(:has(.active)) .filter-button:hover::after {
+  transform: scaleX(1);
+}
+
+.filter-button.active::after {
+  transform: scaleX(1);
+}
+
+.filter-button.active {
+  color: var(--primary-color);
+}
+
+.filter-button:hover,
+.filter-button:focus {
+  color: var(--primary-color);
+}
+
+/* Focus ring for filter buttons */
+.filter-button:focus {
+  outline: 2px solid var(--primary-color);
+  outline-offset: 2px;
+}
+
+.filter-button:focus-visible {
+  outline: 2px solid var(--primary-color);
+  outline-offset: 2px;
+}

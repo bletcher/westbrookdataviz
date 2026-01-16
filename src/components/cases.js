@@ -35,6 +35,7 @@ export async function createCases(images) {
       category: "dataStory",
       image: images.streamFlow,
       imageStyle: "cover",
+      color: "#94acdb",
       description: "An interactive observable notebook to explore how stream flow is measured.",
       url: externalLinks.streamFlow
     },
@@ -43,6 +44,7 @@ export async function createCases(images) {
       category: "dataExplorer",
       image: images.troutGrowth,
       imageStyle: "cover",
+      color: "#e2b555",
       description: "An interactive observable notebook to explore how trout growth varies with temperature and stream flow.",
       url: externalLinks.troutGrowth
     },
@@ -51,6 +53,7 @@ export async function createCases(images) {
       category: "dataStory",
       image: images.pitStories,
       imageStyle: "cover",
+      color: "#90a3b2",
       description: "Data stories and explorers for fish tagging data from two study areas.",
       url: externalLinks.pitStories
     },
@@ -59,6 +62,7 @@ export async function createCases(images) {
       category: "dataExplorer",
       image: images.tse,
       imageStyle: "contain",
+      color: "#85b9af",
       description: "An interactive application to explore time series data with flexible start and end times for data chunks.",
       url: externalLinks.tse
     },
@@ -67,6 +71,7 @@ export async function createCases(images) {
       category: "dataExplorer",
       image: images.dayLength,
       imageStyle: "contain",
+      color: "#d99068",
       description: "An interactive observable notebook to explore how day length varies with latitude and day of year.",
       url: externalLinks.dayLength
     },
@@ -75,6 +80,7 @@ export async function createCases(images) {
       category: "music",
       image: images.polyrhythm,
       imageStyle: "cover",
+      color: "#e5b255",
       description: "An interactive observable notebook to explore how polyrhythms sound and look.",
       url: externalLinks.polyrhythm
     },
@@ -83,6 +89,7 @@ export async function createCases(images) {
       category: "music",
       image: images.drums,
       imageStyle: "contain",
+      color: "#c9caf6",
       description: "A tool to create song libraries and set lists, especially for drum set players.",
       url: externalLinks.setListDrums
     },
@@ -91,6 +98,7 @@ export async function createCases(images) {
       category: "dataExplorer",
       image: images.pit,
       imageStyle: "contain",
+      color: "#ccbb95",
       description: "An interactive application to explore tag data from a long-term study in western MA.",
       url: externalLinks.pitData
     },
@@ -99,6 +107,7 @@ export async function createCases(images) {
       category: "dataStory",
       image: images.halloween,
       imageStyle: "contain",
+      color: "#a1abd3",
       description: "Explore trends in Halloween activity in Montague, MA.",
       url: externalLinks.montaguaHalloween
     },
@@ -107,6 +116,7 @@ export async function createCases(images) {
       category: "music",
       image: images.events,
       imageStyle: "contain",
+      color: "#dba74d",
       description: "Continuously updated listing of musical events in the Pioneer Valley (MA, VT).",
       url: externalLinks.events
     }
@@ -139,7 +149,11 @@ export async function createCaseCards(cases) {
         role="link"
         aria-label="${title}: ${caseItem.description}"
         style="cursor: pointer;">
-        <div class="case-card-inner">
+        <div class="case-card-inner" style="background: ${caseItem.color || '#fefae0'};">
+          <div class="case-content">
+            <h3 class="case-title">${title}</h3>
+            <p class="case-desc">${caseItem.description}</p>
+          </div>
           <div class="case-image-wrapper">
             <img class="case-image"
               src="${imageUrl}"
@@ -150,10 +164,6 @@ export async function createCaseCards(cases) {
             <div class="case-image-placeholder" aria-hidden="true">
               <span>📊</span>
             </div>
-          </div>
-          <div class="case-content">
-            <h3 class="case-title">${title}</h3>
-            <p>${caseItem.description}</p>
           </div>
         </div>
       </article>`;

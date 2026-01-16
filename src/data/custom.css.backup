@@ -1,0 +1,22 @@
+/*
+ * WestBrook DataViz - Main Stylesheet
+ * Modular CSS architecture
+ */
+
+/* Base variables and theme imports */
+@import url("css/variables.css");
+
+/* Layout */
+@import url("css/layout.css");
+
+/* Components */
+@import url("css/components/nav.css");
+@import url("css/components/cards.css");
+@import url("css/components/footer.css");
+
+/* Page-specific styles */
+@import url("css/pages/about.css");
+@import url("css/pages/contact.css");
+
+/* Responsive breakpoints */
+@import url("css/responsive.css");

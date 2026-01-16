@@ -17,3 +17,5 @@ pit-data/_file/data/*.json
 
 # Source files (not needed in repo)
 *.pptx
+
+design-examples/

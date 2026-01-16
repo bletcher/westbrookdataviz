@@ -1,48 +1,59 @@
-/* Footer Styles */
+/* Footer Styles - Pudding Style */
 
 .footer-container {
   width: 100%;
-  padding: 0.5rem;
-  margin-top: 2rem;
+  padding: 2rem;
+  margin-top: 0;
   box-sizing: border-box;
+  background: #faf6f0;
 }
 
 .footer-container hr {
-  margin: 0;
-  padding: 0;
-  border: none;
-  background-color: #e7e1e1;
-  height: 1px;
-  width: 100%;
-  max-width: var(--max-width);
-  margin: 0 auto;
+  display: none;
 }
 
 .footer-content {
   max-width: var(--max-width);
   margin: 0 auto;
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
+  justify-content: space-between;
   align-items: center;
   gap: 1rem;
 }
 
+.footer-logo {
+  font-weight: 700;
+  font-size: 1rem;
+  color: var(--black);
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.footer-logo .logo-dot {
+  width: 8px;
+  height: 8px;
+  background: var(--yellow);
+  border-radius: 50%;
+}
+
 .social-links {
   display: flex;
-  gap: 2rem;
+  gap: 1.5rem;
   justify-content: center;
 }
 
 .social-links a {
   text-decoration: none;
-  color: var(--text-muted);
+  color: var(--gray);
   transition: color var(--transition-fast);
   display: flex;
   align-items: center;
 }
 
 .social-links a:hover {
-  color: var(--primary-color);
+  color: var(--black);
 }
 
 .social-links a:hover svg {
@@ -50,23 +61,68 @@
 }
 
 .social-links svg {
-  width: 24px;
-  height: 24px;
+  width: 22px;
+  height: 22px;
   transition: transform var(--transition-fast);
 }
 
 .social-links .bluesky-icon {
-  width: 32px;
-  height: 32px;
-  margin-top: -4px;
-  margin-bottom: -4px;
+  width: 28px;
+  height: 28px;
+  margin-top: -3px;
+  margin-bottom: -3px;
+}
+
+.social-links .bluesky-icon path {
+  fill: var(--gray);
+  transition: fill var(--transition-fast);
 }
 
 .social-links a:hover .bluesky-icon path {
-  fill: #1da1f2;
+  fill: var(--black);
 }
 
 .copyright {
-  color: var(--text-muted);
-  font-size: 0.9rem;
+  color: var(--gray);
+  font-size: 0.85rem;
+}
+
+/* Mobile adjustments */
+@media (max-width: 768px) {
+  .footer-content {
+    flex-direction: column;
+    text-align: center;
+    gap: 1.5rem;
+  }
+}
+
+/* Dark mode */
+@media (prefers-color-scheme: dark) {
+  .footer-container {
+    background: #252525;
+  }
+
+  .footer-logo {
+    color: var(--bg);
+  }
+
+  .social-links a {
+    color: rgba(255, 254, 249, 0.6);
+  }
+
+  .social-links a:hover {
+    color: var(--bg);
+  }
+
+  .social-links .bluesky-icon path {
+    fill: rgba(255, 254, 249, 0.6);
+  }
+
+  .social-links a:hover .bluesky-icon path {
+    fill: var(--bg);
+  }
+
+  .copyright {
+    color: rgba(255, 254, 249, 0.5);
+  }
 }

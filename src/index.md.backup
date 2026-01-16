@@ -4,10 +4,10 @@ style: data/custom.css
 ---
 
 ```js
-import {
-  createCaseCards,
-  createCases,
-  images,
+import { 
+  createCaseCards, 
+  createCases, 
+  images, 
   createFilterButtons,
   createFilteredCases,
   setupFilterButtons
@@ -28,20 +28,12 @@ setupFilterButtons(filterButtons, filteredCases, createCaseCards);
 <div class="header-container">
   ${createHeader()}
 </div>
-<main style="width: 100%">
-  <!-- Hero Section -->
-  <section class="hero-section">
-    <div class="hero-content">
-      <h1 class="hero-title">
-        WestBrook Dataviz
-      </h1>
-      <p class="hero-desc">
-        Making <span class="highlight">Data</span> Make Sense
-      </p>
-    </div>
-  </section>
-  <!-- Projects Section -->
+<main style="width: 100%">  
+  <div class="intro-container">
+    My goal is to make scientific data and models easier to understand and explore using interactive data visualization<span class="down-arrow">↓</span>.
+  </div>
   <div class="cases-container">
+    <hr>
     <div class="filter-section">
       ${filterButtons}
     </div>
@@ -49,16 +41,11 @@ setupFilterButtons(filterButtons, filteredCases, createCaseCards);
       ${await createCaseCards(displayedCards)}
     </div>
   </div>
-  <!-- CTA Section -->
-  <section class="cta-section">
-    <h2 class="cta-title">Want to bring your data to life?</h2>
-    <a href="contact.html" class="cta-btn">
-      Get in Touch
-      <span>→</span>
-    </a>
-  </section>
+  <div class="intro-container">Please get in touch if you would like to make your own data come alive with interactive visualizations.
+  </div> 
 </main>
 <div class="footer-container">
+  <hr>
   ${createFooter()}
 </div>
 
