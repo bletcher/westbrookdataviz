@@ -78,7 +78,20 @@ html {
   }
 
   .nav-container {
-    background: #252525;
+    background: #3a6a91;
+  }
+
+  .mobile-nav {
+    background: #faf6f0 !important;
+  }
+
+  .mobile-nav-links a {
+    color: #666 !important;
+  }
+
+  .mobile-nav-links a:hover {
+    background: #fefae0 !important;
+    color: #1a1a1a !important;
   }
 
   .case-card-inner {
