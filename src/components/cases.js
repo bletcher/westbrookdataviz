@@ -12,6 +12,7 @@ const PITSTORIES_IMAGE = FileAttachment("/data/pitStories2_image.webp");
 const TSE_IMAGE = FileAttachment("/data/tse_image.webp");
 const HALLOWEEN_IMAGE = FileAttachment("/data/montague-halloween.webp");
 const EVENTS_IMAGE = FileAttachment("/data/events.webp");
+const EVENTS_NYC_IMAGE = FileAttachment("/data/events-nyc.png");
 
 export const images = {
   pit: PIT_IMAGE,
@@ -23,7 +24,8 @@ export const images = {
   pitStories: PITSTORIES_IMAGE,
   tse: TSE_IMAGE,
   halloween: HALLOWEEN_IMAGE,
-  events: EVENTS_IMAGE
+  events: EVENTS_IMAGE,
+  eventsNyc: EVENTS_NYC_IMAGE
 };
 
 export async function createCases(images) {
@@ -119,6 +121,15 @@ export async function createCases(images) {
       color: "#dba74d",
       description: "Continuously updated listing of musical events in the Pioneer Valley (MA, VT).",
       url: externalLinks.events
+    },
+    {
+      title: "NYC jazz",
+      category: "music",
+      image: images.eventsNyc,
+      imageStyle: "contain",
+      color: "#b58ec2",
+      description: "Continuously updated listing of jazz events in New York City.",
+      url: externalLinks.eventsNyc
     }
   ]
 };
