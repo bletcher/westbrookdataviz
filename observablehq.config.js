@@ -23,6 +23,7 @@ export default {
       window.dataLayer = window.dataLayer || [];
       function gtag(){dataLayer.push(arguments);}
       gtag('js', new Date());
+      gtag('set', { 'app_name': 'westbrookdataviz' });
       gtag('config', 'G-3WCF3TGZ9V');
     </script>`
   ],
