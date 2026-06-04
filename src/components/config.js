@@ -7,7 +7,7 @@ export const config = {
   // Site metadata
   site: {
     name: "WestBrook DataViz",
-    description: "Interactive data visualization portfolio",
+    description: "Interactive data visualizations and exploratory tools for environmental and ecological science — making complex data make sense. By ecologist Ben Letcher.",
     url: "https://westbrookdataviz.org"
   },
 
@@ -27,14 +27,13 @@ export const config = {
     pitData: "https://westbrookdataviz.org/pit-data",
     setListDrums: "https://westbrookdataviz.org/set-list-drums",
     montaguaHalloween: "https://westbrookdataviz.org/montague-halloween",
-    events: "https://westbrookdataviz.org/events",
-    eventsNyc: "https://westbrookdataviz.org/events-nyc"
+    events: "https://westbrookdataviz.org/events"
   },
 
   // Social links
   social: {
     github: "https://github.com/bletcher",
-    linkedin: "https://www.linkedin.com/in/ben-letcher",
+    linkedin: "https://www.linkedin.com/in/ben-letcher-732087179/",
     bluesky: "https://bsky.app/profile/bletcher.bsky.social"
   },
 
@@ -43,19 +42,10 @@ export const config = {
     googleAnalyticsId: "G-3WCF3TGZ9V"
   },
 
-  // Categories for filtering
+  // Categories for filtering. Order here drives the filter button order.
   categories: {
-    dataStory: "Data story",
     dataExplorer: "Data Explorer",
+    dataStory: "Data story",
     music: "Music"
   }
 };
-
-/**
- * Helper to get URL by key
- * @param {string} key - The key from externalLinks
- * @returns {string} The URL
- */
-export function getExternalUrl(key) {
-  return config.externalLinks[key] || '#';
-}

@@ -12,7 +12,6 @@ const PITSTORIES_IMAGE = FileAttachment("/data/pitStories2_image.webp");
 const TSE_IMAGE = FileAttachment("/data/tse_image.webp");
 const HALLOWEEN_IMAGE = FileAttachment("/data/montague-halloween.webp");
 const EVENTS_IMAGE = FileAttachment("/data/events.webp");
-const EVENTS_NYC_IMAGE = FileAttachment("/data/events-nyc.png");
 
 export const images = {
   pit: PIT_IMAGE,
@@ -24,8 +23,7 @@ export const images = {
   pitStories: PITSTORIES_IMAGE,
   tse: TSE_IMAGE,
   halloween: HALLOWEEN_IMAGE,
-  events: EVENTS_IMAGE,
-  eventsNyc: EVENTS_NYC_IMAGE
+  events: EVENTS_IMAGE
 };
 
 export async function createCases(images) {
@@ -119,17 +117,8 @@ export async function createCases(images) {
       image: images.events,
       imageStyle: "contain",
       color: "#dba74d",
-      description: "Continuously updated listing of musical events in the Pioneer Valley (MA, VT).",
+      description: "Continuously updated listing of musical events in the Pioneer Valley (MA, VT), NYC and Boston.",
       url: externalLinks.events
-    },
-    {
-      title: "NYC jazz",
-      category: "music",
-      image: images.eventsNyc,
-      imageStyle: "contain",
-      color: "#b58ec2",
-      description: "Continuously updated listing of jazz events in New York City.",
-      url: externalLinks.eventsNyc
     }
   ]
 };
@@ -152,14 +141,14 @@ export async function createCaseCards(cases) {
     const title = caseItem.title;
     const category = caseItem.category;
 
-    const card = html`<article class="case-card"
+    const card = html`<a class="case-card"
+        href="${url}"
+        target="_blank"
+        rel="noopener noreferrer"
         data-category="${category}"
         data-url="${url}"
         data-title="${title}"
-        tabindex="0"
-        role="link"
-        aria-label="${title}: ${caseItem.description}"
-        style="cursor: pointer;">
+        aria-label="${title}: ${caseItem.description}">
         <div class="case-card-inner" style="background: ${caseItem.color || '#fefae0'};">
           <div class="case-content">
             <h3 class="case-title">${title}</h3>
@@ -177,7 +166,7 @@ export async function createCaseCards(cases) {
             </div>
           </div>
         </div>
-      </article>`;
+      </a>`;
 
     // Handle image loading states
     const img = card.querySelector('.case-image');
@@ -197,11 +186,10 @@ export async function createCaseCards(cases) {
       });
     }
 
-    // Click handler - open URL in new tab
-    card.addEventListener('click', (e) => {
-      e.preventDefault();
-
-      // Track click
+    // The card is a real anchor, so the browser handles navigation, keyboard
+    // (Enter), middle-click and right-click "open in new tab" natively. We only
+    // add analytics tracking on activation without preventing the default nav.
+    card.addEventListener('click', () => {
       if (typeof gtag !== 'undefined') {
         gtag('event', 'card_click', {
           'event_category': 'outbound_link',
@@ -212,16 +200,6 @@ export async function createCaseCards(cases) {
           'link_domain': new URL(url).hostname
         });
       }
-
-      window.open(url, '_blank');
-    });
-
-    // Keyboard handler (Enter and Space)
-    card.addEventListener('keydown', (e) => {
-      if (e.key === 'Enter' || e.key === ' ') {
-        e.preventDefault();
-        window.open(url, '_blank');
-      }
     });
 
     return card;
@@ -229,11 +207,13 @@ export async function createCaseCards(cases) {
 }
 
 export function createFilterButtons() {
+  const buttons = Object.entries(config.categories).map(
+    ([key, label]) => html`<button class="filter-button" data-filter="${key}"
+        aria-pressed="false" aria-label="Show ${label} projects">${label}</button>`
+  );
   return html`<div class="filter-buttons" role="group" aria-label="Filter projects by category">
     <button class="filter-button active" data-filter="all" aria-pressed="true" aria-label="Show all projects">All</button>
-    <button class="filter-button" data-filter="dataExplorer" aria-pressed="false" aria-label="Show data explorer projects">Data Explorer</button>
-    <button class="filter-button" data-filter="dataStory" aria-pressed="false" aria-label="Show data story projects">Data story</button>
-    <button class="filter-button" data-filter="music" aria-pressed="false" aria-label="Show music projects">Music</button>
+    ${buttons}
   </div>`;
 }
 

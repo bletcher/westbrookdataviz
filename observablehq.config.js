@@ -1,33 +1,57 @@
 // See https://observablehq.com/framework/config for documentation.
+import { config } from "./src/components/config.js";
+
+const { site, analytics } = config;
+const GA_ID = analytics.googleAnalyticsId;
+const OG_IMAGE = `${site.url}/og-image.png`; // shipped to dist/ by scripts/copy-static.mjs
+
+function escapeAttr(value) {
+  return String(value).replace(/&/g, "&amp;").replace(/"/g, "&quot;").replace(/</g, "&lt;");
+}
+
 export default {
   // The project’s title; used in the sidebar and webpage titles.
-  title: "WestBrook DataViz",
+  title: site.name,
 
-  // The pages and sections in the sidebar. If you don’t specify this option,
-  // all pages will be listed in alphabetical order. Listing pages explicitly
-  // lets you organize them into sections and have unlisted pages.
-  // pages: [
-  //   {
-  //     name: "Examples",
-  //     pages: [
-  //       {name: "Dashboard", path: "/example-dashboard"},
-  //       {name: "Report", path: "/example-report"}
-  //     ]
-  //   }
-  // ],
-
-  // Add google analytics
-  head: [
-    '<script async src="https://www.googletagmanager.com/gtag/js?id=G-3WCF3TGZ9V"></script>',
-    `<script>
+  // Per-page <head>: SEO meta, Open Graph / Twitter cards, favicons, analytics.
+  // `head` is called with the page's { title, path }, so canonical URLs and
+  // social titles are page-specific.
+  head: ({ title, path }) => {
+    const canonical = path === "/index" ? `${site.url}/` : `${site.url}${path}.html`;
+    const pageTitle = title && title !== site.name ? `${title} | ${site.name}` : site.name;
+    const desc = site.description;
+    return [
+      `<meta name="description" content="${escapeAttr(desc)}">`,
+      `<link rel="canonical" href="${canonical}">`,
+      // Favicon (copied + hashed by Framework); apple-touch-icon via static/.
+      `<link rel="icon" type="image/svg+xml" href="/favicon.svg">`,
+      `<link rel="apple-touch-icon" href="${site.url}/apple-touch-icon.png">`,
+      `<meta name="theme-color" content="#3a6a91">`,
+      // Open Graph
+      `<meta property="og:type" content="website">`,
+      `<meta property="og:site_name" content="${escapeAttr(site.name)}">`,
+      `<meta property="og:title" content="${escapeAttr(pageTitle)}">`,
+      `<meta property="og:description" content="${escapeAttr(desc)}">`,
+      `<meta property="og:url" content="${canonical}">`,
+      `<meta property="og:image" content="${OG_IMAGE}">`,
+      `<meta property="og:image:width" content="1200">`,
+      `<meta property="og:image:height" content="630">`,
+      // Twitter / X
+      `<meta name="twitter:card" content="summary_large_image">`,
+      `<meta name="twitter:title" content="${escapeAttr(pageTitle)}">`,
+      `<meta name="twitter:description" content="${escapeAttr(desc)}">`,
+      `<meta name="twitter:image" content="${OG_IMAGE}">`,
+      // Google Analytics
+      `<script async src="https://www.googletagmanager.com/gtag/js?id=${GA_ID}"></script>`,
+      `<script>
       window.dataLayer = window.dataLayer || [];
       function gtag(){dataLayer.push(arguments);}
       gtag('js', new Date());
       gtag('set', { 'app_name': 'westbrookdataviz' });
-      gtag('config', 'G-3WCF3TGZ9V');
+      gtag('config', '${GA_ID}');
     </script>`
-  ],
-
+    ].join("\n");
+  },
 
   // Some additional configuration options and their defaults:
   // theme: "default", // try "light", "dark", "slate", etc.

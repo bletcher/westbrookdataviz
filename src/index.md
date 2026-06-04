@@ -28,7 +28,7 @@ setupFilterButtons(filterButtons, filteredCases, createCaseCards);
 <div class="header-container">
   ${createHeader()}
 </div>
-<main style="width: 100%">
+<main id="main" tabindex="-1" style="width: 100%">
   <!-- Hero Section -->
   <section class="hero-section">
     <div class="hero-content">

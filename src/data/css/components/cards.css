@@ -1,6 +1,9 @@
 /* Case Cards Styles - Pudding Style */
 
 .case-card {
+  display: block;
+  text-decoration: none;
+  color: inherit;
   background: none;
   position: relative;
   cursor: pointer;

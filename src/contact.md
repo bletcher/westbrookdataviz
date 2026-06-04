@@ -16,7 +16,7 @@ const cvUrl = await CV_FILE.url();
 <div class="header-container">
   ${createHeader()}
 </div>
-<main class="contact-container">
+<main id="main" tabindex="-1" class="contact-container">
   <div class="contact-content">
     <div class="contact-info">
       <h1>Get in Touch</h1>

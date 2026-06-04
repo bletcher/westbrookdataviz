@@ -6,7 +6,9 @@
   "private": true,
   "scripts": {
     "clean": "rimraf src/.observablehq/cache",
+    "assets": "node scripts/generate-assets.mjs",
     "build": "observable build",
+    "postbuild": "node scripts/copy-static.mjs",
     "dev": "observable preview",
     "invalidate-cache": "powershell -File invalidate.ps1",
     "observable": "observable"

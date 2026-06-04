@@ -2,6 +2,7 @@ import { html } from "htl";
 
 export function createHeader() {
   const header = html`
+    <a class="skip-link" href="#main">Skip to content</a>
     <div class="nav-wrapper">
       <div class="nav-container">
         <div class="nav-content">
@@ -27,7 +28,7 @@ export function createHeader() {
     <div class="nav-overlay"></div>
 
     <!-- Mobile Navigation Drawer -->
-    <nav class="mobile-nav" aria-label="Mobile navigation" style="background: #faf6f0 !important; background-color: #faf6f0 !important; color-scheme: light !important;" data-darkreader-mode="off">
+    <nav class="mobile-nav" aria-label="Mobile navigation">
       <div class="mobile-nav-links">
         <a href="index.html">Home</a>
         <a href="about.html">About</a>
@@ -55,12 +56,6 @@ export function createHeader() {
 
     // Prevent body scroll when menu is open
     document.body.style.overflow = isOpen ? '' : 'hidden';
-
-    // Force light background on mobile nav (prevents Android dark mode override)
-    if (!isOpen) {
-      mobileNav.style.setProperty('background-color', '#faf6f0', 'important');
-      mobileNav.style.setProperty('background', '#faf6f0', 'important');
-    }
   }
 
   // Close menu
