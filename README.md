@@ -129,17 +129,24 @@ The site is deployed to AWS S3 with CloudFront CDN.
 
 ### Build & Deploy
 
-1. Build the site:
+Deploy with a single command (requires the AWS CLI configured with credentials
+for the `westbrookdataviz.org` bucket and CloudFront distribution):
+
 ```bash
-npm run build
+npm run deploy
 ```
 
-2. Upload `dist/` contents to S3 bucket
+This runs `deploy.ps1`, which:
 
-3. Invalidate CloudFront cache:
-```bash
-npm run invalidate-cache
-```
+1. Builds the site (`npm run build`).
+2. Syncs `dist/` to S3 with `aws s3 sync`:
+   - content-hashed assets (`_file`, `_import`, `_node`, `_observablehq`) are
+     uploaded with a 1-year immutable cache;
+   - HTML and root assets get a short, must-revalidate cache;
+   - `--delete` removes files left over from previous builds.
+3. Invalidates the CloudFront cache (`npm run invalidate-cache`).
+
+To invalidate the cache on its own, run `npm run invalidate-cache`.
 
 ### AWS Infrastructure
 

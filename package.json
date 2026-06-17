@@ -9,16 +9,13 @@
     "assets": "node scripts/generate-assets.mjs",
     "build": "observable build",
     "postbuild": "node scripts/copy-static.mjs",
+    "deploy": "powershell -File deploy.ps1",
     "dev": "observable preview",
     "invalidate-cache": "powershell -File invalidate.ps1",
     "observable": "observable"
   },
   "dependencies": {
-    "@observablehq/framework": "latest",
-    "aws-rum-web": "^1.22.1",
-    "d3": "^7.9.0",
-    "d3-dsv": "^3.0.1",
-    "d3-time-format": "^4.1.0"
+    "@observablehq/framework": "1.13.3"
   },
   "devDependencies": {
     "rimraf": "^5.0.5",
