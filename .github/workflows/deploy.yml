@@ -1,0 +1,94 @@
+name: Build and Deploy
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+env:
+  # Opt JavaScript actions onto Node 24 ahead of GitHub's default flip.
+  # Silences the Node 20 deprecation warning; harmless afterward.
+  FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: 'true'
+
+# Avoid overlapping deploys racing on the same bucket.
+concurrency:
+  group: deploy-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build site
+        run: npm run build
+
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: ${{ secrets.AWS_REGION }}
+
+      - name: Sync to S3
+        env:
+          S3_BUCKET: ${{ secrets.S3_BUCKET }}
+        run: |
+          set -euo pipefail
+
+          # Safety guard: never sync an empty/missing build over the live bucket.
+          if [ ! -f dist/index.html ]; then
+            echo "ERROR: dist/index.html not found; aborting before sync."
+            exit 1
+          fi
+
+          # IMPORTANT: this bucket also hosts other apps in their own
+          # subdirectories (pit-data/, events/, set-list-drums/, etc.). The
+          # landing site deploys to the bucket ROOT, so we must NEVER run a
+          # root-level `--delete`, or it would wipe those apps. The
+          # orphan-pruning `--delete` is scoped to the four hashed-asset
+          # prefixes that ONLY the landing site owns.
+          for prefix in _file _import _node _observablehq; do
+            if [ -d "dist/$prefix" ]; then
+              echo "Syncing $prefix/ (immutable, pruning old hashes)..."
+              aws s3 sync "dist/$prefix" "s3://${S3_BUCKET}/$prefix" \
+                --delete \
+                --cache-control "public,max-age=31536000,immutable"
+            fi
+          done
+
+          # Root pages and assets (HTML, images, robots, sitemap) — short
+          # cache, and NO --delete so nothing outside the landing site is
+          # removed (app subdirectories stay untouched).
+          echo "Syncing root pages and assets..."
+          aws s3 sync dist "s3://${S3_BUCKET}/" \
+            --exclude "_file/*" --exclude "_import/*" \
+            --exclude "_node/*" --exclude "_observablehq/*" \
+            --cache-control "public,max-age=300,must-revalidate"
+
+      - name: Invalidate CloudFront cache
+        env:
+          CF_DISTRIBUTION_ID: ${{ secrets.CLOUDFRONT_DISTRIBUTION_ID }}
+        run: |
+          if [ -n "$CF_DISTRIBUTION_ID" ]; then
+            aws cloudfront create-invalidation \
+              --distribution-id "$CF_DISTRIBUTION_ID" \
+              --paths "/*"
+            echo "CloudFront cache invalidated"
+          else
+            echo "No CloudFront distribution ID configured, skipping"
+          fi
