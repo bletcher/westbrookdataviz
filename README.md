@@ -4,20 +4,25 @@ Interactive data visualization portfolio built with Observable Framework.
 
 **Live Site:** [westbrookdataviz.org](https://westbrookdataviz.org)
 
+The landing site is a portfolio that links out to the individual data apps
+(Observable notebooks, USGS EcoSheds apps, and other hosted apps). Those apps
+are deployed separately into their own subdirectories of the same S3 bucket
+(e.g. `/pit-data`, `/events`, `/set-list-drums`).
+
 ## Project Structure
 
 ```
 westbrookdataviz/
 ├── src/
 │   ├── components/
-│   │   ├── cases.js          # Case cards and filtering logic
-│   │   ├── config.js         # Centralized configuration (URLs, settings)
-│   │   ├── header.js         # Header with mobile navigation
-│   │   └── footer.js         # Footer component
+│   │   ├── cases.js          # Case cards, filtering, filter buttons (from config)
+│   │   ├── config.js         # Centralized configuration (URLs, social, categories)
+│   │   ├── header.js         # Header with mobile navigation + skip link
+│   │   └── footer.js         # Footer (social links from config)
 │   ├── data/
 │   │   ├── css/
-│   │   │   ├── variables.css       # CSS custom properties
-│   │   │   ├── layout.css          # Grid and containers
+│   │   │   ├── variables.css       # CSS custom properties + dark mode
+│   │   │   ├── layout.css          # Grid, containers, skip link
 │   │   │   ├── responsive.css      # Media queries
 │   │   │   ├── components/
 │   │   │   │   ├── nav.css         # Navigation styles
@@ -27,12 +32,25 @@ westbrookdataviz/
 │   │   │       ├── about.css       # About page styles
 │   │   │       └── contact.css     # Contact page styles
 │   │   ├── custom.css        # Main CSS (imports all modules)
-│   │   └── *.png             # Card images
+│   │   └── *.webp / *.jpg    # Card images and assets
+│   ├── favicon.svg           # Hand-authored brand favicon (source of truth)
 │   ├── index.md              # Home page
 │   ├── about.md              # About page
-│   └── contact.md            # Contact page
+│   ├── contact.md            # Contact page
+│   └── 404.md                # Custom 404 page
+├── static/                   # Files copied verbatim to the dist/ root (postbuild)
+│   ├── robots.txt
+│   ├── sitemap.xml
+│   ├── og-image.png          # Social share card (generated)
+│   └── apple-touch-icon.png  # iOS icon (generated)
+├── scripts/
+│   ├── generate-assets.mjs   # Builds og-image.png + apple-touch-icon.png from favicon.svg
+│   └── copy-static.mjs       # Copies static/ → dist/ after build (postbuild)
+├── .github/workflows/
+│   └── deploy.yml            # CI: build + deploy to S3 + invalidate CloudFront
 ├── dist/                     # Built files (generated)
-├── observablehq.config.js    # Observable Framework config
+├── observablehq.config.js    # Observable Framework config (SEO/OG meta, analytics)
+├── deploy.ps1                # Manual build + sync + invalidate
 ├── invalidate.ps1            # CloudFront cache invalidation
 └── package.json              # Project configuration
 ```
@@ -41,23 +59,19 @@ westbrookdataviz/
 
 ### Prerequisites
 
-- Node.js 18 or later
+- Node.js 18 or later (CI builds on Node 20)
 - npm
 
-### Local Development
+### npm scripts
 
 ```bash
-# Install dependencies
-npm install
-
-# Start development server
-npm run dev
-
-# Build for production
-npm run build
-
-# Clear cache
-npm run clean
+npm install            # Install dependencies
+npm run dev            # Start the dev server (observable preview)
+npm run build          # Build to dist/ (runs copy-static afterward)
+npm run clean          # Clear the Observable build cache
+npm run assets         # Regenerate og-image.png + apple-touch-icon.png (needs sharp)
+npm run deploy         # Manual build + sync to S3 + invalidate CloudFront
+npm run invalidate-cache  # Invalidate the CloudFront cache only
 ```
 
 ## Configuration
@@ -67,20 +81,23 @@ All external URLs and site settings are centralized in `src/components/config.js
 ```javascript
 import { config } from "./config.js";
 
-// Access URLs
+config.site.description          // Used for SEO / Open Graph meta tags
 config.externalLinks.streamFlow  // Observable notebook URL
 config.externalLinks.pitData     // WestBrook hosted app URL
-
-// Access social links
-config.social.github
-config.social.linkedin
+config.social.github             // Footer social links
+config.categories                // Drives the filter buttons (label + order)
+config.analytics.googleAnalyticsId  // Single source for the GA tag
 ```
+
+`observablehq.config.js` imports this config to emit per-page SEO meta,
+Open Graph / Twitter cards, favicon links, and the Google Analytics tag.
 
 ### Adding a New Case
 
-1. Add the image to `src/data/` directory (use .webp format for best performance)
+1. Add the image to `src/data/` (use `.webp` for best performance).
 
-2. Update `src/components/config.js` with the URL:
+2. Add the URL to `src/components/config.js`:
+
 ```javascript
 externalLinks: {
   // ... existing links ...
@@ -88,7 +105,8 @@ externalLinks: {
 }
 ```
 
-3. Update `src/components/cases.js`:
+3. Register the image and case in `src/components/cases.js`:
+
 ```javascript
 // Add image import
 const NEW_IMAGE = FileAttachment("/data/new_image.webp");
@@ -99,7 +117,7 @@ export const images = {
   newProject: NEW_IMAGE
 };
 
-// Add case to array in createCases()
+// Add case to the array in createCases()
 {
   title: "New Project Title",
   category: "dataStory", // or "dataExplorer" or "music"
@@ -110,12 +128,29 @@ export const images = {
 }
 ```
 
+## Branding assets
+
+The favicon is hand-authored at `src/favicon.svg` (the source of truth).
+The social share image (`og-image.png`) and `apple-touch-icon.png` are
+generated from it with `sharp`:
+
+```bash
+npm run assets
+```
+
+This writes both PNGs into `static/`, which is copied to the `dist/` root at
+build time. Commit the regenerated files. Re-run only when the branding
+changes.
+
 ## Features
 
 - **Responsive Design** - Mobile-first with hamburger menu navigation
 - **Category Filtering** - Filter projects by Data Stories, Data Explorers, or Music
-- **Analytics** - Google Analytics tracking for all card clicks and filter usage
-- **Modular CSS** - Organized stylesheets for easy maintenance
+- **SEO & Social** - Per-page meta description, Open Graph / Twitter cards, favicon, sitemap, robots.txt
+- **Accessibility** - Skip-to-content link; project cards are real links (keyboard / middle-click / right-click friendly)
+- **Custom 404** - Branded `404.html` served by S3 on unknown URLs
+- **Analytics** - Google Analytics tracking for card clicks and filter usage
+- **Modular CSS** - Organized stylesheets with dark-mode support
 
 ### Categories
 
@@ -125,47 +160,58 @@ export const images = {
 
 ## Deployment
 
-The site is deployed to AWS S3 with CloudFront CDN.
+The site is deployed to AWS S3 + CloudFront. The S3 bucket also hosts the
+individual apps in their own subdirectories, so deploys of the landing site
+**must never run a root-level `aws s3 sync --delete`** — it would wipe those
+apps. Both deploy paths below scope their `--delete` to the four hashed-asset
+prefixes that only the landing site owns (`_file`, `_import`, `_node`,
+`_observablehq`) and sync root files without `--delete`.
 
-### Build & Deploy
+### Automatic (GitHub Actions)
 
-Deploy with a single command (requires the AWS CLI configured with credentials
-for the `westbrookdataviz.org` bucket and CloudFront distribution):
+Every push to `main` triggers `.github/workflows/deploy.yml`, which builds the
+site, syncs it to S3 (app-safe scoping), and invalidates CloudFront. It can
+also be run manually from the **Actions** tab (`workflow_dispatch`).
+
+Required repository secrets (Settings → Secrets and variables → Actions):
+
+| Secret | Value |
+| --- | --- |
+| `AWS_ACCESS_KEY_ID` | IAM user key with bucket-wide write + `cloudfront:CreateInvalidation` |
+| `AWS_SECRET_ACCESS_KEY` | matching secret key |
+| `AWS_REGION` | `us-east-2` |
+| `S3_BUCKET` | `westbrookdataviz.org` |
+| `CLOUDFRONT_DISTRIBUTION_ID` | `E3EX9JVKMSIGL9` |
+
+### Manual
+
+Requires the AWS CLI configured locally with credentials for the bucket and
+distribution:
 
 ```bash
 npm run deploy
 ```
 
-This runs `deploy.ps1`, which:
-
-1. Builds the site (`npm run build`).
-2. Syncs `dist/` to S3 with `aws s3 sync`:
-   - content-hashed assets (`_file`, `_import`, `_node`, `_observablehq`) are
-     uploaded with a 1-year immutable cache;
-   - HTML and root assets get a short, must-revalidate cache;
-   - `--delete` removes files left over from previous builds.
-3. Invalidates the CloudFront cache (`npm run invalidate-cache`).
-
-To invalidate the cache on its own, run `npm run invalidate-cache`.
+`deploy.ps1` builds the site, syncs to S3 (same app-safe scoping), and
+invalidates CloudFront. Run `npm run invalidate-cache` to invalidate only.
 
 ### AWS Infrastructure
 
-- **S3 Bucket:** `westbrookdataviz.org`
-- **CloudFront:** CDN for content delivery
+- **S3 Bucket:** `westbrookdataviz.org` (static website hosting; error document `404.html`)
+- **CloudFront:** distribution `E3EX9JVKMSIGL9` (CDN, region `us-east-2`)
 - **Route53:** DNS management
 - **ACM:** SSL/TLS certificate
 
 ### Cache Control
 
-- Static assets (JS, CSS, images): 1 year cache
-- HTML files: 5 minutes with stale-while-revalidate
-- JSON data: 1 hour with stale-while-revalidate
+- Content-hashed assets (`_file`, `_import`, `_node`, `_observablehq`): 1 year, immutable
+- HTML and root assets (images, robots.txt, sitemap.xml): `max-age=300`, must-revalidate
 
 ## Technologies
 
-- [Observable Framework](https://observablehq.com/framework)
+- [Observable Framework](https://observablehq.com/framework) (pinned to 1.13.3)
 - HTML/CSS/JavaScript
-- AWS S3 + CloudFront
+- AWS S3 + CloudFront, deployed via GitHub Actions
 
 ## License
 

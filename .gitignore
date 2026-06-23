@@ -18,4 +18,10 @@ pit-data/_file/data/*.json
 # Source files (not needed in repo)
 *.pptx
 
+# Google service-account keys (never commit credentials)
+*service-account*.json
+gcp-*.json
+*.key.json
+westbrookdataviz-analytics-c1bfcc11782f.json
+
 design-examples/
