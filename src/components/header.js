@@ -1,94 +1,49 @@
 import { html } from "htl";
 
+// All three links fit at 360px, so there is no hamburger and no drawer.
+const LINKS = [
+  { href: "index.html", label: "Home" },
+  { href: "about.html", label: "About" },
+  { href: "contact.html", label: "Contact" }
+];
+
+// "/" and "/index.html" are the same page; anything else matches on file name.
+function currentPage() {
+  return window.location.pathname.split("/").pop() || "index.html";
+}
+
+// Cancels the previous listener if the cell re-runs during development.
+let stuckWatcher;
+
+// The bar only grows its hairline once there is content behind it, so the top
+// of the page stays clean.
+function watchStuck(nav) {
+  stuckWatcher?.abort();
+  stuckWatcher = new AbortController();
+
+  const update = () => nav.classList.toggle("is-stuck", window.scrollY > 4);
+  window.addEventListener("scroll", update, { passive: true, signal: stuckWatcher.signal });
+  update();
+}
+
 export function createHeader() {
+  const here = currentPage();
+
+  const links = LINKS.map(({ href, label }) => {
+    const isCurrent = href === here;
+    return html`<a href="${href}"
+        class="${isCurrent ? "is-current" : ""}"
+        aria-current="${isCurrent ? "page" : null}">${label}</a>`;
+  });
+
   const header = html`
     <a class="skip-link" href="#main">Skip to content</a>
-    <div class="nav-wrapper">
-      <div class="nav-container">
-        <div class="nav-content">
-          
-          <!-- Desktop Navigation -->
-          <div class="nav-links">
-            <a href="index.html">Home</a>
-            <a href="about.html">About</a>
-            <a href="contact.html">Contact</a>
-          </div>
-
-          <!-- Hamburger Button (Mobile) -->
-          <button class="hamburger" aria-label="Toggle navigation menu" aria-expanded="false">
-            <span></span>
-            <span></span>
-            <span></span>
-          </button>
-        </div>
-      </div>
-    </div>
-
-    <!-- Mobile Navigation Overlay -->
-    <div class="nav-overlay"></div>
-
-    <!-- Mobile Navigation Drawer -->
-    <nav class="mobile-nav" aria-label="Mobile navigation">
-      <div class="mobile-nav-links">
-        <a href="index.html">Home</a>
-        <a href="about.html">About</a>
-        <a href="contact.html">Contact</a>
-      </div>
+    <nav class="site-nav" aria-label="Main">
+      <div class="site-nav-inner">${links}</div>
     </nav>
   `;
 
-  // Get elements
-  const hamburger = header.querySelector('.hamburger');
-  const mobileNav = header.querySelector('.mobile-nav');
-  const navOverlay = header.querySelector('.nav-overlay');
-  const mobileLinks = header.querySelectorAll('.mobile-nav-links a');
-
-  // Toggle mobile menu
-  function toggleMenu() {
-    const isOpen = hamburger.classList.contains('active');
-
-    hamburger.classList.toggle('active');
-    mobileNav.classList.toggle('active');
-    navOverlay.classList.toggle('active');
-
-    // Update ARIA
-    hamburger.setAttribute('aria-expanded', !isOpen);
-
-    // Prevent body scroll when menu is open
-    document.body.style.overflow = isOpen ? '' : 'hidden';
-  }
-
-  // Close menu
-  function closeMenu() {
-    hamburger.classList.remove('active');
-    mobileNav.classList.remove('active');
-    navOverlay.classList.remove('active');
-    hamburger.setAttribute('aria-expanded', 'false');
-    document.body.style.overflow = '';
-  }
-
-  // Event listeners
-  hamburger.addEventListener('click', toggleMenu);
-  navOverlay.addEventListener('click', closeMenu);
-
-  // Close menu when clicking a link
-  mobileLinks.forEach(link => {
-    link.addEventListener('click', closeMenu);
-  });
-
-  // Close menu on escape key
-  document.addEventListener('keydown', (e) => {
-    if (e.key === 'Escape' && mobileNav.classList.contains('active')) {
-      closeMenu();
-    }
-  });
-
-  // Close menu on window resize (if switching to desktop)
-  window.addEventListener('resize', () => {
-    if (window.innerWidth > 768 && mobileNav.classList.contains('active')) {
-      closeMenu();
-    }
-  });
+  watchStuck(header.querySelector(".site-nav"));
 
   return header;
 }

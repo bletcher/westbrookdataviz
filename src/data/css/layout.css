@@ -24,8 +24,11 @@
   outline-offset: 2px;
 }
 
+/* Sticky rather than fixed, so the nav stays in flow and nothing below it needs
+   padding to compensate. */
 .header-container {
-  position: relative;
+  position: sticky;
+  top: 0;
   z-index: 1000;
 }
 
@@ -41,7 +44,7 @@
   justify-content: center;
   align-items: center;
   text-align: center;
-  padding: 6rem 2rem 1rem;
+  padding: 2rem 2rem 1rem;
   position: relative;
 }
 
@@ -97,7 +100,7 @@
 .home-hero {
   max-width: var(--max-width);
   margin: 0 auto;
-  padding: 6.5rem 2rem 0;
+  padding: 2.25rem 2rem 0;
   width: 100%;
   box-sizing: border-box;
 }

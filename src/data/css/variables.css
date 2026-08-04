@@ -27,6 +27,9 @@
   --filter-bg-active: #f1f1f1;
   --filter-fg-active: var(--black);
 
+  /* Hairline under the nav bar once it is stuck */
+  --hairline: #eae7de;
+
   /* Legacy color mappings */
   --theme-foreground-focus: #59545e;
   --primary-color: var(--black);
@@ -90,26 +93,10 @@ html {
     --filter-bg-hover: rgba(255, 255, 255, 0.08);
     --filter-bg-active: rgba(255, 255, 255, 0.14);
     --filter-fg-active: #f5f5f5;
+    --hairline: #333;
     --shadow-sm: 0 2px 8px rgba(0,0,0,0.3);
     --shadow-md: 0 8px 24px rgba(0,0,0,0.4);
     --shadow-lg: 0 16px 40px rgba(0,0,0,0.5);
-  }
-
-  .nav-container {
-    background: #3a6a91;
-  }
-
-  .mobile-nav {
-    background: #faf6f0 !important;
-  }
-
-  .mobile-nav-links a {
-    color: #666 !important;
-  }
-
-  .mobile-nav-links a:hover {
-    background: #fefae0 !important;
-    color: #1a1a1a !important;
   }
 
   .case-card-inner {
