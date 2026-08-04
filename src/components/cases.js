@@ -12,7 +12,7 @@ const PITSTORIES_IMAGE = FileAttachment("/data/pitStories2_image.webp");
 const TSE_IMAGE = FileAttachment("/data/tse_image.webp");
 const HALLOWEEN_IMAGE = FileAttachment("/data/montague-halloween.webp");
 const EVENTS_IMAGE = FileAttachment("/data/events.webp");
-const WATERPHYSICS_IMAGE = FileAttachment("/data/water-physics.webp");
+const WATERPHYSICS_IMAGE = FileAttachment("/data/water-physics3.webp");
 
 export const images = {
   pit: PIT_IMAGE,
