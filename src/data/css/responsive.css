@@ -8,6 +8,12 @@
   .cases-container {
     padding: 1rem;
   }
+
+  /* Keep the masthead on the same left edge as the grid */
+  .home-hero {
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
 }
 
 @media (max-width: 900px) {
@@ -20,25 +26,31 @@
     font-size: clamp(2rem, 7vw, 3.5rem);
   }
 
-  .shape-1 {
-    width: 200px;
-    height: 200px;
+  /* Single column: masthead, featured project, then filters above the grid */
+  .home-hero-inner {
+    grid-template-columns: 1fr;
+    grid-template-rows: auto auto auto;
+    grid-template-areas:
+      "type"
+      "feature"
+      "filters";
+    gap: 1.75rem;
   }
 
-  .shape-2 {
-    width: 150px;
-    height: 150px;
+  .home-hero .filter-section {
+    align-self: start;
   }
 
-  .shape-3 {
-    width: 100px;
-    height: 100px;
+  .home-hero .hero-desc {
+    max-width: none;
   }
 }
 
 @media (max-width: 768px) {
   .cases-grid {
     grid-template-columns: 1fr;
+    /* One card per row: matching heights would just pad the short ones */
+    grid-auto-rows: auto;
     gap: 1.5rem;
   }
 
@@ -94,13 +106,28 @@
     min-height: auto;
   }
 
-  .hero-badge {
-    font-size: 0.75rem;
-    padding: 0.4rem 0.8rem;
-  }
-
   .hero-desc {
     font-size: 1rem;
+  }
+
+  .home-hero {
+    padding-top: 6rem;
+  }
+
+  /* Stack the featured card's text over its image */
+  .case-card--featured .case-card-inner {
+    grid-template-columns: 1fr;
+    align-items: stretch;
+    gap: 1.25rem;
+    padding: 1.5rem;
+  }
+
+  .case-card--featured .case-image-wrapper {
+    aspect-ratio: 5 / 3;
+  }
+
+  .case-card--featured .case-title {
+    font-size: 1.5rem;
   }
 
   .cta-section {
@@ -114,11 +141,6 @@
   .cta-btn {
     padding: 0.8rem 1.5rem;
     font-size: 0.9rem;
-  }
-
-  /* Hide floating shapes on mobile */
-  .shape {
-    display: none;
   }
 }
 
@@ -157,6 +179,23 @@
 
   .hero-title {
     font-size: 2rem;
+  }
+
+  .home-hero {
+    padding-top: 5.5rem;
+  }
+
+  .home-hero .hero-title {
+    font-size: 2rem;
+  }
+
+  .home-hero .hero-desc {
+    font-size: 1.05rem;
+  }
+
+  .case-card--featured .case-card-inner {
+    min-height: 0;
+    padding: 1.25rem;
   }
 
   .section-headline {
@@ -291,16 +330,9 @@
     transition: none;
   }
 
-  .case-card:hover {
+  .case-card:hover,
+  .case-card--peek {
     transform: none;
-  }
-
-  .shape {
-    animation: none;
-  }
-
-  .down-arrow {
-    animation: none;
   }
 
   .mobile-nav,

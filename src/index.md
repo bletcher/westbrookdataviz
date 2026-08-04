@@ -7,6 +7,7 @@ style: data/custom.css
 import {
   createCaseCards,
   createCases,
+  createFeaturedCard,
   images,
   createFilterButtons,
   createFilteredCases,
@@ -19,8 +20,14 @@ import { createFooter } from "./components/footer.js";
 
 ```js
 const cases = await createCases(images)
+
+// One case is promoted into the hero; the rest fill the filterable grid below.
+const featured = cases.find((d) => d.featured) ?? cases[0];
+const gridCases = cases.filter((d) => d !== featured);
+const featuredCard = await createFeaturedCard(featured);
+
 const filterButtons = createFilterButtons();
-const filteredCases = createFilteredCases(cases);
+const filteredCases = createFilteredCases(gridCases);
 const displayedCards = filteredCases.update("all");
 setupFilterButtons(filterButtons, filteredCases, createCaseCards);
 ```
@@ -29,22 +36,26 @@ setupFilterButtons(filterButtons, filteredCases, createCaseCards);
   ${createHeader()}
 </div>
 <main id="main" tabindex="-1" style="width: 100%">
-  <!-- Hero Section -->
-  <section class="hero-section">
-    <div class="hero-content">
-      <h1 class="hero-title">
-        WestBrook Dataviz
-      </h1>
-      <p class="hero-desc">
-        Making <span class="highlight">Data</span> Make Sense
-      </p>
+  <!-- Hero: masthead and the featured project share the first screen.
+       Filters sit last in source order so they stay next to the grid on mobile. -->
+  <section class="home-hero">
+    <div class="home-hero-inner">
+      <div class="home-hero-type">
+        <h1 class="hero-title">
+          WestBrook DataViz
+        </h1>
+        <p class="hero-desc">
+          Making <span class="highlight">Data</span> Make Sense
+        </p>
+      </div>
+      ${featuredCard}
+      <div class="filter-section">
+        ${filterButtons}
+      </div>
     </div>
   </section>
   <!-- Projects Section -->
   <div class="cases-container">
-    <div class="filter-section">
-      ${filterButtons}
-    </div>
     <div class="cases-grid">
       ${await createCaseCards(displayedCards)}
     </div>

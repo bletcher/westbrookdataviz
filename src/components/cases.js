@@ -33,6 +33,45 @@ export async function createCases(images) {
 
   return [
     {
+      title: "Musical events listing",
+      category: "music",
+      image: images.events,
+      imageStyle: "contain",
+      color: "#dba74d",
+      description: "Continuously updated listing of musical events in the Pioneer Valley (MA, VT), NYC and Boston.",
+      url: externalLinks.events
+    },
+    {
+      title: "Song library and set list creator",
+      category: "music",
+      image: images.drums,
+      imageStyle: "contain",
+      color: "#c9caf6",
+      description: "A tool to create song libraries and set lists, especially for drum set players.",
+      url: externalLinks.setListDrums
+    },
+    {
+      title: "Halloween in Montague, MA",
+      category: "dataStory",
+      image: images.halloween,
+      imageStyle: "contain",
+      color: "#a1abd3",
+      description: "Explore trends in Halloween activity in Montague, MA.",
+      url: externalLinks.montaguaHalloween
+    },
+    {
+      title: "Water physics",
+      category: "dataExplorer",
+      image: images.waterPhysics,
+      imageStyle: "cover",
+      color: "#7ea9c4",
+      description: "Interactive tool to explore the physics of water surfaces — ripples, obstacles and shoaling waves.",
+      url: externalLinks.waterPhysics,
+      // Promoted into the hero. Exactly one case should carry this.
+      featured: true,
+      kicker: "Newest"
+    },
+    {
       title: "Measuring stream flow",
       category: "dataStory",
       image: images.streamFlow,
@@ -87,15 +126,6 @@ export async function createCases(images) {
       url: externalLinks.polyrhythm
     },
     {
-      title: "Song library and set list creator",
-      category: "music",
-      image: images.drums,
-      imageStyle: "contain",
-      color: "#c9caf6",
-      description: "A tool to create song libraries and set lists, especially for drum set players.",
-      url: externalLinks.setListDrums
-    },
-    {
       title: "PIT Data Explorer - DEV VERSION",
       category: "dataExplorer",
       image: images.pit,
@@ -103,36 +133,85 @@ export async function createCases(images) {
       color: "#ccbb95",
       description: "An interactive application to explore tag data from a long-term study in western MA.",
       url: externalLinks.pitData
-    },
-    {
-      title: "Halloween in Montague, MA",
-      category: "dataStory",
-      image: images.halloween,
-      imageStyle: "contain",
-      color: "#a1abd3",
-      description: "Explore trends in Halloween activity in Montague, MA.",
-      url: externalLinks.montaguaHalloween
-    },
-    {
-      title: "Musical events listing",
-      category: "music",
-      image: images.events,
-      imageStyle: "contain",
-      color: "#dba74d",
-      description: "Continuously updated listing of musical events in the Pioneer Valley (MA, VT), NYC and Boston.",
-      url: externalLinks.events
-    },
-    {
-      title: "Water physics",
-      category: "dataExplorer",
-      image: images.waterPhysics,
-      imageStyle: "cover",
-      color: "#7ea9c4",
-      description: "Interactive tool to explore the physics of water surfaces — ripples, obstacles and shoaling waves.",
-      url: externalLinks.waterPhysics
     }
   ]
 };
+
+// Image loading states and outbound-click tracking. Shared by the grid cards and
+// the featured hero card. `slot` distinguishes the two in analytics.
+function wireCard(card, { title, url, category, slot }) {
+  const img = card.querySelector('.case-image');
+  const wrapper = card.querySelector('.case-image-wrapper');
+  const placeholder = card.querySelector('.case-image-placeholder');
+
+  if (img) {
+    img.addEventListener('error', () => {
+      img.style.display = 'none';
+      if (placeholder) placeholder.style.display = 'flex';
+      if (wrapper) wrapper.classList.add('loaded');
+    });
+
+    img.addEventListener('load', () => {
+      if (placeholder) placeholder.style.display = 'none';
+      if (wrapper) wrapper.classList.add('loaded');
+    });
+  }
+
+  // The card is a real anchor, so the browser handles navigation, keyboard
+  // (Enter), middle-click and right-click "open in new tab" natively. We only
+  // add analytics tracking on activation without preventing the default nav.
+  card.addEventListener('click', () => {
+    if (typeof gtag !== 'undefined') {
+      gtag('event', 'card_click', {
+        'event_category': 'outbound_link',
+        'event_label': title,
+        'card_title': title,
+        'card_url': url,
+        'card_category': category,
+        'card_slot': slot,
+        'link_domain': new URL(url).hostname
+      });
+    }
+  });
+}
+
+// The wide card that shares the first screen with the masthead. It sits outside
+// the grid, so the filter buttons never remove or reorder it.
+export async function createFeaturedCard(caseItem) {
+  const imageUrl = await caseItem.image.url();
+  const { title, url, category } = caseItem;
+
+  const card = html`<a class="case-card case-card--featured"
+      href="${url}"
+      target="_blank"
+      rel="noopener noreferrer"
+      data-category="${category}"
+      data-url="${url}"
+      data-title="${title}"
+      aria-label="${title}: ${caseItem.description}">
+      <div class="case-card-inner" style="background: ${caseItem.color || '#fefae0'};">
+        <div class="case-content">
+          ${caseItem.kicker ? html`<p class="case-kicker">${caseItem.kicker}</p>` : null}
+          <h2 class="case-title">${title}</h2>
+          <p class="case-desc">${caseItem.description}</p>
+        </div>
+        <div class="case-image-wrapper">
+          <img class="case-image"
+            src="${imageUrl}"
+            alt="${title}"
+            loading="eager"
+            decoding="async">
+          <div class="case-image-placeholder" aria-hidden="true">
+            <span>📊</span>
+          </div>
+        </div>
+      </div>
+    </a>`;
+
+  wireCard(card, { title, url, category, slot: 'featured' });
+
+  return card;
+}
 
 export async function createCaseCards(cases) {
   // Load all images first
@@ -179,39 +258,7 @@ export async function createCaseCards(cases) {
         </div>
       </a>`;
 
-    // Handle image loading states
-    const img = card.querySelector('.case-image');
-    const wrapper = card.querySelector('.case-image-wrapper');
-    const placeholder = card.querySelector('.case-image-placeholder');
-
-    if (img) {
-      img.addEventListener('error', () => {
-        img.style.display = 'none';
-        if (placeholder) placeholder.style.display = 'flex';
-        if (wrapper) wrapper.classList.add('loaded');
-      });
-
-      img.addEventListener('load', () => {
-        if (placeholder) placeholder.style.display = 'none';
-        if (wrapper) wrapper.classList.add('loaded');
-      });
-    }
-
-    // The card is a real anchor, so the browser handles navigation, keyboard
-    // (Enter), middle-click and right-click "open in new tab" natively. We only
-    // add analytics tracking on activation without preventing the default nav.
-    card.addEventListener('click', () => {
-      if (typeof gtag !== 'undefined') {
-        gtag('event', 'card_click', {
-          'event_category': 'outbound_link',
-          'event_label': title,
-          'card_title': title,
-          'card_url': url,
-          'card_category': category,
-          'link_domain': new URL(url).hostname
-        });
-      }
-    });
+    wireCard(card, { title, url, category, slot: 'grid' });
 
     return card;
   });
@@ -238,8 +285,32 @@ export function createFilteredCases(cases) {
   };
 }
 
+// Preview a filter by giving the cards it covers the card-hover treatment.
+// Queried fresh each time because the grid is rebuilt on every filter change.
+function peekCategory(category, on) {
+  const grid = document.querySelector('.cases-grid');
+  if (!grid) return;
+
+  grid.querySelectorAll('.case-card').forEach(card => {
+    card.classList.toggle('case-card--peek', on && card.dataset.category === category);
+  });
+}
+
 export function setupFilterButtons(filterButtons, filteredCases, createCaseCards) {
   filterButtons.querySelectorAll('.filter-button').forEach(button => {
+    const filter = button.dataset.filter;
+
+    // "All" is skipped - lifting every card at once reads as a glitch, not a preview.
+    if (filter !== 'all') {
+      const show = () => peekCategory(filter, true);
+      const hide = () => peekCategory(filter, false);
+      button.addEventListener('mouseenter', show);
+      button.addEventListener('mouseleave', hide);
+      // Keyboard users get the same preview when tabbing through the buttons.
+      button.addEventListener('focus', show);
+      button.addEventListener('blur', hide);
+    }
+
     button.addEventListener('click', async (e) => {
       // Update active state and aria-pressed
       filterButtons.querySelectorAll('.filter-button').forEach(btn => {
@@ -248,8 +319,6 @@ export function setupFilterButtons(filterButtons, filteredCases, createCaseCards
       });
       button.classList.add('active');
       button.setAttribute('aria-pressed', 'true');
-
-      const filter = button.dataset.filter;
 
       // Track filter usage
       if (typeof gtag !== 'undefined') {
@@ -286,6 +355,12 @@ export function setupFilterButtons(filterButtons, filteredCases, createCaseCards
           void card.offsetHeight;
           card.style.opacity = '1';
         });
+
+        // These cards are new, so no mouseenter fires for a pointer that never
+        // left the button. Re-apply the preview it should already be showing.
+        if (filter !== 'all' && button.matches(':hover')) {
+          peekCategory(filter, true);
+        }
       }, 300);
     });
   });

@@ -18,6 +18,15 @@
   --purple: #b197fc;
   --orange: #ffa94d;
 
+  /* Marker pen behind a highlighted word. Not --yellow: #fefae0 is within a
+     hair of the #fffef9 page background and reads as nothing. */
+  --highlight-bar: #f7d6a6;
+
+  /* Filter pills */
+  --filter-bg-hover: rgba(0, 0, 0, 0.05);
+  --filter-bg-active: #f1f1f1;
+  --filter-fg-active: var(--black);
+
   /* Legacy color mappings */
   --theme-foreground-focus: #59545e;
   --primary-color: var(--black);
@@ -59,6 +68,10 @@ body {
 
 html {
   overflow-y: scroll;
+  /* #observablehq-center's 32px margin collapses through <body>, so <body> starts
+     32px down. Without this, Observable's own grey html background shows through
+     as a bar at the top and bottom of every page. */
+  background-color: var(--bg);
 }
 
 /* Dark mode support */
@@ -72,6 +85,11 @@ html {
     --background-color: #1a1a1a;
     --text-muted: #aaa;
     --primary-color: #f5f5f5;
+    /* Pale yellow behind light text is unreadable; use the nav blue instead */
+    --highlight-bar: rgba(88, 150, 199, 0.45);
+    --filter-bg-hover: rgba(255, 255, 255, 0.08);
+    --filter-bg-active: rgba(255, 255, 255, 0.14);
+    --filter-fg-active: #f5f5f5;
     --shadow-sm: 0 2px 8px rgba(0,0,0,0.3);
     --shadow-md: 0 8px 24px rgba(0,0,0,0.4);
     --shadow-lg: 0 16px 40px rgba(0,0,0,0.5);
@@ -101,21 +119,6 @@ html {
   .about-content,
   .contact-content {
     background: var(--card-background);
-  }
-
-  .filter-button {
-    color: var(--gray);
-  }
-
-  .filter-button.active,
-  .filter-button:hover {
-    color: var(--yellow);
-    background: rgba(255, 225, 53, 0.15);
-  }
-
-  .filter-button.active::after,
-  .filter-button:hover::after {
-    background-color: var(--yellow);
   }
 
   .cases-container hr,

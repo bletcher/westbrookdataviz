@@ -1,7 +1,9 @@
 /* Case Cards Styles - Pudding Style */
 
+/* flex, not block, so .case-card-inner fills the height the grid row stretches
+   this card to - otherwise the coloured box shrinks to its own text. */
 .case-card {
-  display: block;
+  display: flex;
   text-decoration: none;
   color: inherit;
   background: none;
@@ -13,7 +15,10 @@
   grid-column: auto;
 }
 
-.case-card:hover {
+/* --peek is set while a filter button is hovered or focused, so the cards that
+   button would show get the same treatment as hovering the card itself. */
+.case-card:hover,
+.case-card--peek {
   transform: scale(1.02);
 }
 
@@ -26,6 +31,7 @@
 }
 
 .case-card-inner {
+  flex: 1;
   background: var(--yellow);
   border-radius: 8px;
   overflow: hidden;
@@ -44,7 +50,8 @@
 /* Card colors are set inline per card */
 
 .case-card:hover .case-card-inner,
-.case-card:focus .case-card-inner {
+.case-card:focus .case-card-inner,
+.case-card--peek .case-card-inner {
   transform: translateY(-6px);
   box-shadow: var(--shadow-lg);
 }
@@ -87,7 +94,8 @@
   object-position: center;
 }
 
-.case-card:hover .case-image {
+.case-card:hover .case-image,
+.case-card--peek .case-image {
   transform: scale(1.05);
 }
 
@@ -185,6 +193,41 @@
   color: rgba(26, 26, 26, 0.7);
 }
 
+/* Featured card - wide, two-up, sits in the hero rather than the grid.
+   No min-height: the image sets the card's height, so it never opens a gap
+   below its own content the way a fixed floor would. */
+.case-card--featured .case-card-inner {
+  min-height: 0;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  align-items: center;
+  gap: 2rem;
+  padding: 2.25rem;
+}
+
+.case-card--featured .case-content {
+  padding-bottom: 0;
+}
+
+.case-kicker {
+  margin: 0 0 0.6rem;
+  font-size: 0.72rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  color: rgba(26, 26, 26, 0.55);
+}
+
+.case-card--featured .case-title {
+  font-size: clamp(1.6rem, 2.6vw, 2.25rem);
+  margin-bottom: 0.75rem;
+}
+
+.case-card--featured .case-image-wrapper {
+  margin-top: 0;
+  aspect-ratio: 4 / 3;
+}
+
 /* Filter buttons - Pudding style pills */
 .filter-section {
   margin: 2rem 0;
@@ -213,13 +256,13 @@
 }
 
 .filter-button:hover {
-  background: rgba(0, 0, 0, 0.05);
+  background: var(--filter-bg-hover);
   color: var(--black);
 }
 
 .filter-button.active {
-  background: #f1f1f1;
-  color: var(--black);
+  background: var(--filter-bg-active);
+  color: var(--filter-fg-active);
 }
 
 /* Remove underline effect, use pill style instead */

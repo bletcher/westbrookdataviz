@@ -12,12 +12,14 @@
   font-weight: 600;
   text-decoration: none;
   border-radius: 8px;
-  box-shadow: var(--shadow-md);
   transition: top var(--transition-fast);
 }
 
+/* Shadow only while visible - parked off-screen its 24px blur bleeds back onto
+   the top of the page as a faint smudge. */
 .skip-link:focus {
   top: 1rem;
+  box-shadow: var(--shadow-md);
   outline: 3px solid var(--yellow);
   outline-offset: 2px;
 }
@@ -43,65 +45,10 @@
   position: relative;
 }
 
-/* Floating shapes background */
-.shape {
-  position: absolute;
-  border-radius: 50%;
-  animation: float 6s ease-in-out infinite;
-  pointer-events: none;
-}
-
-.shape-1 {
-  width: 300px;
-  height: 300px;
-  background: var(--yellow);
-  top: 10%;
-  left: 5%;
-  opacity: 0.25;
-  animation-delay: 0s;
-}
-
-.shape-2 {
-  width: 200px;
-  height: 200px;
-  background: var(--pink);
-  top: 50%;
-  right: 10%;
-  opacity: 0.2;
-  animation-delay: -2s;
-}
-
-.shape-3 {
-  width: 150px;
-  height: 150px;
-  background: var(--blue);
-  bottom: 15%;
-  left: 15%;
-  opacity: 0.18;
-  animation-delay: -4s;
-}
-
-@keyframes float {
-  0%, 100% { transform: translateY(0) rotate(0deg); }
-  50% { transform: translateY(-30px) rotate(10deg); }
-}
-
 .hero-content {
   position: relative;
   z-index: 1;
   max-width: 700px;
-}
-
-.hero-badge {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.5rem;
-  padding: 0.5rem 1rem;
-  background: var(--yellow);
-  border-radius: 100px;
-  font-size: 0.8rem;
-  font-weight: 600;
-  margin-bottom: 1.5rem;
 }
 
 .hero-title {
@@ -114,19 +61,24 @@
   white-space: nowrap;
 }
 
-.hero-title .highlight {
+/* Marker pen behind a word. `z-index: 0` keeps the bar inside the span's own
+   stacking context, so it never paints through an ancestor background. */
+.hero-title .highlight,
+.hero-desc .highlight {
   position: relative;
   display: inline-block;
+  z-index: 0;
 }
 
-.hero-title .highlight::after {
+.hero-title .highlight::after,
+.hero-desc .highlight::after {
   content: '';
   position: absolute;
   bottom: 0.05em;
   left: -0.05em;
   right: -0.05em;
   height: 0.3em;
-  background: var(--yellow);
+  background: var(--highlight-bar);
   z-index: -1;
   border-radius: 4px;
 }
@@ -140,27 +92,66 @@
   line-height: 1.7;
 }
 
-/* Legacy intro container - now styled as hero subtitle */
-.intro-container {
-  margin-top: 0;
-  margin-bottom: 10px;
-  padding: 2rem;
-  padding-bottom: 5px;
+/* Home hero: the masthead and the featured project share the first screen.
+   Filters come last in the source so they sit next to the grid once stacked. */
+.home-hero {
   max-width: var(--max-width);
-  margin-left: auto;
-  margin-right: auto;
+  margin: 0 auto;
+  padding: 6.5rem 2rem 0;
   width: 100%;
   box-sizing: border-box;
-  font-size: 1.15rem;
-  color: var(--gray);
-  text-align: center;
-  line-height: 1.7;
 }
 
-.intro-container:first-of-type {
-  margin-top: 50px;
-  font-size: 1.35rem;
-  color: var(--black);
+.home-hero-inner {
+  display: grid;
+  grid-template-columns: 5fr 7fr;
+  grid-template-rows: auto auto;
+  grid-template-areas:
+    "type    feature"
+    "filters feature";
+  gap: 2rem 2.5rem;
+}
+
+.home-hero-type {
+  grid-area: type;
+}
+
+.home-hero .case-card--featured {
+  grid-area: feature;
+}
+
+/* Sits directly under the tagline rather than pinned to the bottom of the
+   featured card, which leaves a hole in the middle of the column. */
+.home-hero .filter-section {
+  grid-area: filters;
+  align-self: start;
+  justify-content: flex-start;
+  margin: 0;
+}
+
+.home-hero .filter-buttons {
+  justify-content: flex-start;
+}
+
+/* Smaller than the full-width row they replace, so they fit the narrow column
+   and read as controls rather than headings. */
+.home-hero .filter-button {
+  font-size: 1rem;
+  padding: 0.5rem 1rem;
+}
+
+.home-hero .hero-title {
+  font-size: clamp(2.25rem, 4.4vw, 3.5rem);
+  line-height: 1.02;
+  margin-bottom: 0;
+  white-space: normal;
+}
+
+.home-hero .hero-desc {
+  font-size: clamp(1.1rem, 1.6vw, 1.35rem);
+  line-height: 1.45;
+  max-width: 22ch;
+  margin: 0.85rem 0 0;
 }
 
 .cases-container {
@@ -187,6 +178,9 @@
 .cases-grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
+  /* Every row the same height, so no card is taller than another because its
+     description ran to an extra line. */
+  grid-auto-rows: 1fr;
   gap: 2rem;
   margin-top: 2rem;
   width: 100%;
@@ -212,53 +206,6 @@
   font-weight: 700;
   letter-spacing: -0.02em;
   color: var(--black);
-}
-
-/* Typography and animations */
-.down-arrow {
-  display: inline-block;
-  font-size: 1em;
-  margin-left: 0.25em;
-  animation: bounce 2s infinite;
-  color: var(--gray);
-}
-
-@keyframes bounce {
-  0%, 20%, 50%, 80%, 100% {
-    transform: translateY(0);
-  }
-  40% {
-    transform: translateY(-4px);
-  }
-  60% {
-    transform: translateY(-2px);
-  }
-}
-
-/* Scroll hint */
-.scroll-hint {
-  position: absolute;
-  bottom: 2rem;
-  left: 50%;
-  transform: translateX(-50%);
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 0.5rem;
-  font-size: 0.8rem;
-  font-weight: 500;
-  color: var(--gray);
-}
-
-.scroll-hint .arrow {
-  width: 30px;
-  height: 30px;
-  border: 2px solid var(--gray);
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  animation: bounce 2s ease-in-out infinite;
 }
 
 /* SVG container */
