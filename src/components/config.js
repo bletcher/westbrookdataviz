@@ -27,7 +27,8 @@ export const config = {
     pitData: "https://westbrookdataviz.org/pit-data",
     setListDrums: "https://westbrookdataviz.org/set-list-drums",
     montaguaHalloween: "https://westbrookdataviz.org/montague-halloween",
-    events: "https://westbrookdataviz.org/events"
+    events: "https://westbrookdataviz.org/events",
+    waterPhysics: "https://westbrookdataviz.org/water-physics/"
   },
 
   // Social links
