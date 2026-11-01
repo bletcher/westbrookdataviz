@@ -28,6 +28,17 @@ export const images = {
   waterPhysics: WATERPHYSICS_IMAGE
 };
 
+// Hero selection: the case with the latest `updated` date (YYYY-MM-DD) is
+// promoted automatically. Set `featured: true` on a case to pin it instead.
+// `kicker` defaults to "Newest"; set it on a case to override the label.
+export function pickFeatured(cases) {
+  const pinned = cases.find((d) => d.featured);
+  if (pinned) return pinned;
+  const dated = cases.filter((d) => d.updated);
+  if (!dated.length) return cases[0];
+  return dated.reduce((a, b) => (b.updated > a.updated ? b : a));
+}
+
 export async function createCases(images) {
   const { externalLinks } = config;
 
@@ -57,7 +68,8 @@ export async function createCases(images) {
       imageStyle: "contain",
       color: "#a1abd3",
       description: "Explore trends in Halloween activity in Montague, MA.",
-      url: externalLinks.montaguaHalloween
+      url: externalLinks.montaguaHalloween,
+      updated: "2026-11-01"
     },
     {
       title: "Water physics",
@@ -67,9 +79,7 @@ export async function createCases(images) {
       color: "#7ea9c4",
       description: "Interactive tool to explore the physics of water surfaces — ripples, obstacles and shoaling waves.",
       url: externalLinks.waterPhysics,
-      // Promoted into the hero. Exactly one case should carry this.
-      featured: true,
-      kicker: "Newest"
+      updated: "2026-08-04"
     },
     {
       title: "Measuring stream flow",
@@ -180,6 +190,7 @@ function wireCard(card, { title, url, category, slot }) {
 export async function createFeaturedCard(caseItem) {
   const imageUrl = await caseItem.image.url();
   const { title, url, category } = caseItem;
+  const kicker = caseItem.kicker ?? "Newest";
 
   const card = html`<a class="case-card case-card--featured"
       href="${url}"
@@ -191,7 +202,7 @@ export async function createFeaturedCard(caseItem) {
       aria-label="${title}: ${caseItem.description}">
       <div class="case-card-inner" style="background: ${caseItem.color || '#fefae0'};">
         <div class="case-content">
-          ${caseItem.kicker ? html`<p class="case-kicker">${caseItem.kicker}</p>` : null}
+          ${kicker ? html`<p class="case-kicker">${kicker}</p>` : null}
           <h2 class="case-title">${title}</h2>
           <p class="case-desc">${caseItem.description}</p>
         </div>

@@ -8,6 +8,7 @@ import {
   createCaseCards,
   createCases,
   createFeaturedCard,
+  pickFeatured,
   images,
   createFilterButtons,
   createFilteredCases,
@@ -22,7 +23,7 @@ import { createFooter } from "./components/footer.js";
 const cases = await createCases(images)
 
 // One case is promoted into the hero; the rest fill the filterable grid below.
-const featured = cases.find((d) => d.featured) ?? cases[0];
+const featured = pickFeatured(cases);
 const gridCases = cases.filter((d) => d !== featured);
 const featuredCard = await createFeaturedCard(featured);
 
